@@ -1,5 +1,6 @@
 package at.aau.game.Mechanics.Entities;
 
+import at.aau.game.PixieSmack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,24 +14,24 @@ import at.aau.game.Mechanics.World;
  * Created by Veit on 06.02.2016.
  */
 public class SkeletonControlledObject extends MoveableObject {
-//    private TextureRegion[] regions = new TextureRegion[12];
-    private Vector3 touchCoordinates = new Vector3(0,0,0);
+    //    private TextureRegion[] regions = new TextureRegion[12];
+    private Vector3 touchCoordinates = new Vector3(0, 0, 0);
 
-    private boolean moveUp, moveDown, moveLeft,moveRight;
-    private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
+    private boolean moveUp, moveDown, moveLeft, moveRight;
+    private Heading heading = Heading.DOWN;
     private Animation idleAnimation;
     private Animation movingUpAnimation;
     private Animation movingDownAnimation;
     private Animation movingSideAnimation;
     private TextureRegion frame;
 
-    public SkeletonControlledObject(Vector2 position, World world) {
-        super(position, world);
+    public SkeletonControlledObject(Vector2 position, World world, Vector2 size) {
+        super(position, world, size);
         this.speed = 10f;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png",0.3f,45,64);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png",0.3f,45,64);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png",0.3f,45,64);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png",0.3f,45,64);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
 //        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
 //            for (int j = 0; j<4; j++){
@@ -49,26 +50,36 @@ public class SkeletonControlledObject extends MoveableObject {
     }
 
     @Override
-    void handleMovement(Float delta) {
+    protected void handleMovement(Float delta) {
         calcDirection();
-        this.position.add(direction.nor().scl(speed));
-        if(!direction.nor().isZero()){
-            if(direction.x > 0){
-                heading = 2;
+        if (!direction.nor().isZero()) {
+            if (direction.x > 0) {
+                heading = Heading.RIGHT;
+            } else if (direction.x < 0) {
+                heading = Heading.LEFT;
             }
-            else if(direction.x < 0){
-                heading = 4;
-            }
-            if(direction.y > 0){
-                heading = 1;
-            }
-            else if(direction.y < 0){
-                heading = 3;
+            if (direction.y > 0) {
+                heading = Heading.UP;
+            } else if (direction.y < 0) {
+                heading = Heading.DOWN;
             }
             movement = Movement.MOVING;
-        }
-        else{
+        } else {
             movement = Movement.IDLE;
+        }
+
+        this.position.add(direction.nor().scl(speed));
+
+        if (this.position.x < 0) {
+            this.position.x = 0;
+        } else if (this.position.x > world.pixelSize.x - size.x) {
+            this.position.x = world.pixelSize.x - size.x;
+        }
+
+        if (this.position.y < 0) {
+            this.position.y = 0;
+        } else if (this.position.y > world.pixelSize.y - size.y) {
+            this.position.y = world.pixelSize.y - size.y;
         }
     }
 
@@ -77,35 +88,40 @@ public class SkeletonControlledObject extends MoveableObject {
      * Calculates the direction Vector
      */
     private void calcDirection() {
-        direction = new Vector2(0,0);
-        if(moveUp && !moveDown){
+        direction = new Vector2(0, 0);
+        if (moveUp && !moveDown) {
             direction.y = 1;
-        }
-        else if(!moveUp && moveDown){
+        } else if (!moveUp && moveDown) {
             direction.y = -1;
         }
 
-        if(moveLeft && !moveRight){
+        if (moveLeft && !moveRight) {
             direction.x = -1;
-        }
-        else if(!moveLeft && moveRight){
+        } else if (!moveLeft && moveRight) {
             direction.x = 1;
         }
         moveDown = moveUp = moveRight = moveLeft = false;
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S) ) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             moveDown = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)|| Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             moveUp = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)|| Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             moveLeft = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)|| Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             moveRight = true;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            System.out.println(this.size);
+            System.out.println(world.pixelSize);
+            System.out.println(this.position);
+            System.out.println();
         }
 
         if (Gdx.input.justTouched()) {
@@ -115,26 +131,26 @@ public class SkeletonControlledObject extends MoveableObject {
 
     /**
      * Your typical render function
+     *
      * @param delta
-     * @param spriteBatch
-     * heading must be set accordingly: 1 - UP, 2 - Right, 3 - Down, 4 - Left
+     * @param spriteBatch heading must be set accordingly: 1 - UP, 2 - Right, 3 - Down, 4 - Left
      */
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
-        switch (heading){
-            case 1:
+        switch (heading) {
+            case UP:
                 frame = movingUpAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
-            case 2:
+            case RIGHT:
                 frame = movingSideAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
-            case 3:
+            case DOWN:
                 frame = movingDownAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
-            case 4:
+            case LEFT:
                 frame = movingSideAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
@@ -146,5 +162,9 @@ public class SkeletonControlledObject extends MoveableObject {
 
     public void touch(Vector3 touchCoordinates) {
         this.touchCoordinates = touchCoordinates;
+    }
+
+    public enum Heading {
+        LEFT, RIGHT, UP, DOWN;
     }
 }

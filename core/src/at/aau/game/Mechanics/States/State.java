@@ -2,9 +2,7 @@ package at.aau.game.Mechanics.States;
 
 import at.aau.game.Mechanics.Entities.GameObject;
 
-/**
- * Created by Veit on 08.02.2016.
- */
+
 public abstract class State {
     float stateTime;
     GameObject parentObject;

@@ -6,10 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class PixieSmack extends ApplicationAdapter {
-    private SpriteBatch batch;
     private AssetManager assMan;
     private ScreenManager screenManager;
     private SoundManager soundManager;
@@ -17,9 +16,10 @@ public class PixieSmack extends ApplicationAdapter {
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.
-    public static final int GAME_WIDTH = 1080;
-    public static final int GAME_HEIGHT = 720;
-
+    public static final float MENU_GAME_WIDTH = 1000; // 1080;
+    public static final float MENU_GAME_HEIGHT = 700; // 720;
+    public static final float GAME_WIDTH = 10; // 1080;
+    public static final float GAME_HEIGHT = 7; // 720;
 
     @Override
     public void create() {
@@ -46,11 +46,11 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("sfx/pickup.wav", Sound.class);
         assMan.load("sfx/powerup.wav", Sound.class);
 
-        //Entities
+        // Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);
         assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
         assMan.load("gameplay/obj_staub_mock.png", Texture.class);
-
+        assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
     }
 
     @Override
@@ -72,5 +72,17 @@ public class PixieSmack extends ApplicationAdapter {
 
     public Animator getAnimator() {
         return animator;
+    }
+
+    public static Vector2 pixelToWorld(Vector2 pixel) {
+        return new Vector2(GAME_WIDTH / MENU_GAME_WIDTH * pixel.x, GAME_HEIGHT / MENU_GAME_HEIGHT * pixel.y);
+
+    }
+
+
+    public static Vector2 worldToPixel(Vector2 world) {
+        return new Vector2(MENU_GAME_WIDTH / GAME_WIDTH * world.x, MENU_GAME_HEIGHT / GAME_HEIGHT * world.y);
+
+
     }
 }

@@ -10,42 +10,43 @@ import java.awt.Rectangle;
 
 import at.aau.game.Mechanics.World;
 
-/**
- * Created by Veit on 06.02.2016.
- */
+
 public abstract class GameObject {
     Vector2 position;
     Rectangle bounds;
     World world;
     Texture texture;
     Array<State> states;
+    Vector2 size;
 
 
-    public GameObject(Vector2 position, World world) {
+    public GameObject(Vector2 position, World world, Vector2 size) {
         this.position = position;
         this.world = world;
         states = new Array<State>();
+        this.size = size;
     }
 
-    public void removeState(State state){
+    public void removeState(State state) {
         this.states.removeValue(state, false);
     }
 
-    public void addState(State state){
-        if(state.stackable){
+    public void addState(State state) {
+        if (state.stackable) {
             states.add(state);
-        }
-        else if(!states.contains(state, false)){
+        } else if (!states.contains(state, false)) {
             states.add(state);
         }
     }
 
-    public void update(float delta){
-        for (State state: states) {
+    public void update(float delta) {
+        for (State state : states) {
             state.update(delta);
         }
-    };
-    public abstract void render(float delta, SpriteBatch spriteBatch);
+    }
 
+    ;
+
+    public abstract void render(float delta, SpriteBatch spriteBatch);
 
 }
