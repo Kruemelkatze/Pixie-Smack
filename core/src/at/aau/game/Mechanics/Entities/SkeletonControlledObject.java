@@ -13,32 +13,22 @@ import at.aau.game.Mechanics.World;
 /**
  * Created by Veit on 06.02.2016.
  */
-public class SkeletonControlledObject extends MoveableObject {
+public abstract class SkeletonControlledObject extends MoveableObject {
     //    private TextureRegion[] regions = new TextureRegion[12];
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
 
     private boolean moveUp, moveDown, moveLeft, moveRight;
-    private Heading heading = Heading.DOWN;
+    private Heading heading = Heading.IDLE;
     protected Animation idleAnimation;
     protected Animation movingUpAnimation;
     protected Animation movingDownAnimation;
-    protected Animation movingSideAnimation;
+    protected Animation movingLeftAnimation;
+    protected Animation movingRightAnimation;
     private TextureRegion frame;
 
     public SkeletonControlledObject(Vector2 position, World world, Vector2 size) {
         super(position, world, size);
         this.speed = 10f;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-//        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
-//        for (int i = 0; i<3; i++){
-//            for (int j = 0; j<4; j++){
-//                regions[i+(j*3)]= new TextureRegion(texture, i*46, j*64, 46, 64);
-//            }
-//        }
-
     }
 
     @Override
@@ -66,6 +56,7 @@ public class SkeletonControlledObject extends MoveableObject {
             movement = Movement.MOVING;
         } else {
             movement = Movement.IDLE;
+            heading = Heading.IDLE;
         }
 
         this.position.add(direction.nor().scl(speed));
@@ -143,7 +134,7 @@ public class SkeletonControlledObject extends MoveableObject {
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case RIGHT:
-                frame = movingSideAnimation.getKeyFrame(movingTime, true);
+                frame = movingRightAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case DOWN:
@@ -151,7 +142,7 @@ public class SkeletonControlledObject extends MoveableObject {
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case LEFT:
-                frame = movingSideAnimation.getKeyFrame(movingTime, true);
+                frame = movingLeftAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             default:
@@ -165,6 +156,6 @@ public class SkeletonControlledObject extends MoveableObject {
     }
 
     public enum Heading {
-        LEFT, RIGHT, UP, DOWN;
+        LEFT, RIGHT, UP, DOWN, IDLE;
     }
 }
