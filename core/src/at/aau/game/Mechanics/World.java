@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Array;
 public class World {
     private SpriteBatch spriteBatch;
     public Array<GameObject> gameObjects;
+    public Array<GameObject> toDelete;
     public Array<PixieDust> pixieDusts;
     public GameplayScreen gameplayScreen;
 
@@ -39,6 +40,7 @@ public class World {
         spriteBatch = new SpriteBatch();
         gameObjects = new Array<GameObject>();
         pixieDusts = new Array<PixieDust>();
+        toDelete =new Array<GameObject>();
         this.gameplayScreen = gameplayScreen;
 
         //Add SkeletonControlledObject
@@ -74,6 +76,10 @@ public class World {
         for (PixieDust pi: pixieDusts) {
             pi.render(delta, spriteBatch);
         }
+        for (GameObject go: this.toDelete) {
+        	gameObjects.removeValue(go, false);
+        }
+        this.toDelete.clear();
         spriteBatch.end();
     }
 
@@ -87,7 +93,7 @@ public class World {
 		if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
 			this.fairySpawnTimer = 0.0f;
 			float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
-			float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
+			float ySpawn = (random.nextFloat() * GameConstants.FAIRY_MAX_Y) + 150f;
 			gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
 		}
 	}

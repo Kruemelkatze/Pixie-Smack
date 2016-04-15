@@ -16,7 +16,7 @@ public class GameConstants {
 
 	public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
 	public static final float FAIRY_SPAWN_THRESHOLD = 2f;
-	public static final float FAIRY_MAX_X = 150f;
+	public static final float FAIRY_MAX_X = 1150f;
 	public static final float FAIRY_MAX_Y = 150f;
 
 	public static final float FAIRY_MAX_X_OFFSET = 100f;
