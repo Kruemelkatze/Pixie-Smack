@@ -9,7 +9,7 @@ public abstract class CollidableObject extends MoveableObject {
     protected Body body;
 
     public CollidableObject(Vector2 position, World world, Vector2 size, boolean isTrigger) {
-        super(position, world);
+        super(position, world, size);
         createBox2DBody(position, size, world, isTrigger);
     }
 

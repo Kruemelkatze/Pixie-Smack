@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Koerbchen extends SkeletonControlledObject {
 
-    static Vector2 SIZE = new Vector2(1, 1);
+    static Vector2 SIZE = new Vector2(45, 64);
 
     public Koerbchen(Vector2 position, World world) {
-        super(position, world);
+        super(position, world, SIZE);
     }
 }

@@ -10,8 +10,8 @@ public abstract class MoveableObject extends GameObject {
     Movement movement;
     Float movingTime;
 
-    public MoveableObject(Vector2 position, World world) {
-        super(position, world);
+    public MoveableObject(Vector2 position, World world, Vector2 size) {
+        super(position, world, size);
         movement = Movement.IDLE;
         movingTime = 0f;
     }
@@ -19,21 +19,20 @@ public abstract class MoveableObject extends GameObject {
     @Override
     public void update(float delta) {
         super.update(delta);
-        movingTime+=delta;
+        movingTime += delta;
     }
 
     void handleMovement(Float delta) {
-        this.position.add(direction.nor().scl(speed*delta));
-        if(!(direction.nor().scl(speed*delta).isZero())){
+        this.position.add(direction.nor().scl(speed * delta));
+        if (!(direction.nor().scl(speed * delta).isZero())) {
             changeMovementTo(Movement.MOVING);
-        }
-        else{
+        } else {
             changeMovementTo(Movement.IDLE);
         }
     }
 
-    public void changeMovementTo(Movement movement){
-        if(this.movement != movement){
+    public void changeMovementTo(Movement movement) {
+        if (this.movement != movement) {
             this.movement = movement;
             movingTime = 0f;
         }

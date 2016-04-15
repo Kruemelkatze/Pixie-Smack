@@ -5,7 +5,8 @@ import java.util.Random;
 import at.aau.game.GameConstants;
 import at.aau.game.Mechanics.Entities.FairyObject;
 import at.aau.game.Mechanics.Entities.GameObject;
-import at.aau.game.Mechanics.Entities.SkeletonControlledObject;
+import at.aau.game.Mechanics.Entities.Koerbchen;
+import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,52 +18,64 @@ import com.badlogic.gdx.utils.Array;
  * Created by Veit on 06.02.2016.
  */
 public class World {
-	private SpriteBatch spriteBatch;
-	public Array<GameObject> gameObjects;
-	public GameplayScreen gameplayScreen;
-	SkeletonControlledObject skeletonControlledObject;
-	private float fairySpawnTimer = 0.0f;
-	private Random random = new Random();
+    private SpriteBatch spriteBatch;
+    public Array<GameObject> gameObjects;
+    public GameplayScreen gameplayScreen;
+    Koerbchen koerbchen;
+    private float fairySpawnTimer = 0.0f;
+    private Random random = new Random();
+    public Vector2 size;
+    public Vector2 pixelSize;
 
-	public World(GameplayScreen gameplayScreen) {
-		spriteBatch = new SpriteBatch();
-		gameObjects = new Array<GameObject>();
-		this.gameplayScreen = gameplayScreen;
+    com.badlogic.gdx.physics.box2d.World box2DWorld;
 
-		// Add SkeletonControlledObject
-		skeletonControlledObject = new SkeletonControlledObject(new Vector2(0f, 0f), this);
-		gameObjects.add(skeletonControlledObject);
+    public World(GameplayScreen gameplayScreen) {
+        spriteBatch = new SpriteBatch();
+        gameObjects = new Array<GameObject>();
+        this.gameplayScreen = gameplayScreen;
 
-	}
+        // Add SkeletonControlledObject
+        size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+        pixelSize = PixieSmack.worldToPixel(size);
 
-	public void update(float delta) {
-		// this.spawnRandomFaries(delta);
-		for (GameObject go : gameObjects) {
-			go.update(delta);
-		}
-	}
+        koerbchen = new Koerbchen(new Vector2(50, 200), this);
+        gameObjects.add(koerbchen);
 
-	private void spawnRandomFaries(float delta) {
-		this.fairySpawnTimer += delta;
-		if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
-			this.fairySpawnTimer = 0.0f;
-			float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
-			float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
-			gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
-			gameObjects.add(skeletonControlledObject);
-		}
+        box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
+    }
 
-	}
+    public void update(float delta) {
+        // this.spawnRandomFaries(delta);
+        for (GameObject go : gameObjects) {
+            go.update(delta);
+        }
+    }
 
-	public void render(float delta) {
-		spriteBatch.begin();
-		for (GameObject go : gameObjects) {
-			go.render(delta, spriteBatch);
-		}
-		spriteBatch.end();
-	}
+    private void spawnRandomFaries(float delta) {
+        this.fairySpawnTimer += delta;
+        if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
+            this.fairySpawnTimer = 0.0f;
+            float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
+            float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
+            gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
+            gameObjects.add(koerbchen);
+        }
 
-	public void touch(Vector3 touchCoords) {
-		skeletonControlledObject.touch(touchCoords);
-	}
+    }
+
+    public void render(float delta) {
+        spriteBatch.begin();
+        for (GameObject go : gameObjects) {
+            go.render(delta, spriteBatch);
+        }
+        spriteBatch.end();
+    }
+
+    public void touch(Vector3 touchCoords) {
+        koerbchen.touch(touchCoords);
+    }
+
+    public com.badlogic.gdx.physics.box2d.World getBox2DWorld() {
+        return box2DWorld;
+    }
 }

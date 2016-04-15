@@ -33,7 +33,7 @@ public class GameplayScreen extends ScreenAdapter {
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
-		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
+		cam = new OrthographicCamera(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
 
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
 		cam.update();

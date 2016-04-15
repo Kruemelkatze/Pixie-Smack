@@ -5,12 +5,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import at.aau.game.PixieSmack;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 600;
-		config.height = 1000;
-		// config.width = 1920;
-		// config.height = 1080;
-		new LwjglApplication(new PixieSmack(), config);
-	}
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = (int) PixieSmack.MENU_GAME_WIDTH;
+        config.height = (int) PixieSmack.MENU_GAME_HEIGHT;
+        new LwjglApplication(new PixieSmack(), config);
+    }
 }
