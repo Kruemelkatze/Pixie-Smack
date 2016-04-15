@@ -19,8 +19,6 @@ public class GameplayScreen extends ScreenAdapter {
     Texture backgroundImage;
     BitmapFont menuFont;
     World world;
-    String[] menuStrings = {"Play", "Credits", "Exit"};
-    int currentMenuItem = 0;
 
     float offsetLeft = PixieSmack.GAME_WIDTH / 8, offsetTop = PixieSmack.GAME_WIDTH / 8, offsetY = PixieSmack.GAME_HEIGHT / 8;
 
@@ -33,7 +31,7 @@ public class GameplayScreen extends ScreenAdapter {
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the desktop onto the actual screen size.
-        cam = new OrthographicCamera(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+        cam = new OrthographicCamera(20, 20);
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
@@ -54,17 +52,6 @@ public class GameplayScreen extends ScreenAdapter {
 
         world.update(delta);
         world.render(delta);
-
-//        batch.begin();
-//        // draw bgImage ...
-//        batch.draw(backgroundImage, 0, 0, PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
-//        // draw Strings ...
-//        for (int i = 0; i < menuStrings.length; i++) {
-//            if (i == currentMenuItem) menuFont.setColor(0.2f, 1f, 0.2f, 1f);
-//            else menuFont.setColor(0.2f, 0.2f, 1f, 1f);
-//            menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.GAME_HEIGHT - offsetTop - i * offsetY);
-//        }
-//        batch.end();
     }
 
     private void handleInput() {

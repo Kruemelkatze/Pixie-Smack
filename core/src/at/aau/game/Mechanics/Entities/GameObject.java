@@ -10,9 +10,7 @@ import java.awt.Rectangle;
 
 import at.aau.game.Mechanics.World;
 
-/**
- * Created by Veit on 06.02.2016.
- */
+
 public abstract class GameObject {
     Vector2 position;
     Rectangle bounds;

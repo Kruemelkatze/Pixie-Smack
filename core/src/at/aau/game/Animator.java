@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/**
- * Created by Veit on 08.02.2016.
- */
+
 public class Animator {
     PixieSmack game;
 
@@ -16,6 +14,7 @@ public class Animator {
 
     /**
      * Loads an Animation from single files. Files must be named like path1.png
+     *
      * @param path
      * @param frames
      * @param frameDuration
@@ -35,23 +34,24 @@ public class Animator {
 
     /**
      * Loads an Animation from a Spritesheet
+     *
      * @param filename
      * @param frameDuration
      * @param width
      * @param height
      * @return
      */
-    public Animation loadAnimation(String filename, float frameDuration,int width, int height) {
+    public Animation loadAnimation(String filename, float frameDuration, int width, int height) {
         Texture tex = game.getAssetManager().get(filename);
-        int h = tex.getHeight()/height;
-        int w = tex.getWidth()/width;
+        int h = tex.getHeight() / height;
+        int w = tex.getWidth() / width;
 
-        TextureRegion[] regions = new TextureRegion[w*h];
+        TextureRegion[] regions = new TextureRegion[w * h];
 
-        for (int i = 0; i<w; i++){
-            for (int j = 0; j<h; j++){
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
                 tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-                regions[i+(j*w)]= new TextureRegion(tex, i*width, j*height, width, height);
+                regions[i + (j * w)] = new TextureRegion(tex, i * width, j * height, width, height);
             }
         }
         return new Animation(frameDuration, regions);
