@@ -49,7 +49,7 @@ public class PixieSmack extends ApplicationAdapter {
         // Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);
         assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
-        assMan.load("gameplay/obj_staub_mock.png", Texture.class);
+        assMan.load("gameplay/obj_staub_sprit.png", Texture.class);
         assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
     }
 
