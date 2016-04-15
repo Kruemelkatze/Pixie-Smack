@@ -20,7 +20,7 @@ public class PixieDust extends MoveableObject{
 		movement = Movement.IDLE;
         movingTime = 0f;
         this.speed = 5f;
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_mock.png",0.3f,64,64);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png",0.3f,64,64);
         this.direction = new Vector2(0,-1);
 	}
 
