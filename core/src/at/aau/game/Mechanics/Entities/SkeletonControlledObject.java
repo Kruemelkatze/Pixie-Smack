@@ -50,7 +50,7 @@ public class SkeletonControlledObject extends MoveableObject {
     }
 
     @Override
-    void handleMovement(Float delta) {
+    protected void handleMovement(Float delta) {
         calcDirection();
         if (!direction.nor().isZero()) {
             if (direction.x > 0) {

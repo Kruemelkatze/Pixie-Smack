@@ -44,32 +44,36 @@ public class World {
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
     }
 
-    public void update(float delta) {
-        // this.spawnRandomFaries(delta);
-        for (GameObject go : gameObjects) {
-            go.update(delta);
-        }
-    }
+	public void update(float delta) {
+		for (GameObject go : gameObjects) {
+			go.update(delta);
+		}
+		this.spawnRandomFairies(delta);
+		this.checkClickOnFairies();
+	}
 
-    private void spawnRandomFaries(float delta) {
-        this.fairySpawnTimer += delta;
-        if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
-            this.fairySpawnTimer = 0.0f;
-            float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
-            float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
-            gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
-            gameObjects.add(koerbchen);
-        }
+	private void checkClickOnFairies() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    public void render(float delta) {
-        spriteBatch.begin();
-        for (GameObject go : gameObjects) {
-            go.render(delta, spriteBatch);
-        }
-        spriteBatch.end();
-    }
+	private void spawnRandomFairies(float delta) {
+		this.fairySpawnTimer += delta;
+		if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
+			this.fairySpawnTimer = 0.0f;
+			float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
+			float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
+			gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
+		}
+	}
+
+	public void render(float delta) {
+		spriteBatch.begin();
+		for (GameObject go : gameObjects) {
+			go.render(delta, spriteBatch);
+		}
+		spriteBatch.end();
+	}
 
     public void touch(Vector3 touchCoords) {
         koerbchen.touch(touchCoords);
