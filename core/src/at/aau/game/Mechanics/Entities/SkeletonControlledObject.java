@@ -19,10 +19,10 @@ public class SkeletonControlledObject extends MoveableObject {
 
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private Heading heading = Heading.DOWN;
-    private Animation idleAnimation;
-    private Animation movingUpAnimation;
-    private Animation movingDownAnimation;
-    private Animation movingSideAnimation;
+    protected Animation idleAnimation;
+    protected Animation movingUpAnimation;
+    protected Animation movingDownAnimation;
+    protected Animation movingSideAnimation;
     private TextureRegion frame;
 
     public SkeletonControlledObject(Vector2 position, World world, Vector2 size) {
