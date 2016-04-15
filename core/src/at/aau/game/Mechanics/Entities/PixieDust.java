@@ -11,10 +11,12 @@ import com.badlogic.gdx.math.Vector2;
 public class PixieDust extends MoveableObject{
 	   private TextureRegion frame;
 	    private Animation movingDownAnimation;
+	    
+	    static Vector2 SIZE = new Vector2(64, 64);
 	
 	
 	public PixieDust(Vector2 position, World world){
-		super(position, world);
+		super(position, world, SIZE);
 		movement = Movement.IDLE;
         movingTime = 0f;
         this.speed = 5f;
