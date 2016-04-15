@@ -29,7 +29,7 @@ public abstract class GameObject {
 
     public void removeState(State state){
         this.states.removeValue(state, false);
-}
+    }
 
     public void addState(State state){
         if(state.stackable){
@@ -46,7 +46,6 @@ public abstract class GameObject {
         }
     };
     public abstract void render(float delta, SpriteBatch spriteBatch);
-
 
 
 }
