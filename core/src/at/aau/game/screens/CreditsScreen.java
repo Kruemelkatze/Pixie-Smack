@@ -2,6 +2,7 @@ package at.aau.game.screens;
 
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -12,72 +13,65 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class CreditsScreen extends ScreenAdapter {
-    private final SpriteBatch batch;
-    private final OrthographicCamera cam;
-    private PixieSmack parentGame;
+	private final SpriteBatch batch;
+	private final OrthographicCamera cam;
+	private PixieSmack parentGame;
 
-    Texture backgroundImage, gradientTop, gradientBottom;
-    BitmapFont creditsFont;
+	Texture backgroundImage, gradientTop, gradientBottom;
+	BitmapFont creditsFont;
 
-    String[] credits = ("GdxGameSkelet0n by Mathias Lux\n" +
-            "All assets are public d0main\n" +
-            "Cl0ne and adapt t0 y0ur will\n" +
-            "\n" +
-            "H0pe it helps ;)").split("\\n");
-    private float moveY;
+	String[] credits = ("GdxGameSkelet0n by Mathias Lux\n" + "All assets are public d0main\n" + "Cl0ne and adapt t0 y0ur will\n" + "\n" + "H0pe it helps ;)")
+			.split("\\n");
+	private float moveY;
 
+	public CreditsScreen(PixieSmack game) {
+		this.parentGame = game;
 
-    public CreditsScreen(PixieSmack game) {
-        this.parentGame = game;
+		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+		gradientTop = parentGame.getAssetManager().get("credits/gradient_top.png");
+		gradientBottom = parentGame.getAssetManager().get("credits/gradient_bottom.png");
 
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        gradientTop = parentGame.getAssetManager().get("credits/gradient_top.png");
-        gradientBottom = parentGame.getAssetManager().get("credits/gradient_bottom.png");
+		creditsFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 
-        creditsFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+		// Create camera that projects the desktop onto the actual screen size.
+		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 
-        // Create camera that projects the desktop onto the actual screen size.
-        cam = new OrthographicCamera(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		cam.update();
 
-        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-        cam.update();
+		batch = new SpriteBatch();
+	}
 
-        batch = new SpriteBatch();
-    }
+	@Override
+	public void render(float delta) {
+		moveY += delta * 100;
+		handleInput();
+		// camera:
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
 
-    @Override
-    public void render(float delta) {
-        moveY += delta*100;
-        handleInput();
-        // camera:
-        cam.update();
-        batch.setProjectionMatrix(cam.combined);
+		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		// draw bgImage
+		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_HEIGHT, PixieSmack.MENU_GAME_HEIGHT);
 
+		// draw moving text:
+		for (int i = 0; i < credits.length; i++) {
+			creditsFont.draw(batch, credits[i], PixieSmack.MENU_GAME_HEIGHT / 8, moveY - i * creditsFont.getLineHeight() * 1.5f);
+		}
 
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        // draw bgImage
-        batch.draw(backgroundImage, 0, 0, PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+		// draw gradient
+		batch.draw(gradientBottom, 0, 0, PixieSmack.MENU_GAME_HEIGHT, gradientBottom.getHeight());
+		batch.draw(gradientTop, 0, PixieSmack.MENU_GAME_HEIGHT - gradientTop.getHeight(), PixieSmack.MENU_GAME_HEIGHT, gradientTop.getHeight());
 
-        // draw moving text:
-        for (int i = 0; i < credits.length; i++) {
-            creditsFont.draw(batch, credits[i], PixieSmack.GAME_WIDTH/8, moveY - i*creditsFont.getLineHeight()*1.5f);
-        }
+		batch.end();
+	}
 
-
-        // draw gradient
-        batch.draw(gradientBottom, 0, 0, PixieSmack.GAME_WIDTH, gradientBottom.getHeight());
-        batch.draw(gradientTop, 0, PixieSmack.GAME_HEIGHT-gradientTop.getHeight(), PixieSmack.GAME_WIDTH, gradientTop.getHeight());
-
-        batch.end();
-    }
-
-    private void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
-            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
-        }
-    }
-
+	private void handleInput() {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
+			parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+		}
+	}
 
 }
