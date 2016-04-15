@@ -20,7 +20,7 @@ public class World {
 	private SpriteBatch spriteBatch;
 	public Array<GameObject> gameObjects;
 	public GameplayScreen gameplayScreen;
-	SkeletonControlledObject skeletonControlledObject;
+	private SkeletonControlledObject skeletonControlledObject;
 	private float fairySpawnTimer = 0.0f;
 	private Random random = new Random();
 
@@ -36,22 +36,26 @@ public class World {
 	}
 
 	public void update(float delta) {
-		// this.spawnRandomFaries(delta);
 		for (GameObject go : gameObjects) {
 			go.update(delta);
 		}
+		this.spawnRandomFairies(delta);
+		this.checkClickOnFairies();
 	}
 
-	private void spawnRandomFaries(float delta) {
+	private void checkClickOnFairies() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void spawnRandomFairies(float delta) {
 		this.fairySpawnTimer += delta;
 		if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
 			this.fairySpawnTimer = 0.0f;
 			float xSpawn = random.nextFloat() * GameConstants.FAIRY_MAX_X;
 			float ySpawn = random.nextFloat() * GameConstants.FAIRY_MAX_Y;
 			gameObjects.add(new FairyObject(new Vector2(xSpawn, ySpawn), this));
-			gameObjects.add(skeletonControlledObject);
 		}
-
 	}
 
 	public void render(float delta) {
