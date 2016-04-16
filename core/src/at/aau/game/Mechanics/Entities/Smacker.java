@@ -33,6 +33,10 @@ public class Smacker extends MoveableObject {
 
         Vector3 unprojected = world.gameplayScreen.cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
         Vector2 touchPixelCoords = PixieSmack.worldToPixel(new Vector2(unprojected.x, unprojected.y));
+        touchPixelCoords.x = Math.max(touchPixelCoords.x, 0);
+        touchPixelCoords.x = Math.min(touchPixelCoords.x, PixieSmack.MENU_GAME_WIDTH);
+        touchPixelCoords.y = Math.max(touchPixelCoords.y, 0);
+        touchPixelCoords.y = Math.min(touchPixelCoords.y, PixieSmack.MENU_GAME_HEIGHT);
         this.position = touchPixelCoords;
 
         TextureRegion frame = smackingAnim.getKeyFrame(animTime, false);
