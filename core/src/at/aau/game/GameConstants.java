@@ -59,5 +59,5 @@ public class GameConstants {
     public static final String MUSIC_INTRO = "sfx/introMusic.wav";
     public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
 	public static final String GAME_MUSIC = "gameMusic";
-	public static final String INRO_MUSIC = "introMusic";
+	public static final String INTRO_MUSIC = "introMusic";
 }
