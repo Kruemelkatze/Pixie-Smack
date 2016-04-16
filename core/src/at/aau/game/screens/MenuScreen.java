@@ -2,10 +2,13 @@ package at.aau.game.screens;
 
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
+import at.aau.game.SoundManager;
+import at.aau.game.Mechanics.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,9 +20,9 @@ public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-
 	Texture backgroundImage;
 	BitmapFont menuFont;
+	Music menuMusic;
 
 	String[] menuStrings = { "Play", "Highscore", "Credits", "Exit" };
 	int currentMenuItem = 0;
@@ -39,6 +42,11 @@ public class MenuScreen extends ScreenAdapter {
 		cam.update();
 
 		batch = new SpriteBatch();
+		
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sfx/introMusic.wav"));
+		menuMusic.setLooping(true);
+		menuMusic.play();
+		
 	}
 
 	@Override
@@ -77,10 +85,13 @@ public class MenuScreen extends ScreenAdapter {
 				Gdx.app.exit();
 				parentGame.getSoundManager().playEvent("explode");
 			} else if (menuStrings[currentMenuItem].equals("Credits")) {
+				menuMusic.stop();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 			} else if (menuStrings[currentMenuItem].equals("Play")){
+				menuMusic.stop();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
 			} else if (menuStrings[currentMenuItem].equals("Highscore")){
+				menuMusic.stop();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 			}
 		}
@@ -96,10 +107,13 @@ public class MenuScreen extends ScreenAdapter {
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
 						} else if (menuStrings[i].equals("Play")) {
+							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
 						} else if (menuStrings[i].equals("Credits")) {
+							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 						} else if (menuStrings[i].equals("Highscore")) {
+							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 						}
 					}

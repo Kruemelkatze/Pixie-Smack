@@ -43,6 +43,7 @@ public class GameplayScreen extends ScreenAdapter {
         batch = new SpriteBatch();
 
         Gdx.input.setCursorCatched(true);
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("gameMusic");
     }
 
     @Override

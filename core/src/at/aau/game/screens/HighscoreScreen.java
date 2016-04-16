@@ -6,6 +6,7 @@ import at.aau.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +19,8 @@ public class HighscoreScreen extends ScreenAdapter{
 	private PixieSmack parentGame;
 	//Scores auf größe 5 begrenzen!
 	public String[] scores = {"Nummer 1", "Nummer 2", "Nummer 3"};
+	
+	Music menuMusic;
 	
 	Texture backgroundImage;
 	BitmapFont highscoreFont;
@@ -49,6 +52,10 @@ public class HighscoreScreen extends ScreenAdapter{
 		
 		batch = new SpriteBatch();
 		
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sfx/introMusic.wav"));
+		menuMusic.setLooping(true);
+		menuMusic.play();
+		
 	}
 	
 	@Override
@@ -78,6 +85,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
+			menuMusic.stop();
 			parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 		}
 	}
