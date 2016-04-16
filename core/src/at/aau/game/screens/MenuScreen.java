@@ -157,6 +157,19 @@ public class MenuScreen extends ScreenAdapter {
 
 			}
 		}
+		Vector3 worldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
+		if (worldCoords.x > offsetLeft &&
+				worldCoords.x < PixieSmack.MENU_GAME_WIDTH - offsetLeft &&
+				worldCoords.y < PixieSmack.MENU_GAME_HEIGHT - offsetTop) {
+			for (int i = 0; i < menuStrings.length; i++) {
+				float pos = PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY;
+				if (worldCoords.y > pos - menuFont.getLineHeight() &&
+						worldCoords.y < pos) {
+					currentMenuItem = i;
+				}
+			}
+			
+		}
 	}
 
 }
