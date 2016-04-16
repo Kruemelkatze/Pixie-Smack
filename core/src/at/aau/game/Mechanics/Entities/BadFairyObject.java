@@ -32,9 +32,9 @@ public class BadFairyObject extends FairyObject {
         }
         speed = 0.2f;
 		
-		this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.FAIRY_SPRITE_PATH, 0.3f, (int) this.size.x,
+		this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x,
                 (int) this.size.y);
-		this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.FAIRY_SPRITE_PATH, 0.3f, (int) this.size.x,
+		this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x,
                 (int) this.size.y);		
 	}
 

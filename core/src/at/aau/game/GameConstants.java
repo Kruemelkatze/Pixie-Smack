@@ -17,6 +17,9 @@ public class GameConstants {
     public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
     public static final String BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/bigpixie-left-anim.png";
     public static final String BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/bigpixie-right-anim.png";
+    
+    public static final String EVIL_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-evil-left-anim.png";
+    public static final String EVIL_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-evil-right-anim.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
