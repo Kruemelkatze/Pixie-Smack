@@ -54,7 +54,7 @@ public class Smacker extends MoveableObject {
 	public void update(float delta) {
     	super.update(delta);
     	SmackerRegenerationTime += delta;
-    	if (SmackCnt <= GameConstants.SMACK_LIMIT && SmackerRegenerationTime > GameConstants.SMACK_REGENERATION_TIME){
+    	if (SmackCnt < GameConstants.SMACK_LIMIT && SmackerRegenerationTime > GameConstants.SMACK_REGENERATION_TIME){
     		SmackCnt += 1;
     		SmackerRegenerationTime = 0;
     	}
