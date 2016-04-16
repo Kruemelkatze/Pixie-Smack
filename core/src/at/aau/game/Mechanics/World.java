@@ -8,6 +8,7 @@ import at.aau.game.Mechanics.Entities.*;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +23,9 @@ public class World {
     public Array<PixieDust> pixieDusts;
     public Array<FairyObject> fairies;
     public GameplayScreen gameplayScreen;
+    public int highscore;
+    public String highscoreName;
+    public BitmapFont highscoreBitmapFont;
 
     Koerbchen koerbchen;
     Smacker smacker;
@@ -50,6 +54,11 @@ public class World {
         smacker = new Smacker(Vector2.Zero, this);
 
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
+        
+        highscore = 0;
+        highscoreName = "Score: 0";
+        highscoreBitmapFont = new BitmapFont();
+       
 
     }
 
@@ -80,7 +89,8 @@ public class World {
         for (PixieDust pi : pixieDusts) {
             pi.render(delta, spriteBatch);
         }
-
+        highscoreBitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        highscoreBitmapFont.draw(spriteBatch, highscoreName, 910, 700);
         smacker.render(delta, spriteBatch);
         spriteBatch.end();
     }
@@ -126,12 +136,13 @@ public class World {
         pixieDusts.add(pixieDust);
     }
 
-    int points = 0;
 
     public void pixieDustCollected(PixieDust pixieDust, float distance) {
         //Give points and stuff
-        points += 10;
-        System.out.println(points);
+        highscore += 10;
+        highscoreName = "Score: "+highscore;
+        
+        System.out.println(highscore);
         pixieDusts.removeValue(pixieDust, true);
     }
 
