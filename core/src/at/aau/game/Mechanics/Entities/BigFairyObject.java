@@ -15,47 +15,36 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * @author Kevin Herkt
  */
-public class FairyObject extends MoveableObject {
-
-    protected Animation leftAnimation;
-    protected Animation rightAnimation;
-    protected float animTime = 0;
-
-    protected int health = 1;
-    protected Vector2 startPosition;
-    protected Random random = new Random();
-    private boolean isBlackFairy = false;
-
-    protected static Vector2 SIZE = new Vector2(64, 64);
-    protected float speed = 3f;
+public class BigFairyObject extends FairyObject {
     private TextureRegion tempFrame;
 
-    public FairyObject(Vector2 position, World world) {
-        super(position, world, SIZE);
+    public BigFairyObject(Vector2 position, World world) {
+        super(position, world);
+        this.health = 5;
         this.startPosition = this.position.cpy();
         float rnd = random.nextFloat();
         if (rnd < 0.33f) {
             this.directionX = DirectionX.LEFT;
             this.directionY = DirectionY.UP;
-            this.speed = 2.5f;
+            this.speed = 2.5f *2;
         } else if (rnd < 0.66f) {
             this.directionX = DirectionX.LEFT;
             this.directionY = DirectionY.DOWN;
-            this.speed = 1.5f;
+            this.speed = 1.5f*2;
         } else {
             this.directionX = DirectionX.RIGHT;
             this.directionY = DirectionY.DOWN;
-            this.speed = 1.0f;
+            this.speed = 1.0f*2;
         }
-        this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie-left-anim.png", 0.3f, (int) this.size.x,
+        speed = 0.2f;
+        System.out.println("big fairy");
+        this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x,
                 (int) this.size.y);
-        this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie-right-anim.png", 0.3f, (int) this.size.x,
+        this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x,
                 (int) this.size.y);
-
-
     }
 
-	@Override
+    @Override
     public void render(float delta, SpriteBatch spriteBatch) {
         animTime += delta;
         if (this.isDead) {
@@ -76,8 +65,6 @@ public class FairyObject extends MoveableObject {
         }
 
         spriteBatch.draw(tempFrame, position.x, position.y);
-        // spriteBatch.draw(tempFrame, position.x, position.y, tempFrame.getRegionWidth() / GameConstants.PIXEL_TO_METER, tempFrame.getRegionHeight()
-        // / GameConstants.PIXEL_TO_METER);
     }
 
     public void onCollision() {

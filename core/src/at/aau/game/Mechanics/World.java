@@ -36,6 +36,7 @@ public class World {
     public Array<SmackAnim> smackAnims;
 
     private float fairySpawnTimer = 0.0f;
+    private float bigFairySpawnTimer = 0.0f;
     private int fairySpawnStage = 0;
     private float fairySpawnSpeed = 1.0f;
     private Random random = new Random();
@@ -105,11 +106,20 @@ public class World {
 
 	private void spawnRandomFairies(float delta) {
 		this.fairySpawnTimer += delta;
+		this.bigFairySpawnTimer += delta;
 		if (fairies.size <= GameConstants.MAX_FAIRIES && fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.fairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
 			FairyObject fairy = new FairyObject(new Vector2(xSpawn, ySpawn), this);
+			fairies.add(fairy);
+		}
+		
+		if (fairies.size <= GameConstants.MAX_FAIRIES && bigFairySpawnTimer >= GameConstants.BIG_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+			this.bigFairySpawnTimer = 0.0f;
+			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
+			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
+			BigFairyObject fairy = new BigFairyObject(new Vector2(xSpawn, ySpawn), this);
 			fairies.add(fairy);
 		}
 	}

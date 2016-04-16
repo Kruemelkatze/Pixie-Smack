@@ -17,7 +17,7 @@ public abstract class GameObject {
     World world;
     Texture texture;
     Array<State> states;
-    Vector2 size;
+    protected Vector2 size;
     protected boolean isDead = false;
 
 
