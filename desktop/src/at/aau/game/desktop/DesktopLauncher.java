@@ -11,7 +11,7 @@ public class DesktopLauncher {
         config.width = (int) PixieSmack.MENU_GAME_WIDTH;
         config.height = (int) PixieSmack.MENU_GAME_HEIGHT;
         config.addIcon("menu/ic_launcher_32.png", Files.FileType.Internal);
-        config.fullscreen = true;
+        config.fullscreen = false;
         config.resizable = false;
         config.vSyncEnabled = true;
         new LwjglApplication(new PixieSmack(), config);

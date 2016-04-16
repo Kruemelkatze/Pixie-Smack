@@ -21,9 +21,8 @@ public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-	Texture backgroundImage;
-	BitmapFont menuFont;
-	//Music menuMusic;
+	private Texture backgroundImage;
+	private BitmapFont menuFont;
 
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
