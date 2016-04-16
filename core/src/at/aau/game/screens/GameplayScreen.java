@@ -6,6 +6,7 @@ import at.aau.game.Mechanics.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -73,6 +74,24 @@ public class GameplayScreen extends ScreenAdapter {
         // menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.GAME_HEIGHT - offsetTop - i * offsetY);
         // }
         // batch.end();
+        
+        
+        int x,y;
+        x = Gdx.input.getX();
+        y = Gdx.input.getY();
+        
+        if (x < 0) {
+        	Gdx.input.setCursorPosition(0, y);
+        } else if (x > PixieSmack.MENU_GAME_WIDTH) {
+        	Gdx.input.setCursorPosition((int)PixieSmack.MENU_GAME_WIDTH, y);
+        }
+        
+        if (y < 0) {
+        	Gdx.input.setCursorPosition(x, 0);
+        } else if (y > PixieSmack.MENU_GAME_HEIGHT) {
+        	Gdx.input.setCursorPosition(x, (int)PixieSmack.MENU_GAME_HEIGHT);
+        }
+
     }
 
     private void handleInput() {
