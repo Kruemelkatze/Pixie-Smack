@@ -14,8 +14,6 @@ import at.aau.game.Mechanics.World;
  * Created by Veit on 06.02.2016.
  */
 public abstract class SkeletonControlledObject extends MoveableObject {
-    //    private TextureRegion[] regions = new TextureRegion[12];
-    private Vector3 touchCoordinates = new Vector3(0, 0, 0);
 
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private Heading heading = Heading.IDLE;
@@ -114,10 +112,6 @@ public abstract class SkeletonControlledObject extends MoveableObject {
             System.out.println(this.position);
             System.out.println();
         }
-
-        if (Gdx.input.justTouched()) {
-            touch(world.gameplayScreen.cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1)));
-        }
     }
 
     /**
@@ -149,10 +143,6 @@ public abstract class SkeletonControlledObject extends MoveableObject {
                 frame = idleAnimation.getKeyFrame(movingTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
         }
-    }
-
-    public void touch(Vector3 touchCoordinates) {
-        this.touchCoordinates = touchCoordinates;
     }
 
     public enum Heading {

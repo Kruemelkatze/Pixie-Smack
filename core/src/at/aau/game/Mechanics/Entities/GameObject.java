@@ -12,7 +12,7 @@ import at.aau.game.Mechanics.World;
 
 
 public abstract class GameObject {
-    Vector2 position;
+    public Vector2 position;
     Rectangle bounds;
     World world;
     Texture texture;

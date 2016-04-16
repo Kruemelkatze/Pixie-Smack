@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 public class FairyObject extends MoveableObject {
     private Animation idleAnimation;
     private TextureRegion tempFrame;
-    private int health = 2;
+    private int health = 1;
     private boolean isDead = false;
     private final Vector2 startPosition;
 
@@ -63,6 +63,7 @@ public class FairyObject extends MoveableObject {
         this.health--;
         if (this.health <= 0) {
             this.isDead = true;
+            world.pixieSmacked(this);
         }
     }
 
@@ -71,7 +72,7 @@ public class FairyObject extends MoveableObject {
         float yDirection = +1f;
         if (this.directionEnum.equals(Direction.UP) && this.position.y >= startPosition.y + GameConstants.FAIRY_MAX_Y_OFFSET) {
             this.directionEnum = Direction.DOWN;
-            System.out.println(this.position.y + " " + startPosition.y);
+            //System.out.println(this.position.y + " " + startPosition.y);
         } else if (this.directionEnum.equals(Direction.DOWN) && this.position.y < startPosition.y - GameConstants.FAIRY_MAX_Y_OFFSET) {
             this.directionEnum = Direction.UP;
         }
