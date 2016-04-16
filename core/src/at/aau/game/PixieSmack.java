@@ -73,6 +73,9 @@ public class PixieSmack extends ApplicationAdapter {
 		}
 
 		// Entities
+		//assMan.load("gameplay/pixie.png", Texture.class);
+		//assMan.load("gameplay/goodPixie.png", Texture.class);
+		//assMan.load("gameplay/badPixie.png", Texture.class);
 		assMan.load("gameplay/spritesheet.png", Texture.class);
 		assMan.load("gameplay/smacker.png", Texture.class);
 		assMan.load("gameplay/smacker-anim.png", Texture.class);

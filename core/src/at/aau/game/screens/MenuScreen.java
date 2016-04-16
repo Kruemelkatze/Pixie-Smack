@@ -16,8 +16,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 
 public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
@@ -48,6 +46,7 @@ public class MenuScreen extends ScreenAdapter {
 		cam.update();
 
 		batch = new SpriteBatch();
+		
 		
 		this.parentGame.getSoundManager().playEvent(GameConstants.INTRO_MUSIC);
 		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
