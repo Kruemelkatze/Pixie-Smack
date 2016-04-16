@@ -27,6 +27,8 @@ public class World {
     Smacker smacker;
 
     private float fairySpawnTimer = 0.0f;
+    private int fairySpawnStage = 0;
+    private float fairySpawnSpeed = 1.0f;
     private Random random = new Random();
     public Vector2 size;
     public Vector2 pixelSize;
@@ -92,7 +94,7 @@ public class World {
 
     private void spawnRandomFairies(float delta) {
         this.fairySpawnTimer += delta;
-        if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD) {
+        if (fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
             this.fairySpawnTimer = 0.0f;
             float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
             float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
@@ -131,6 +133,10 @@ public class World {
     public void pixieDustCollected(PixieDust pixieDust, float distance) {
         //Give points and stuff
         points += 10;
+        if (points == Math.pow(2, this.fairySpawnStage)*100) {
+        	this.fairySpawnSpeed *= 0.9f;
+        	this.fairySpawnStage++;
+        }
         System.out.println(points);
         pixieDusts.removeValue(pixieDust, true);
     }
