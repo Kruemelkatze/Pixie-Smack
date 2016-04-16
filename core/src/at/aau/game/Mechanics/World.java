@@ -199,7 +199,8 @@ public class World {
 			this.fairySpawnStage++;
 		}
 
-		highscoreName = "Score: " + highscore;
+		highscoreName = ""+highscore;
+		highScoreLayout = new GlyphLayout(highscoreBitmapFont, highscoreName);
 		pixieDusts.removeValue(pixieDust, true);
 	}
 
