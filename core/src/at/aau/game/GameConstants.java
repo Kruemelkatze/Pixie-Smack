@@ -20,7 +20,7 @@ public class GameConstants {
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
-    public static final float BAD_FAIRY_SPAWN_THRESHOLD = 5f;
+    public static final float BAD_FAIRY_SPAWN_THRESHOLD = 3f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
     public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.2f;
     public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;
