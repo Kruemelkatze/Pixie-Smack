@@ -1,13 +1,11 @@
 package at.aau.game.Mechanics.Entities;
 
-import at.aau.game.PixieSmack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import at.aau.game.Mechanics.World;
 
 /**
@@ -124,23 +122,23 @@ public abstract class SkeletonControlledObject extends MoveableObject {
     public void render(float delta, SpriteBatch spriteBatch) {
         switch (heading) {
             case UP:
-                frame = movingUpAnimation.getKeyFrame(movingTime, true);
+                frame = movingUpAnimation.getKeyFrame(animTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case RIGHT:
-                frame = movingRightAnimation.getKeyFrame(movingTime, true);
+                frame = movingRightAnimation.getKeyFrame(animTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case DOWN:
-                frame = movingDownAnimation.getKeyFrame(movingTime, true);
+                frame = movingDownAnimation.getKeyFrame(animTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             case LEFT:
-                frame = movingLeftAnimation.getKeyFrame(movingTime, true);
+                frame = movingLeftAnimation.getKeyFrame(animTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
                 break;
             default:
-                frame = idleAnimation.getKeyFrame(movingTime, true);
+                frame = idleAnimation.getKeyFrame(animTime, true);
                 spriteBatch.draw(frame, position.x, position.y);
         }
     }

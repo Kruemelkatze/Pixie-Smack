@@ -11,7 +11,7 @@ public abstract class MoveableObject extends GameObject {
 	protected Vector2 direction;
 	Float speed;
 	Movement movement;
-	Float movingTime;
+	Float animTime;
 	protected DirectionX directionX = DirectionX.RIGHT;
 	protected DirectionY directionY = DirectionY.UP;
 	//protected DirectionX directionY = DirectionX.STOP;
@@ -19,13 +19,13 @@ public abstract class MoveableObject extends GameObject {
     public MoveableObject(Vector2 position, World world, Vector2 size) {
         super(position, world, size);
         movement = Movement.IDLE;
-        movingTime = 0f;
+        animTime = 0f;
     }
 
 	@Override
 	public void update(float delta) {
 		super.update(delta);
-		movingTime += delta;
+		animTime += delta;
 	}
 
 	protected void handleMovement(Float delta) {
@@ -40,7 +40,7 @@ public abstract class MoveableObject extends GameObject {
 	public void changeMovementTo(Movement movement) {
 		if (this.movement != movement) {
 			this.movement = movement;
-			movingTime = 0f;
+			animTime = 0f;
 		}
 	}
 

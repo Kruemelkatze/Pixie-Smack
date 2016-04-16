@@ -4,10 +4,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import at.aau.game.GameConstants;
-import at.aau.game.Mechanics.Entities.FairyObject;
-import at.aau.game.Mechanics.Entities.GameObject;
-import at.aau.game.Mechanics.Entities.PixieDust;
-import at.aau.game.Mechanics.Entities.Koerbchen;
+import at.aau.game.Mechanics.Entities.*;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
@@ -27,6 +24,8 @@ public class World {
     public GameplayScreen gameplayScreen;
 
     Koerbchen koerbchen;
+    Smacker smacker;
+
     private float fairySpawnTimer = 0.0f;
     private Random random = new Random();
     public Vector2 size;
@@ -47,6 +46,8 @@ public class World {
 
         koerbchen = new Koerbchen(new Vector2(50, 200), this);
         gameObjects.add(koerbchen);
+
+        smacker = new Smacker(Vector2.Zero, this);
 
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
 
@@ -79,6 +80,8 @@ public class World {
         for (PixieDust pi : pixieDusts) {
             pi.render(delta, spriteBatch);
         }
+
+        smacker.render(delta, spriteBatch);
         spriteBatch.end();
     }
 
@@ -99,8 +102,7 @@ public class World {
     }
 
     public void touch(Vector2 touchCoords) {
-        //Switch x coords
-        float bkpX = touchCoords.x;
+        smacker.startAnim();
 
         Iterator<FairyObject> iterator = fairies.iterator();
         while (iterator.hasNext()) {
