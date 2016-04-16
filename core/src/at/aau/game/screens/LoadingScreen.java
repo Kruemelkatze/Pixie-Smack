@@ -21,12 +21,16 @@ public class LoadingScreen extends ScreenAdapter {
 	private int animationFrame = 0;
 	private float animationFrameShownFor = 0.05f; // how long is each frame shown ..
 	private float animationFrameShownAlready = 0f;
+	
+	Texture backgroundImage;
 
 	public LoadingScreen(PixieSmack game) {
 		this.parentGame = game;
 		// this is the only asset not loaded by the AssetManager.
 		loadingSheet = new Texture(Gdx.files.internal("loading/preloader_180x40.png"));
 		loadingFrames = TextureRegion.split(loadingSheet, 180, 40)[0];
+		
+		backgroundImage = new Texture(Gdx.files.internal("menu/menu_background.png"));
 
 		// Create camera that projects the desktop onto the actual screen size.
 		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
@@ -56,6 +60,7 @@ public class LoadingScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 		batch.draw(loadingFrames[animationFrame], PixieSmack.MENU_GAME_WIDTH / 2 - loadingFrames[animationFrame].getRegionWidth() / 2,
 				PixieSmack.MENU_GAME_HEIGHT / 2 - loadingFrames[animationFrame].getRegionHeight() / 2);
 		batch.end();
