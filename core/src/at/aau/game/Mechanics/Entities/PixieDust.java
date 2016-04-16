@@ -14,7 +14,9 @@ public class PixieDust extends MoveableObject {
     private TextureRegion frame;
     private Animation movingDownAnimation;
     private Vector2 spawnPosition;
-
+    public boolean IsBadDust = false;
+    public boolean IsSpecialDust = false;
+    
     private Random random = new Random();
 
     static Vector2 SIZE = new Vector2(64, 64);

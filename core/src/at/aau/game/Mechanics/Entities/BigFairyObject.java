@@ -20,7 +20,7 @@ public class BigFairyObject extends FairyObject {
 
     public BigFairyObject(Vector2 position, World world) {
         super(position, world);
-        this.health = 5;
+        this.health = 10;
         this.startPosition = this.position.cpy();
         float rnd = random.nextFloat();
         if (rnd < 0.33f) {
@@ -37,7 +37,7 @@ public class BigFairyObject extends FairyObject {
             this.speed = 1.0f*2;
         }
         speed = 0.2f;
-        System.out.println("big fairy");
+        
         this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x,
                 (int) this.size.y);
         this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x,

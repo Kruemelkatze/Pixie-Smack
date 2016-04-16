@@ -160,6 +160,18 @@ public class World {
 		pixieDusts.add(pixieDust);
 	}
 
+	private void spawnBadDust(Vector2 position) {
+		PixieDust pixieDust = new PixieDust(position, this);
+		pixieDust.IsBadDust = true;
+		pixieDusts.add(pixieDust);
+	}
+	
+	private void spawnSpecialDust(Vector2 position) {
+		PixieDust pixieDust = new PixieDust(position, this);
+		pixieDust.IsSpecialDust = true;
+		pixieDusts.add(pixieDust);
+	}
+		
 	public void pixieDustMissed(PixieDust pixieDust) {
 		pixieDusts.removeValue(pixieDust, true);
 	}
@@ -174,7 +186,14 @@ public class World {
 
 	public void pixieDustCollected(PixieDust pixieDust, float distance) {
 		// Give points and stuff
-		highscore += 10;
+		if (pixieDust.IsBadDust){
+			highscore -= 10;
+		} else if (pixieDust.IsSpecialDust){
+			highscore += 50;
+		} else {
+			highscore += 10;			
+		}
+		
 
 		if (highscore == Math.pow(2, this.fairySpawnStage) * 100) {
 			this.fairySpawnSpeed *= 0.85f;
@@ -188,7 +207,13 @@ public class World {
 
 
 	public void pixieSmacked(FairyObject fairy) {
-		spawnDust(fairy.position);
+		if (fairy instanceof BadFairyObject) {
+			spawnBadDust(fairy.position);			
+		} else if (fairy instanceof BigFairyObject) {
+			spawnSpecialDust(fairy.position);
+		} else {
+			spawnDust(fairy.position);
+		}
 		spawnSmackAnim(fairy.position);
 		fairies.removeValue(fairy, true);
 	}
