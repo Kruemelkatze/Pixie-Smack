@@ -36,9 +36,6 @@ public class BadFairyObject extends FairyObject {
 		this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x,
                 (int) this.size.y);	
 		
-		this.dead1 = world.gameplayScreen.parentGame.getAnimator()
-				.loadAnimation(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT, 0.1f, (int) this.size.x, (int) this.size.y);
-		dead1.setPlayMode(PlayMode.NORMAL);
 		this.dead2 = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
 				GameConstants.EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, 2f, (int) this.size.x, (int) this.size.y);
 		dead2.setPlayMode(PlayMode.NORMAL);
