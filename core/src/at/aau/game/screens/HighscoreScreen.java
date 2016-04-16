@@ -38,7 +38,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	public HighscoreScreen(PixieSmack game) {
 		this.parentGame = game;
 		
-		backgroundImage = parentGame.getAssetManager().get("menu/menu_background-old.jpg");
+		backgroundImage = parentGame.getAssetManager().get("menu/menu_background_empty.png");
 		highscoreFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		highscoreFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
