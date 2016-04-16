@@ -31,6 +31,7 @@ public class World {
 
 	Koerbchen koerbchen;
 	Smacker smacker;
+	public Array<SmackAnim> smackAnims;
 
 	private float fairySpawnTimer = 0.0f;
 	private int fairySpawnStage = 0;
@@ -39,16 +40,18 @@ public class World {
 	public Vector2 size;
 	public Vector2 pixelSize;
 
-	com.badlogic.gdx.physics.box2d.World box2DWorld;
 	private long timeElapsed;
 	private String mmss;
 	private boolean gameEnded = false;
+
+	com.badlogic.gdx.physics.box2d.World box2DWorld;
 
 	public World(GameplayScreen gameplayScreen) {
 		spriteBatch = new SpriteBatch();
 		gameObjects = new Array<GameObject>();
 		pixieDusts = new Array<PixieDust>();
 		fairies = new Array<FairyObject>();
+		smackAnims = new Array<SmackAnim>();
 		this.gameplayScreen = gameplayScreen;
 
 		size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
@@ -70,7 +73,7 @@ public class World {
 	}
 
 	public void update(float delta) {
-		if(gameEnded) {
+		if (gameEnded) {
 			return;
 		}
 		this.timeElapsed += delta * 1000;
@@ -101,13 +104,17 @@ public class World {
 		for (PixieDust pi : pixieDusts) {
 			pi.render(delta, spriteBatch);
 		}
+		for (SmackAnim smackAnim : smackAnims) {
+			smackAnim.render(delta, spriteBatch);
+		}
+
 		highscoreBitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		highscoreBitmapFont.draw(spriteBatch, highscoreName, 910, 700);
 		smacker.render(delta, spriteBatch);
 
 		highscoreBitmapFont.draw(spriteBatch, this.mmss, 0, 700);
 
-		if((timeElapsed/1000f) >= GameConstants.TIMEOUT) {
+		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
 			gameEnded = true;
 			highscoreBitmapFont.draw(spriteBatch, "Game Over", PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f);
 		}
@@ -137,10 +144,6 @@ public class World {
 		}
 	}
 
-	public com.badlogic.gdx.physics.box2d.World getBox2DWorld() {
-		return box2DWorld;
-	}
-
 	public static float randInRange(float min, float max) {
 		return (float) (min + (Math.random() * ((1 + max) - min)));
 	}
@@ -150,28 +153,44 @@ public class World {
 		pixieDusts.add(pixieDust);
 	}
 
-	public void pixieDustCollected(PixieDust pixieDust, float distance) {
-		// Give points and stuff
-		highscore += 10;
-		if (highscore == Math.pow(2, this.fairySpawnStage) * 100) {
-			this.fairySpawnSpeed *= 0.9f;
-			this.fairySpawnStage++;
-		}
-		highscore += 10;
-		highscoreName = "Score: " + highscore;
+	public void pixieDustMissed(PixieDust pixieDust) {
 		pixieDusts.removeValue(pixieDust, true);
 	}
 
-	public void pixieDustMissed(PixieDust pixieDust) {
+	private boolean isWithinSmackBounds(Vector2 touchPosition, GameObject dust) {
+		return dust.position.dst(touchPosition) <= GameConstants.SMACKER_REACH;
+	}
+
+	public com.badlogic.gdx.physics.box2d.World getBox2DWorld() {
+		return box2DWorld;
+	}
+
+	public void pixieDustCollected(PixieDust pixieDust, float distance) {
+		// Give points and stuff
+		highscore += 10;
+		System.out.println(Math.pow(2, this.fairySpawnStage) * 100);
+
+		if (highscore == Math.pow(2, this.fairySpawnStage) * 100) {
+			this.fairySpawnSpeed *= 0.85f;
+			this.fairySpawnStage++;
+		}
+
+		highscoreName = "Score: " + highscore;
 		pixieDusts.removeValue(pixieDust, true);
 	}
 
 	public void pixieSmacked(FairyObject fairy) {
 		spawnDust(fairy.position);
+		spawnSmackAnim(fairy.position);
 		fairies.removeValue(fairy, true);
 	}
 
-	private boolean isWithinSmackBounds(Vector2 touchPosition, GameObject dust) {
-		return dust.position.dst(touchPosition) <= GameConstants.SMACKER_REACH;
+	private void spawnSmackAnim(Vector2 position) {
+		SmackAnim smackAnim = new SmackAnim(position, this);
+		smackAnims.add(smackAnim);
+	}
+
+	public Array<SmackAnim> getSmackAnims() {
+		return smackAnims;
 	}
 }
