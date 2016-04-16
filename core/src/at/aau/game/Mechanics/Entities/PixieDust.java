@@ -46,7 +46,7 @@ public class PixieDust extends MoveableObject {
     public void render(float delta, SpriteBatch spriteBatch) {
         frame = movingDownAnimation.getKeyFrame(animTime, true);
         spriteBatch.draw(frame, position.x, position.y);
-        this.pe.getEmitters().first().setPosition(this.position.x + 32, this.position.y - 32);
+        this.pe.getEmitters().first().setPosition(this.position.x + 16, this.position.y);
  	    pe.draw(spriteBatch, delta);
     }
 
@@ -78,10 +78,31 @@ public class PixieDust extends MoveableObject {
     public void setIsBadDust(boolean value){
     	if(value == true){
         	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit_bad.png", 0.3f, 64, 64);
+            pe.load(Gdx.files.internal("gameplay/randomparticle-bad"),Gdx.files.internal("gameplay"));
+            pe.getEmitters().first().setPosition(position.x,position.y);
+            pe.start();
     	} else {
         	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png", 0.3f, 64, 64);
+            pe.load(Gdx.files.internal("gameplay/randomparticle"),Gdx.files.internal("gameplay"));
+            pe.getEmitters().first().setPosition(position.x,position.y);
+            pe.start();
     	}
     	this.IsBadDust=value;
+    }
+    
+    public void setIsSpecialDust(boolean value){
+    	if(value == true){
+        	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit_spec.png", 0.3f, 64, 64);
+            pe.load(Gdx.files.internal("gameplay/randomparticle-good"),Gdx.files.internal("gameplay"));
+            pe.getEmitters().first().setPosition(position.x,position.y);
+            pe.start();
+    	} else {
+        	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png", 0.3f, 64, 64);
+            pe.load(Gdx.files.internal("gameplay/randomparticle"),Gdx.files.internal("gameplay"));
+            pe.getEmitters().first().setPosition(position.x,position.y);
+            pe.start();
+    	}
+    	this.IsSpecialDust=value;
     }
 
 }

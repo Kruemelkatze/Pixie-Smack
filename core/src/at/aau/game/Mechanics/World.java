@@ -169,7 +169,7 @@ public class World {
 	
 	private void spawnSpecialDust(Vector2 position) {
 		PixieDust pixieDust = new PixieDust(position, this);
-		pixieDust.IsSpecialDust = true;
+		pixieDust.setIsSpecialDust(true);
 		pixieDusts.add(pixieDust);
 	}
 		
