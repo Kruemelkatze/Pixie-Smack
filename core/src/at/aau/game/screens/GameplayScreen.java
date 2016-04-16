@@ -17,7 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameplayScreen extends ScreenAdapter {
-   
+
 	private final SpriteBatch batch;
 	public final OrthographicCamera cam;
 	public PixieSmack parentGame;
@@ -29,7 +29,8 @@ public class GameplayScreen extends ScreenAdapter {
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Credits", "Exit" };
 	int currentMenuItem = 0;
 
-	// float offsetLeft = PixieSmack.GAME_WIDTH / 8, offsetTop = PixieSmack.GAME_WIDTH / 8, offsetY = PixieSmack.GAME_HEIGHT / 8;
+	// float offsetLeft = PixieSmack.GAME_WIDTH / 8, offsetTop =
+	// PixieSmack.GAME_WIDTH / 8, offsetY = PixieSmack.GAME_HEIGHT / 8;
 
 	public GameplayScreen(PixieSmack game) {
 		this.parentGame = game;
@@ -39,14 +40,17 @@ public class GameplayScreen extends ScreenAdapter {
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
-		cam = new OrthographicCamera(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
-
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		//cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
+		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
+		cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
+		cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
+		cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
 		cam.update();
+		System.out.println(cam.viewportWidth + " " + cam.viewportHeight);
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);
-		
+
 	}
 
 	@Override
@@ -66,15 +70,14 @@ public class GameplayScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		// draw bgImage ...
-		batch.draw(backgroundImage, 0, 0, PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 		batch.end();
 		world.render(delta);
 
 		int x, y;
 		x = Gdx.input.getX();
 		y = Gdx.input.getY();
-
+		Vector3 unprojected = world.gameplayScreen.cam.unproject(new Vector3(x, y, 1));
 		if (x < 0) {
 			Gdx.input.setCursorPosition(0, y);
 		} else if (x > PixieSmack.MENU_GAME_WIDTH) {
@@ -90,14 +93,14 @@ public class GameplayScreen extends ScreenAdapter {
 
 	public void show() {
 		this.pause = false;
-		//parentGame.getSoundManager().resumeEvent(GameConstants.GAME_MUSIC);
+		// parentGame.getSoundManager().resumeEvent(GameConstants.GAME_MUSIC);
 		Gdx.input.setCursorCatched(true);
 	}
 
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
 			this.pause = true;
-			//parentGame.getSoundManager().pauseEvent(GameConstants.GAME_MUSIC);
+			// parentGame.getSoundManager().pauseEvent(GameConstants.GAME_MUSIC);
 			Gdx.input.setCursorCatched(false);
 			this.world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 			parentGame.getSoundManager().playEvent("blip");
@@ -105,7 +108,10 @@ public class GameplayScreen extends ScreenAdapter {
 
 		if (Gdx.input.justTouched()) {
 			Vector3 unprojected = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
-			Vector2 touchPixelCoords = PixieSmack.worldToPixel(new Vector2(unprojected.x, unprojected.y));
+			// Vector2 touchPixelCoords = PixieSmack.worldToPixel(new
+			// Vector2(unprojected.x, unprojected.y)); // orig
+
+			Vector2 touchPixelCoords = new Vector2(unprojected.x, unprojected.y);
 			world.touch(touchPixelCoords);
 		}
 	}
