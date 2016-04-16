@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameplayScreen extends ScreenAdapter {
+   
 	private final SpriteBatch batch;
 	public final OrthographicCamera cam;
 	public PixieSmack parentGame;
@@ -45,6 +46,7 @@ public class GameplayScreen extends ScreenAdapter {
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);
+		world.gameplayScreen.parentGame.getSoundManager().playEvent("gameMusic");
 	}
 
 	@Override

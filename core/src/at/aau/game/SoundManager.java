@@ -1,5 +1,6 @@
 package at.aau.game;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 import java.util.HashMap;
@@ -20,7 +21,9 @@ public class SoundManager {
         event2sound.put("laser", "sfx/laser.wav");
         event2sound.put("pickup", "sfx/pickup.wav");
         event2sound.put("powerup", "sfx/powerup.wav");
-
+        
+        event2sound.put("gameMusic", "sfx/gameMusic.wav");
+        
         for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
             event2sound.put("smack" + i, "sfx/smack" + i + ".wav");
         }
@@ -28,6 +31,8 @@ public class SoundManager {
         for (int i = 1; i <= PixieSmack.CollectSoundsCount; i++) {
             event2sound.put("collect" + i, "sfx/collect" + i + ".wav");
         }
+        
+        
     }
 
     /**
@@ -38,7 +43,12 @@ public class SoundManager {
      */
     public void playEvent(String event) {
         if (event2sound.get(event) != null) {
-            parentGame.getAssetManager().get(event2sound.get(event), Sound.class).play();
+        	if(event2sound.get(event).toString().equals("sfx/gameMusic.wav")){;
+        		  parentGame.getAssetManager().get(event2sound.get(event), Music.class).setLooping(true);
+        		  parentGame.getAssetManager().get(event2sound.get(event), Music.class).play();
+        	} else {
+        		parentGame.getAssetManager().get(event2sound.get(event), Sound.class).play();
+        	}
         } else {
             System.err.println("Event unknown.");
         }
