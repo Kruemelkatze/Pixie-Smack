@@ -15,11 +15,12 @@ public class GameConstants {
     public static final int SCREEN_WIDTH_IN_PIXEL = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
-    public static final String BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-left-anim.png";
-    public static final String BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-right-anim.png";
+    public static final String BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/bigpixie-left-anim.png";
+    public static final String BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/bigpixie-right-anim.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
+    public static final float BAD_FAIRY_SPAWN_THRESHOLD = 5f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
     public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.2f;
     public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;
