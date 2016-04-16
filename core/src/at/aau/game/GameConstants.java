@@ -23,6 +23,7 @@ public class GameConstants {
     
     public static final String MAD_FAIRY_SPRITE_PATH_LEFT = "gameplay/obj-pixie_mad_left.png";
     public static final String MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/obj-pixie_mad_left_upsidedown.png";
+    public static final String EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/evil_fairy_mad_left_upsidedown.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
