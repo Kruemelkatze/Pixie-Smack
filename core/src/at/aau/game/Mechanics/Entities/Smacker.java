@@ -1,6 +1,7 @@
 package at.aau.game.Mechanics.Entities;
 
 import at.aau.game.Mechanics.World;
+import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,8 +21,7 @@ public class Smacker extends MoveableObject {
     private final Animation smackingAnim;
     private Random random = new Random();
     
-    public int SmackCnt = 10;
-    private final int SmackLimit = 10;
+    public int SmackCnt = GameConstants.SMACK_LIMIT;
     private float SmackerRegenerationTime;
     
     public Smacker(Vector2 position, World world) {
@@ -54,7 +54,7 @@ public class Smacker extends MoveableObject {
 	public void update(float delta) {
     	super.update(delta);
     	SmackerRegenerationTime += delta;
-    	if (SmackCnt <= SmackLimit && SmackerRegenerationTime > 0.5){
+    	if (SmackCnt <= GameConstants.SMACK_LIMIT && SmackerRegenerationTime > GameConstants.SMACK_REGENERATION_TIME){
     		SmackCnt += 1;
     		SmackerRegenerationTime = 0;
     	}
