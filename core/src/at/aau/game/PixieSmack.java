@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Vector2;
 
 public class PixieSmack extends ApplicationAdapter {
@@ -91,6 +92,7 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("gameplay/koerbchen_idle.png", Texture.class);
         assMan.load("gameplay/obj_staub_sprit.png", Texture.class);
         assMan.load("gameplay/obj_staub_sprit_bad.png", Texture.class);
+        assMan.load("gameplay/obj_staub_sprit_spec.png", Texture.class);
         assMan.load("gameplay/fairysmack.png", Texture.class);
         assMan.load("gameplay/pixie-left-anim.png", Texture.class);
         assMan.load("gameplay/pixie-right-anim.png", Texture.class);
@@ -102,6 +104,10 @@ public class PixieSmack extends ApplicationAdapter {
 
         assMan.load(GameConstants.PLAYER_SPRITE_PATH, Texture.class);
         assMan.load("gameplay/timer-pink.png", Texture.class);
+        
+        assMan.load("gameplay/randomparticle", ParticleEffect.class);
+        assMan.load("gameplay/randomparticle-bad", ParticleEffect.class);
+        assMan.load("gameplay/randomparticle-good", ParticleEffect.class);
     }
 
     @Override
