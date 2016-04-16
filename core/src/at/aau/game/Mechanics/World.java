@@ -193,7 +193,7 @@ public class World {
 		if (pixieDust.IsBadDust){
 			highscore -= 20;
 		} else if (pixieDust.IsSpecialDust){
-			highscore += 50;
+			highscore += 60;
 		} else {
 			highscore += 10;			
 		}
