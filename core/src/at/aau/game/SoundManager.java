@@ -20,6 +20,11 @@ public class SoundManager {
         event2sound.put("laser", "sfx/laser.wav");
         event2sound.put("pickup", "sfx/pickup.wav");
         event2sound.put("powerup", "sfx/powerup.wav");
+
+        for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
+            event2sound.put("smack" + i, "sfx/smack" + i + ".wav");
+            System.out.println("sfx/smack" + i + ".wav");
+        }
     }
 
     /**

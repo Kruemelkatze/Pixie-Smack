@@ -13,7 +13,7 @@ public class GameConstants {
     public static final int SCREEN_WIDTH_IN_PIXEL = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
-    public static final float FAIRY_SPAWN_THRESHOLD = 2f;
+    public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
     public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.2f;
     public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;

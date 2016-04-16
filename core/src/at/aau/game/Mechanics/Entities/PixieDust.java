@@ -1,7 +1,6 @@
 package at.aau.game.Mechanics.Entities;
 
 import at.aau.game.Mechanics.World;
-import at.aau.game.Mechanics.Entities.MoveableObject.Movement;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,7 +20,7 @@ public class PixieDust extends MoveableObject {
         this.spawnPosition = position.cpy();
 
         movement = Movement.IDLE;
-        movingTime = 0f;
+        animTime = 0f;
         this.speed = 5f;
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png", 0.3f, 64, 64);
         this.direction = new Vector2(0, -1);
@@ -29,7 +28,7 @@ public class PixieDust extends MoveableObject {
 
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
-        frame = movingDownAnimation.getKeyFrame(movingTime, true);
+        frame = movingDownAnimation.getKeyFrame(animTime, true);
         spriteBatch.draw(frame, position.x, position.y);
     }
 
@@ -37,7 +36,7 @@ public class PixieDust extends MoveableObject {
     @Override
     public void update(float delta) {
         super.update(delta);
-        movingTime += delta;
+        animTime += delta;
         move();
 
         if (position.y <= -SIZE.y) {
