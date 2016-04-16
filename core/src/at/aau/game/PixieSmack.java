@@ -67,6 +67,7 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
 
 
+        assMan.load("gameplay/timer-white.png", Texture.class);
     }
 
     @Override

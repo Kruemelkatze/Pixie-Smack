@@ -19,8 +19,12 @@ public class GameConstants {
     public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;
     public static final float FAIRY_MAX_Y = PixieSmack.MENU_GAME_HEIGHT * 0.8f;
 
-    public static final float FAIRY_MAX_X_OFFSET = 100f;
+    public static final float FAIRY_MAX_X_OFFSET = 80f;
     public static final float FAIRY_MAX_Y_OFFSET = 100f;
 
     public static final float SMACKER_REACH = 70;
+    
+    public static final float TIMEOUT = 10;
+    
+    public static final int MAX_FAIRIES = 10;
 }
