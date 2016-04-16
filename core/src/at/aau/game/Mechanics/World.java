@@ -89,7 +89,7 @@ public class World {
 			return;
 		}
 		this.timeElapsed += delta * 1000;
-		this.mmss = String.format("Playtime: %02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
+		this.mmss = String.format("%02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
 				Long.valueOf(TimeUnit.MILLISECONDS.toSeconds(this.timeElapsed) % TimeUnit.MINUTES.toSeconds(1)));
 		for (GameObject go : gameObjects) {
 			go.update(delta);
@@ -128,7 +128,7 @@ public class World {
 
 		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
 			gameEnded = true;
-			highscoreBitmapFont.draw(spriteBatch, "Game Over", PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f);
+            highscoreBitmapFont.draw(spriteBatch, gameOverLayout, PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f);
 			Preferences prefs = Gdx.app.getPreferences("Highscores");
 			if (prefs.contains("highScore1") || this.highscore > prefs.getInteger("highScore1")) {
 				prefs.putInteger("highScore1", this.highscore);
