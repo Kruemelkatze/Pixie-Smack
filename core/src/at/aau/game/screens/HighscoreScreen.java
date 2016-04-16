@@ -5,6 +5,7 @@ import at.aau.game.ScreenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -45,6 +46,22 @@ public class HighscoreScreen extends ScreenAdapter{
 		
 		
 		//scores gets highscores from file;
+		Preferences prefs = Gdx.app.getPreferences("Highscores");
+		if (prefs.contains("highScore1")) {
+			scores[0] = String.valueOf(prefs.getInteger("highScore1"));
+		}
+		if (prefs.contains("highScore2")) {
+			scores[1] = String.valueOf(prefs.getInteger("highScore2"));
+		}
+		if (prefs.contains("highScore3")) {
+			scores[2] = String.valueOf(prefs.getInteger("highScore3"));
+		}
+		if (prefs.contains("highScore4")) {
+			scores[3] = String.valueOf(prefs.getInteger("highScore4"));
+		}
+		if (prefs.contains("highScore5")) {
+			scores[4] = String.valueOf(prefs.getInteger("highScore5"));
+		}
 		
 		
 		batch = new SpriteBatch();

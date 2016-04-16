@@ -9,6 +9,8 @@ import at.aau.game.Mechanics.Entities.*;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -117,6 +119,19 @@ public class World {
 		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
 			gameEnded = true;
 			highscoreBitmapFont.draw(spriteBatch, "Game Over", PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f);
+			Preferences prefs = Gdx.app.getPreferences("Highscores");
+			if (prefs.contains("highScore1") || this.highscore > prefs.getInteger("highScore1")) {
+				prefs.putInteger("highScore1", this.highscore);
+			} else if (prefs.contains("highScore2") || this.highscore > prefs.getInteger("highScore2")) {
+				prefs.putInteger("highScore2", this.highscore);
+			} else if (prefs.contains("highScore3") || this.highscore > prefs.getInteger("highScore3")) {
+				prefs.putInteger("highScore3", this.highscore);
+			} else if (prefs.contains("highScore4") || this.highscore > prefs.getInteger("highScore4")) {
+				prefs.putInteger("highScore4", this.highscore);
+			} else if (prefs.contains("highScore5") || this.highscore > prefs.getInteger("highScore5")) {
+				prefs.putInteger("highScore5", this.highscore);
+			}
+			prefs.flush();
 		}
 		spriteBatch.end();
 	}
