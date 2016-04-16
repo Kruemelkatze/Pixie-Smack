@@ -9,45 +9,53 @@ import at.aau.game.screens.LoadingScreen;
 import at.aau.game.screens.MenuScreen;
 
 public class ScreenManager {
-    public enum ScreenState {Loading, Menu, Highscore, Game, Credits, Help, GameOver};
-    private Screen currentScreen;
-    private ScreenState currentState;
-    private PixieSmack parentGame;
+	public enum ScreenState {
+		Loading, Menu, Highscore, NewGame, ResumeGame, Credits, Help, GameOver
+	}
 
-    public ScreenManager(PixieSmack game) {
-        this.parentGame = game;
-        currentScreen = new LoadingScreen(game);
-        currentState = ScreenState.Loading;
-    }
+	private Screen currentScreen;
+	private GameplayScreen playScreen;
+	private ScreenState currentState;
+	private PixieSmack parentGame;
 
-    public Screen getCurrentScreen() {
-        return currentScreen;
-    }
+	public ScreenManager(PixieSmack game) {
+		this.parentGame = game;
+		currentScreen = new LoadingScreen(game);
+		currentState = ScreenState.Loading;
+	}
 
-    public ScreenState getCurrentState() {
-        return currentState;
-    }
+	public Screen getCurrentScreen() {
+		return currentScreen;
+	}
 
-    public void setCurrentState(ScreenState state) {
-        if (state != currentState) { // only if state changes.
-            currentState = state;
-            if (state == ScreenState.Menu) {
-                currentScreen = new MenuScreen(parentGame);
-            } else if (state == ScreenState.Credits) {
-                currentScreen = new CreditsScreen(parentGame);
-            } else if (state == ScreenState.Game) {
-                currentScreen = new GameplayScreen(parentGame);
-            } else if (state == ScreenState.Highscore){
-            	currentScreen = new HighscoreScreen(parentGame);
-            }
-        }
-    }
+	public ScreenState getCurrentState() {
+		return currentState;
+	}
 
-    public PixieSmack getParentGame() {
-        return parentGame;
-    }
+	public void setCurrentState(ScreenState state) {
+		if (state != currentState) { // only if state changes.
+			currentState = state;
+			if (state == ScreenState.Menu) {
+				currentScreen = new MenuScreen(parentGame);
+			} else if (state == ScreenState.Credits) {
+				currentScreen = new CreditsScreen(parentGame);
+			} else if (state == ScreenState.NewGame) {
+				playScreen = new GameplayScreen(parentGame);
+				currentScreen = playScreen;
+			} else if (state == ScreenState.ResumeGame) {
+				currentScreen = playScreen;
+				playScreen.show();
+			} else if (state == ScreenState.Highscore) {
+				currentScreen = new HighscoreScreen(parentGame);
+			}
+		}
+	}
 
-    public void setParentGame(PixieSmack parentGame) {
-        this.parentGame = parentGame;
-    }
+	public PixieSmack getParentGame() {
+		return parentGame;
+	}
+
+	public void setParentGame(PixieSmack parentGame) {
+		this.parentGame = parentGame;
+	}
 }

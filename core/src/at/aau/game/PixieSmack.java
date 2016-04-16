@@ -15,6 +15,7 @@ public class PixieSmack extends ApplicationAdapter {
     private ScreenManager screenManager;
     private SoundManager soundManager;
     private Animator animator;
+	public boolean alreadyIngame = false;
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.

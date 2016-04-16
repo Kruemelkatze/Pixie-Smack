@@ -12,12 +12,10 @@ import at.aau.game.screens.GameplayScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -105,47 +103,6 @@ public class World {
         this.spawnRandomFairies(delta);
     }
 
-    public void render(float delta) {
-        spriteBatch.begin();
-        for (GameObject go : gameObjects) {
-            go.render(delta, spriteBatch);
-        }
-        for (FairyObject fairy : fairies) {
-            fairy.render(delta, spriteBatch);
-        }
-        for (PixieDust pi : pixieDusts) {
-            pi.render(delta, spriteBatch);
-        }
-        for (SmackAnim smackAnim : smackAnims) {
-            smackAnim.render(delta, spriteBatch);
-        }
-        smacker.render(delta, spriteBatch);
-
-        //highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 - ((int) (Math.log10(highscore) - 1) * 20)), 680);
-        highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, 680);
-
-        highscoreBitmapFont.draw(spriteBatch, this.mmss, 10, 680);
-
-        if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
-            gameEnded = true;
-            highscoreBitmapFont.draw(spriteBatch, gameOverLayout, PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f);
-			Preferences prefs = Gdx.app.getPreferences("Highscores");
-			if (prefs.contains("highScore1") || this.highscore > prefs.getInteger("highScore1")) {
-				prefs.putInteger("highScore1", this.highscore);
-			} else if (prefs.contains("highScore2") || this.highscore > prefs.getInteger("highScore2")) {
-				prefs.putInteger("highScore2", this.highscore);
-			} else if (prefs.contains("highScore3") || this.highscore > prefs.getInteger("highScore3")) {
-				prefs.putInteger("highScore3", this.highscore);
-			} else if (prefs.contains("highScore4") || this.highscore > prefs.getInteger("highScore4")) {
-				prefs.putInteger("highScore4", this.highscore);
-			} else if (prefs.contains("highScore5") || this.highscore > prefs.getInteger("highScore5")) {
-				prefs.putInteger("highScore5", this.highscore);
-			}
-			prefs.flush();
-		}
-		spriteBatch.end();
-	}
-
 	private void spawnRandomFairies(float delta) {
 		this.fairySpawnTimer += delta;
 		if (fairies.size <= GameConstants.MAX_FAIRIES && fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
@@ -158,13 +115,17 @@ public class World {
 	}
 
 	public void touch(Vector2 touchCoords) {
-		smacker.smack();
+				
+		if (!this.gameEnded) {
+			smacker.smack();
 
-		Iterator<FairyObject> iterator = fairies.iterator();
-		while (iterator.hasNext()) {
-			FairyObject fairy = iterator.next();
-			if (isWithinSmackBounds(touchCoords, fairy)) {
-				fairy.onCollision();
+			Iterator<FairyObject> iterator = fairies.iterator();
+			while (iterator.hasNext()) {
+				FairyObject fairy = iterator.next();
+				if (isWithinSmackBounds(touchCoords, fairy)) {
+					fairy.onCollision();
+				}
+
 			}
 		}
 	}
@@ -204,6 +165,7 @@ public class World {
 		pixieDusts.removeValue(pixieDust, true);
 	}
 
+
 	public void pixieSmacked(FairyObject fairy) {
 		spawnDust(fairy.position);
 		spawnSmackAnim(fairy.position);
@@ -218,4 +180,47 @@ public class World {
 	public Array<SmackAnim> getSmackAnims() {
 		return smackAnims;
 	}
+
+	public void render(float delta) {
+		spriteBatch.begin();
+		for (GameObject go : gameObjects) {
+			go.render(delta, spriteBatch);
+		}
+		for (FairyObject fairy : fairies) {
+			fairy.render(delta, spriteBatch);
+		}
+		for (PixieDust pi : pixieDusts) {
+			pi.render(delta, spriteBatch);
+		}
+		for (SmackAnim smackAnim : smackAnims) {
+			smackAnim.render(delta, spriteBatch);
+		}
+		smacker.render(delta, spriteBatch);
+
+		// highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 - ((int) (Math.log10(highscore) - 1) * 20)), 680);
+		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, 680);
+
+		highscoreBitmapFont.draw(spriteBatch, this.mmss, 10, 680);
+
+		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
+			gameEnded = true;
+			highscoreBitmapFont.draw(spriteBatch, gameOverLayout, PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
+					+ gameOverLayout.height / 2f);
+			Preferences prefs = Gdx.app.getPreferences("Highscores");
+			if (prefs.contains("highScore1") || this.highscore > prefs.getInteger("highScore1")) {
+				prefs.putInteger("highScore1", this.highscore);
+			} else if (prefs.contains("highScore2") || this.highscore > prefs.getInteger("highScore2")) {
+				prefs.putInteger("highScore2", this.highscore);
+			} else if (prefs.contains("highScore3") || this.highscore > prefs.getInteger("highScore3")) {
+				prefs.putInteger("highScore3", this.highscore);
+			} else if (prefs.contains("highScore4") || this.highscore > prefs.getInteger("highScore4")) {
+				prefs.putInteger("highScore4", this.highscore);
+			} else if (prefs.contains("highScore5") || this.highscore > prefs.getInteger("highScore5")) {
+				prefs.putInteger("highScore5", this.highscore);
+			}
+			prefs.flush();
+		}
+		spriteBatch.end();
+	}
+
 }
