@@ -36,6 +36,7 @@ public class MenuScreen extends ScreenAdapter {
 		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		menuFont.setColor(GameConstants.COLOR_PINK);
 		// Create camera that projects the desktop onto the actual screen size.
 		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 
@@ -66,9 +67,9 @@ public class MenuScreen extends ScreenAdapter {
 		int offsetFactor = 0;
 		for (int i = 0; i < menuStrings.length; i++) {
 			if (i == currentMenuItem)
-				menuFont.setColor(0.2f, 1f, 0.2f, 1f);
+				menuFont.setColor(0.8f, 0.0f, 0.7f, 1f);
 			else
-				menuFont.setColor(0.2f, 0.2f, 1f, 1f);
+				menuFont.setColor(GameConstants.COLOR_PINK);
 			if (menuStrings[i].equals(GameConstants.RESUME_GAME) && !this.parentGame.alreadyIngame) {
 				menuFont.setColor(0.3f, 0.3f, 0.3f, 1f);
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);

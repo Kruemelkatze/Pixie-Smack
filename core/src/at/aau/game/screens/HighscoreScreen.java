@@ -1,5 +1,6 @@
 package at.aau.game.screens;
 
+import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
 
@@ -89,13 +90,13 @@ public class HighscoreScreen extends ScreenAdapter{
 		// draw bgImage ...
 		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 		// draw heading
-		highscoreFont.setColor(0.2f, 0.2f, 1f, 1f);
+		highscoreFont.setColor(GameConstants.COLOR_PINK);
 		highscoreFont.draw(batch, highscore, offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop);
 		
 		
 		// draw String- scores ...
 		for (int i = 0; i < scores.length; i++) {
-			highscoreFontEntries.setColor(0.2f, 0.2f, 1f, 1f);
+			highscoreFontEntries.setColor(GameConstants.COLOR_PINK);
 			highscoreFontEntries.draw(batch, scores[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY -120);
 		}
 		batch.end();

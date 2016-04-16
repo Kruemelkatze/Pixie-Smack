@@ -74,7 +74,7 @@ public class World {
         highscoreBitmapFont = new BitmapFont();
         highscoreBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
         highscoreBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        highscoreBitmapFont.setColor(1f, 120f / 255f, 246f / 255f, 1.0f);
+        highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
         highScoreLayout = new GlyphLayout(highscoreBitmapFont, highscoreName);
         gameOverLayout = new GlyphLayout(highscoreBitmapFont, "Game Over");
 
