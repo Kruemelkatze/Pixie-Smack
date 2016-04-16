@@ -28,7 +28,7 @@ public class MenuScreen extends ScreenAdapter {
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
 
-	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 3, offsetTop = PixieSmack.MENU_GAME_WIDTH / 4, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
+	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 3.8f, offsetTop = PixieSmack.MENU_GAME_WIDTH / 4, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
 
 	public MenuScreen(PixieSmack game) {
 		this.parentGame = game;
