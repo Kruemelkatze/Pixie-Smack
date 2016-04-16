@@ -18,7 +18,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
 	//Scores auf größe 5 begrenzen!
-	public String[] scores = {"nie gespielt"};
+	public String[] scores = new String[5];
 	
 	Texture backgroundImage;
 	BitmapFont highscoreFont;
@@ -44,7 +44,8 @@ public class HighscoreScreen extends ScreenAdapter{
 		highscoreFontEntries = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		highscoreFontEntries.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		
-		
+		scores[0] = "nie gespielt";
+		scores[1] = scores [2] = scores[3] = scores[4] = "";
 		//scores gets highscores from file;
 		Preferences prefs = Gdx.app.getPreferences("Highscores");
 		if (prefs.contains("highScore1")) {

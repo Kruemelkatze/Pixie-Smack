@@ -120,15 +120,37 @@ public class World {
 			gameEnded = true;
 			highscoreBitmapFont.draw(spriteBatch, "Game Over", PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f);
 			Preferences prefs = Gdx.app.getPreferences("Highscores");
-			if (prefs.contains("highScore1") || this.highscore > prefs.getInteger("highScore1")) {
+			if (!prefs.contains("highScore1")) {
+				prefs.putInteger("highScore1", 0);
+				prefs.putInteger("highScore2", 0);
+				prefs.putInteger("highScore3", 0);
+				prefs.putInteger("highScore4", 0);
+				prefs.putInteger("highScore5", 0);
+			}
+			int highscore1 = prefs.getInteger("highScore1");
+			int highscore2 = prefs.getInteger("highScore2");
+			int highscore3 = prefs.getInteger("highScore3");
+			int highscore4 = prefs.getInteger("highScore4");
+			int highscore5 = prefs.getInteger("highScore5");
+			if (this.highscore > highscore1) {
+				prefs.putInteger("highScore2", highscore1);
+				prefs.putInteger("highScore3", highscore2);
+				prefs.putInteger("highScore4", highscore3);
+				prefs.putInteger("highScore5", highscore4);
 				prefs.putInteger("highScore1", this.highscore);
-			} else if (prefs.contains("highScore2") || this.highscore > prefs.getInteger("highScore2")) {
+			} else if (this.highscore > highscore1 && this.highscore > highscore2) {
+				prefs.putInteger("highScore3", highscore2);
+				prefs.putInteger("highScore4", highscore3);
+				prefs.putInteger("highScore5", highscore4);
 				prefs.putInteger("highScore2", this.highscore);
-			} else if (prefs.contains("highScore3") || this.highscore > prefs.getInteger("highScore3")) {
+			} else if (this.highscore < highscore2 && this.highscore > highscore3) {
+				prefs.putInteger("highScore4", highscore3);
+				prefs.putInteger("highScore5", highscore4);
 				prefs.putInteger("highScore3", this.highscore);
-			} else if (prefs.contains("highScore4") || this.highscore > prefs.getInteger("highScore4")) {
+			} else if (this.highscore < highscore3 && this.highscore > highscore4) {
+				prefs.putInteger("highScore5", highscore4);
 				prefs.putInteger("highScore4", this.highscore);
-			} else if (prefs.contains("highScore5") || this.highscore > prefs.getInteger("highScore5")) {
+			} else if (this.highscore < highscore4 && this.highscore > highscore5) {
 				prefs.putInteger("highScore5", this.highscore);
 			}
 			prefs.flush();
