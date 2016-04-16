@@ -46,14 +46,12 @@ public class GameplayScreen extends ScreenAdapter {
 		cam = new OrthographicCamera();
 		float width = PixieSmack.MENU_GAME_WIDTH;
 		float height = PixieSmack.MENU_GAME_HEIGHT;
-		Viewport viewport = new FillViewport(width, height, cam);
-		viewport.apply();
+		//Viewport viewport = new FillViewport(width, height, cam);
+		//viewport.apply();
 
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-
-		// cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
-		// cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
-		// cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
+		cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
+		cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
+		cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);

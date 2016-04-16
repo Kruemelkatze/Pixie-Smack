@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class Smacker extends MoveableObject {
 	public static final Vector2 SIZE = new Vector2(100, 230);
-	public static final Vector2 SMACK_OFFSET = new Vector2(160, 100);
+	public static final Vector2 SMACK_OFFSET = new Vector2(120, 60); //  (160, 100);
 	private final Animation smackingAnim;
 	private Random random = new Random();
 
