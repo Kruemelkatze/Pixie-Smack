@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class Koerbchen extends SkeletonControlledObject {
 
     static Vector2 SIZE = new Vector2(100, 70);
-    static float PICKUP_DISTANCE = 80;
+    static float PICKUP_DISTANCE = 70;
 
     public Koerbchen(Vector2 position, World world) {
         super(position, world, SIZE);
@@ -46,6 +46,8 @@ public class Koerbchen extends SkeletonControlledObject {
     }
 
     private boolean isWithinPickupBounds(GameObject dust) {
-        return dust.position.dst(this.position) <= PICKUP_DISTANCE;
+        boolean nearEnuff = dust.position.dst(this.position) <= PICKUP_DISTANCE;
+        boolean isOnTop = dust.position.y + 20 > this.position.y;
+        return nearEnuff && isOnTop;
     }
 }

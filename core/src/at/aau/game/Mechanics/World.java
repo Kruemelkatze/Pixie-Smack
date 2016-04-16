@@ -22,6 +22,7 @@ public class World {
     public Array<GameObject> gameObjects;
     public Array<PixieDust> pixieDusts;
     public Array<FairyObject> fairies;
+    public Array<SmackAnim> smackAnims;
     public GameplayScreen gameplayScreen;
     public int highscore;
     public String highscoreName;
@@ -43,6 +44,7 @@ public class World {
         gameObjects = new Array<GameObject>();
         pixieDusts = new Array<PixieDust>();
         fairies = new Array<FairyObject>();
+        smackAnims = new Array<SmackAnim>();
         this.gameplayScreen = gameplayScreen;
 
         size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
@@ -54,11 +56,11 @@ public class World {
         smacker = new Smacker(Vector2.Zero, this);
 
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
-        
+
         highscore = 0;
         highscoreName = "Score: 0";
         highscoreBitmapFont = new BitmapFont();
-       
+
 
     }
 
@@ -83,15 +85,20 @@ public class World {
         for (GameObject go : gameObjects) {
             go.render(delta, spriteBatch);
         }
-        for (FairyObject fairy : fairies) {
-            fairy.render(delta, spriteBatch);
-        }
         for (PixieDust pi : pixieDusts) {
             pi.render(delta, spriteBatch);
         }
+        for (FairyObject fairy : fairies) {
+            fairy.render(delta, spriteBatch);
+        }
+        for (SmackAnim smackAnim : smackAnims) {
+            smackAnim.render(delta, spriteBatch);
+        }
+
         highscoreBitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         highscoreBitmapFont.draw(spriteBatch, highscoreName, 910, 700);
         smacker.render(delta, spriteBatch);
+
         spriteBatch.end();
     }
 
@@ -140,10 +147,9 @@ public class World {
     public void pixieDustCollected(PixieDust pixieDust, float distance) {
         //Give points and stuff
         highscore += 10;
-        highscoreName = "Score: "+highscore;
-        
-        System.out.println(highscore);
-        pixieDusts.removeValue(pixieDust, true);
+        highscoreName = "Score: " + highscore;
+
+       pixieDusts.removeValue(pixieDust, true);
     }
 
     public void pixieDustMissed(PixieDust pixieDust) {
@@ -152,10 +158,20 @@ public class World {
 
     public void pixieSmacked(FairyObject fairy) {
         spawnDust(fairy.position);
+        spawnSmackAnim(fairy.position);
         fairies.removeValue(fairy, true);
     }
 
     private boolean isWithinSmackBounds(Vector2 touchPosition, GameObject dust) {
         return dust.position.dst(touchPosition) <= GameConstants.SMACKER_REACH;
+    }
+
+    private void spawnSmackAnim(Vector2 position) {
+        SmackAnim smackAnim = new SmackAnim(position, this);
+        smackAnims.add(smackAnim);
+    }
+
+    public Array<SmackAnim> getSmackAnims() {
+        return smackAnims;
     }
 }

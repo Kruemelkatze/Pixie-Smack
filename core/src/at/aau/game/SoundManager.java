@@ -23,7 +23,10 @@ public class SoundManager {
 
         for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
             event2sound.put("smack" + i, "sfx/smack" + i + ".wav");
-            System.out.println("sfx/smack" + i + ".wav");
+        }
+
+        for (int i = 1; i <= PixieSmack.CollectSoundsCount; i++) {
+            event2sound.put("collect" + i, "sfx/collect" + i + ".wav");
         }
     }
 

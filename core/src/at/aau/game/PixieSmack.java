@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PixieSmack extends ApplicationAdapter {
     public static int SmackSoundsCount = 5;
+    public static int CollectSoundsCount = 2;
     private AssetManager assMan;
     private ScreenManager screenManager;
     private SoundManager soundManager;
@@ -51,6 +52,10 @@ public class PixieSmack extends ApplicationAdapter {
         for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
             assMan.load("sfx/smack" + i + ".wav", Sound.class);
         }
+        //Collect sounds
+        for (int i = 1; i <= PixieSmack.CollectSoundsCount; i++) {
+            assMan.load("sfx/collect" + i + ".wav", Sound.class);
+        }
 
         // Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);
@@ -63,7 +68,7 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("gameplay/koerbchen_right.png", Texture.class);
         assMan.load("gameplay/koerbchen_idle.png", Texture.class);
         assMan.load("gameplay/obj_staub_sprit.png", Texture.class);
-        assMan.load("gameplay/obj_staub_sprit.png", Texture.class);
+        assMan.load("gameplay/fairysmack.png", Texture.class);
         assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
 
 

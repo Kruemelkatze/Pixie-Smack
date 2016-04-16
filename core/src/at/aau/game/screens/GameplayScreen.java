@@ -41,6 +41,8 @@ public class GameplayScreen extends ScreenAdapter {
         cam.update();
 
         batch = new SpriteBatch();
+
+        Gdx.input.setCursorCatched(true);
     }
 
     @Override
@@ -78,8 +80,6 @@ public class GameplayScreen extends ScreenAdapter {
             Vector3 unprojected = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
             Vector2 touchPixelCoords = PixieSmack.worldToPixel(new Vector2(unprojected.x, unprojected.y));
             world.touch(touchPixelCoords);
-            System.out.println(touchPixelCoords);
-
         }
     }
 

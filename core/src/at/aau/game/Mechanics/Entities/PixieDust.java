@@ -2,15 +2,20 @@ package at.aau.game.Mechanics.Entities;
 
 import at.aau.game.Mechanics.World;
 
+import at.aau.game.PixieSmack;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 public class PixieDust extends MoveableObject {
     private TextureRegion frame;
     private Animation movingDownAnimation;
     private Vector2 spawnPosition;
+
+    private Random random = new Random();
 
     static Vector2 SIZE = new Vector2(64, 64);
 
@@ -49,6 +54,9 @@ public class PixieDust extends MoveableObject {
     }
 
     public void collect() {
+        int randomNum = random.nextInt(PixieSmack.CollectSoundsCount) + 1;
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("collect" + randomNum);
+
         float distance = spawnPosition.dst(position);
 
         world.pixieDustCollected(this, distance);
