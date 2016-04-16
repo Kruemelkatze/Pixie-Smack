@@ -141,19 +141,13 @@ public class World {
 
     public void pixieDustCollected(PixieDust pixieDust, float distance) {
         //Give points and stuff
-<<<<<<< HEAD
-        points += 10;
-        if (points == Math.pow(2, this.fairySpawnStage)*100) {
+        highscore += 10;
+        if (highscore == Math.pow(2, this.fairySpawnStage)*100) {
         	this.fairySpawnSpeed *= 0.9f;
         	this.fairySpawnStage++;
         }
-        System.out.println(points);
-=======
         highscore += 10;
         highscoreName = "Score: "+highscore;
-        
-        System.out.println(highscore);
->>>>>>> 438e5c762c8a4849d8fbd964a26dde4f5e20eb66
         pixieDusts.removeValue(pixieDust, true);
     }
 
