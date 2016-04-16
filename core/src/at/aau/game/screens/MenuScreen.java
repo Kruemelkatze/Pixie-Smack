@@ -21,7 +21,7 @@ public class MenuScreen extends ScreenAdapter {
 	Texture backgroundImage;
 	BitmapFont menuFont;
 
-	String[] menuStrings = { "Play", "Credits", "Exit" };
+	String[] menuStrings = { "Play", "Highscore", "Credits", "Exit" };
 	int currentMenuItem = 0;
 
 	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 8, offsetTop = PixieSmack.MENU_GAME_WIDTH / 8, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
@@ -78,6 +78,10 @@ public class MenuScreen extends ScreenAdapter {
 				parentGame.getSoundManager().playEvent("explode");
 			} else if (menuStrings[currentMenuItem].equals("Credits")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+			} else if (menuStrings[currentMenuItem].equals("Play")){
+				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
+			} else if (menuStrings[currentMenuItem].equals("Highscore")){
+				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 			}
 		}
 		// touch
@@ -95,6 +99,8 @@ public class MenuScreen extends ScreenAdapter {
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
 						} else if (menuStrings[i].equals("Credits")) {
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+						} else if (menuStrings[i].equals("Highscore")) {
+							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 						}
 					}
 				}
