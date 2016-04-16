@@ -18,6 +18,7 @@ public abstract class GameObject {
     Texture texture;
     Array<State> states;
     Vector2 size;
+    protected boolean isDead = false;
 
 
     public GameObject(Vector2 position, World world, Vector2 size) {
@@ -45,8 +46,27 @@ public abstract class GameObject {
         }
     }
 
-    ;
-
     public abstract void render(float delta, SpriteBatch spriteBatch);
 
+    public boolean isDead(){
+    	return this.isDead;
+    }
+    public void setDead(){
+    	this.isDead = true;
+    	this.world.toDelete.add(this);
+    }
+    
+    public void checkWorldBorders(){
+    	if (this.position.x < 0) {
+    		this.position.x = 0;
+    	} else if (this.position.x > world.pixelSize.x - size.x) {
+    		this.position.x = world.pixelSize.x - size.x;
+    	}
+
+    	if (this.position.y < 0) {
+    		this.position.y = 0;
+    	} else if (this.position.y > world.pixelSize.y - size.y) {
+    		this.position.y = world.pixelSize.y - size.y;
+    	}
+    }
 }

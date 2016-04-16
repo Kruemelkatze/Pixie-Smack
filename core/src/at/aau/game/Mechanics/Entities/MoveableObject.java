@@ -1,7 +1,8 @@
 package at.aau.game.Mechanics.Entities;
 
 import at.aau.game.Mechanics.World;
-import at.aau.game.Mechanics.States.Direction;
+import at.aau.game.Mechanics.States.DirectionX;
+import at.aau.game.Mechanics.States.DirectionY;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -11,7 +12,9 @@ public abstract class MoveableObject extends GameObject {
 	Float speed;
 	Movement movement;
 	Float movingTime;
-	protected Direction directionEnum = Direction.STOP;
+	protected DirectionX directionX = DirectionX.RIGHT;
+	protected DirectionY directionY = DirectionY.UP;
+	//protected DirectionX directionY = DirectionX.STOP;
 
     public MoveableObject(Vector2 position, World world, Vector2 size) {
         super(position, world, size);

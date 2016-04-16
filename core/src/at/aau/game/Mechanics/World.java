@@ -1,14 +1,15 @@
 package at.aau.game.Mechanics;
 
-import java.util.Iterator;
 import java.util.Random;
 
 import at.aau.game.GameConstants;
-import at.aau.game.Mechanics.Entities.*;
+import at.aau.game.Mechanics.Entities.FairyObject;
+import at.aau.game.Mechanics.Entities.GameObject;
+import at.aau.game.Mechanics.Entities.PixieDust;
+import at.aau.game.Mechanics.Entities.Koerbchen;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.Array;
 public class World {
     private SpriteBatch spriteBatch;
     public Array<GameObject> gameObjects;
+    public Array<GameObject> toDelete;
     public Array<PixieDust> pixieDusts;
     public Array<FairyObject> fairies;
     public GameplayScreen gameplayScreen;
@@ -38,6 +40,7 @@ public class World {
         gameObjects = new Array<GameObject>();
         pixieDusts = new Array<PixieDust>();
         fairies = new Array<FairyObject>();
+        toDelete =new Array<GameObject>();
         this.gameplayScreen = gameplayScreen;
 
         size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
@@ -45,13 +48,13 @@ public class World {
 
         koerbchen = new Koerbchen(new Vector2(50, 200), this);
         gameObjects.add(koerbchen);
-
+        
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
 
     }
 
     public void update(float delta) {
-        for (GameObject go : gameObjects) {
+        for (GameObject go: gameObjects) {
             go.update(delta);
         }
 
@@ -62,8 +65,8 @@ public class World {
         for (PixieDust pi : pixieDusts) {
             pi.update(delta);
         }
-        this.spawnRandomFairies(delta);
-        this.checkClickOnFairies();
+		this.spawnRandomFairies(delta);
+		this.checkClickOnFairies();
     }
 
     public void render(float delta) {
@@ -77,13 +80,17 @@ public class World {
         for (PixieDust pi : pixieDusts) {
             pi.render(delta, spriteBatch);
         }
+        for (GameObject go: this.toDelete) {
+        	gameObjects.removeValue(go, false);
+        }
+        this.toDelete.clear();
         spriteBatch.end();
     }
 
-    private void checkClickOnFairies() {
-        // TODO Auto-generated method stub
+	private void checkClickOnFairies() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
     private void spawnRandomFairies(float delta) {
         this.fairySpawnTimer += delta;
