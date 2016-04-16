@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameplayScreen extends ScreenAdapter {
 
@@ -40,21 +42,26 @@ public class GameplayScreen extends ScreenAdapter {
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
-		//cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
-		cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
-		cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
-		cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
-		cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
-		cam.update();
-		System.out.println(cam.viewportWidth + " " + cam.viewportHeight);
+		// cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
+		cam = new OrthographicCamera();
+		float width = PixieSmack.MENU_GAME_WIDTH;
+		float height = PixieSmack.MENU_GAME_HEIGHT;
+		Viewport viewport = new FillViewport(width, height, cam);
+		viewport.apply();
+
+		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+
+		// cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
+		// cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
+		// cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);
-
 	}
 
 	@Override
 	public void render(float delta) {
+		cam.update();
 		this.parentGame.alreadyIngame = true;
 		world.gameplayScreen.parentGame.getSoundManager().playEvent(GameConstants.GAME_MUSIC);
 		if (pause) {

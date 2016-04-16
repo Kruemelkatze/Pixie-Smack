@@ -1,22 +1,22 @@
 package at.aau.game.Mechanics;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import at.aau.game.GameConstants;
+import at.aau.game.ScreenManager;
 import at.aau.game.Mechanics.Entities.*;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Array;
 
@@ -50,6 +50,8 @@ public class World {
 
 	private GlyphLayout highScoreLayout;
 	private GlyphLayout gameOverLayout;
+    private GlyphLayout retryLayout;
+    private GlyphLayout menuLayout;
 
 	private long timeElapsed;
 	private String mmss;
@@ -93,6 +95,8 @@ public class World {
 		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 		highScoreLayout = new GlyphLayout(highscoreBitmapFont, highscoreName);
 		gameOverLayout = new GlyphLayout(highscoreBitmapFont, "Game Over");
+        retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
+        menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
 
 		Timer timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT-100), this, new Vector2(80, 75));
 		gameObjects.add(timer);
@@ -188,6 +192,18 @@ public class World {
 					fairy.onCollision();
 				}
 
+			}
+		} else if (gameEnded) {
+			if (Gdx.input.justTouched()) {
+				// find the menu item ..
+					float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f
+							+ gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
+					if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos) {
+					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
+				} else if (touchCoords.y < pos && touchCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
+					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+				}
 			}
 		}
 	}
@@ -342,9 +358,12 @@ public class World {
 				prefs.flush();
 			}
 			gameEnded = true;
-			highscoreBitmapFont.draw(spriteBatch, gameOverLayout,
-					PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f,
-					PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f);
+			highscoreBitmapFont.draw(spriteBatch, gameOverLayout, PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
+					+ gameOverLayout.height / 2f + PixieSmack.MENU_GAME_WIDTH / 16f);
+			highscoreBitmapFont.draw(spriteBatch, retryLayout, PixieSmack.MENU_GAME_WIDTH / 2f - retryLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
+					+ retryLayout.height / 2f);
+			highscoreBitmapFont.draw(spriteBatch, menuLayout, PixieSmack.MENU_GAME_WIDTH / 2f - menuLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
+					+ menuLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f);
 		}
 		spriteBatch.end();
 	}
