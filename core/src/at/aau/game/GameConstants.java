@@ -2,6 +2,8 @@ package at.aau.game;
 
 import java.awt.Toolkit;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * @author Kevin-Laptop
  */
@@ -13,6 +15,7 @@ public class GameConstants {
     public static final int SCREEN_WIDTH_IN_PIXEL = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
+    public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
     public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.2f;
@@ -30,4 +33,6 @@ public class GameConstants {
     
     public static final String NEW_GAME = "New Game";
     public static final String RESUME_GAME = "Resume Game";
+    
+    public static final Color COLOR_PINK = new Color(1f, 130f / 255f, 1.0f, 1.0f);
 }

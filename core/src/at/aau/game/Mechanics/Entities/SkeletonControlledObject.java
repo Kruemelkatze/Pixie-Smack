@@ -16,13 +16,13 @@ import at.aau.game.Mechanics.World;
 public abstract class SkeletonControlledObject extends MoveableObject {
 
     private boolean moveUp, moveDown, moveLeft, moveRight;
-    private Heading heading = Heading.IDLE;
+    protected Heading heading = Heading.IDLE;
     protected Animation idleAnimation;
     protected Animation movingUpAnimation;
     protected Animation movingDownAnimation;
     protected Animation movingLeftAnimation;
     protected Animation movingRightAnimation;
-    private TextureRegion frame;
+    protected TextureRegion frame;
 
     public SkeletonControlledObject(Vector2 position, World world, Vector2 size) {
         super(position, world, size);

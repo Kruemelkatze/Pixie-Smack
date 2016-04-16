@@ -1,6 +1,8 @@
 package at.aau.game.Mechanics.Entities;
 
+import at.aau.game.GameConstants;
 import at.aau.game.Mechanics.World;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -14,25 +16,11 @@ public class Koerbchen extends SkeletonControlledObject {
 
     public Koerbchen(Vector2 position, World world) {
         super(position, world, SIZE);
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_idle.png", 0.3f, 100, 70);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.PLAYER_SPRITE_PATH, 0.3f, 100, 70);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_up.png", 0.3f, 100, 70);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_down.png", 0.3f, 100, 70);
         this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_left.png", 0.3f, 100, 70);
         this.movingRightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_right.png", 0.3f, 100, 70);
-    }
-
-    /**
-     * Your typical render function
-     *
-     * @param delta
-     * @param spriteBatch heading must be set accordingly: 1 - UP, 2 - Right, 3 - Down, 4 - Left
-     */
-    @Override
-    public void render(float delta, SpriteBatch spriteBatch) {
-        super.render(delta, spriteBatch);
-
-        //Check for collisions with pixie dust
-        collectPixieDust();
     }
 
     private void collectPixieDust() {
@@ -49,5 +37,32 @@ public class Koerbchen extends SkeletonControlledObject {
         boolean nearEnuff = dust.position.dst(this.position) <= PICKUP_DISTANCE;
         boolean isOnTop = dust.position.y + 20 > this.position.y;
         return nearEnuff && isOnTop;
+    }
+    
+    public void render(float delta, SpriteBatch spriteBatch) {
+        switch (heading) {
+            case UP:
+                frame = idleAnimation.getKeyFrame(animTime, true);
+                spriteBatch.draw(frame, position.x, position.y);
+                break;
+            case RIGHT:
+                frame = idleAnimation.getKeyFrame(animTime, true);
+                spriteBatch.draw(frame, position.x, position.y);
+                break;
+            case DOWN:
+                frame = idleAnimation.getKeyFrame(animTime, true);
+                spriteBatch.draw(frame, position.x, position.y);
+                break;
+            case LEFT:
+                frame = idleAnimation.getKeyFrame(animTime, true);
+                spriteBatch.draw(frame, position.x, position.y);
+                break;
+            default:
+                frame = idleAnimation.getKeyFrame(animTime, true);
+                spriteBatch.draw(frame, position.x, position.y);
+        }
+        
+        //Check for collisions with pixie dust
+        collectPixieDust();
     }
 }
