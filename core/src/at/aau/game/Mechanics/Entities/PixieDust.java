@@ -50,7 +50,9 @@ public class PixieDust extends MoveableObject {
     }
 
     public void collect() {
-        world.pixieDustCollected(this);
+        float distance = spawnPosition.dst(position);
+
+        world.pixieDustCollected(this, distance);
     }
 
 }

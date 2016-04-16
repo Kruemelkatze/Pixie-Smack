@@ -124,9 +124,12 @@ public class World {
         pixieDusts.add(pixieDust);
     }
 
-    public void pixieDustCollected(PixieDust pixieDust) {
-        //Give points and stuff
+    int points = 0;
 
+    public void pixieDustCollected(PixieDust pixieDust, float distance) {
+        //Give points and stuff
+        points += 10;
+        System.out.println(points);
         pixieDusts.removeValue(pixieDust, true);
     }
 
