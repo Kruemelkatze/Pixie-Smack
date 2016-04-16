@@ -52,7 +52,7 @@ public class GameplayScreen extends ScreenAdapter {
 	@Override
 	public void render(float delta) {
 		this.parentGame.alreadyIngame = true;
-		world.gameplayScreen.parentGame.getSoundManager().playEvent("gameMusic");
+		world.gameplayScreen.parentGame.getSoundManager().playEvent(GameConstants.GAME_MUSIC);
 		if (pause) {
 			return;
 		}
@@ -90,14 +90,14 @@ public class GameplayScreen extends ScreenAdapter {
 
 	public void show() {
 		this.pause = false;
-		parentGame.getSoundManager().resumeEvent("gameMusic");
+		//parentGame.getSoundManager().resumeEvent(GameConstants.GAME_MUSIC);
 		Gdx.input.setCursorCatched(true);
 	}
 
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
 			this.pause = true;
-			parentGame.getSoundManager().pauseEvent("gameMusic");
+			//parentGame.getSoundManager().pauseEvent(GameConstants.GAME_MUSIC);
 			Gdx.input.setCursorCatched(false);
 			this.world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 			parentGame.getSoundManager().playEvent("blip");

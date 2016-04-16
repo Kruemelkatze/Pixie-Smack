@@ -97,7 +97,7 @@ public class FairyObject extends MoveableObject {
         super.update(delta);
     }
 
-    private void checkXcoord() {
+    protected void checkXcoord() {
         if (this.position.x >= startPosition.x + GameConstants.FAIRY_MAX_X_OFFSET || this.position.x >= world.pixelSize.x) {
             this.directionX = DirectionX.LEFT;
         } else if (this.position.x <= startPosition.x - GameConstants.FAIRY_MAX_X_OFFSET || this.position.x <= 0) {
@@ -111,7 +111,7 @@ public class FairyObject extends MoveableObject {
         }
     }
 
-    private void checkYcoord() {
+    protected void checkYcoord() {
         if (this.directionY.equals(DirectionY.UP)
                 && (this.position.y >= startPosition.y + GameConstants.FAIRY_MAX_Y_OFFSET || this.position.y >= world.pixelSize.y)) {
             this.directionY = DirectionY.DOWN;

@@ -1,7 +1,9 @@
 package at.aau.game.screens;
 
+import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
+import at.aau.game.SoundManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -17,7 +19,7 @@ public class CreditsScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-	Music menuMusic;
+	//Music menuMusic;
 	Texture backgroundImage, gradientTop, gradientBottom;
 	BitmapFont creditsFont;
 
@@ -42,9 +44,10 @@ public class CreditsScreen extends ScreenAdapter {
 
 		batch = new SpriteBatch();
 		
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sfx/introMusic.wav"));
-		menuMusic.setLooping(true);
-		menuMusic.play();
+		this.parentGame.getSoundManager().playEvent(GameConstants.INRO_MUSIC);
+		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
+		//menuMusic.setLooping(true);
+		//menuMusic.play();
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class CreditsScreen extends ScreenAdapter {
 
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
-			menuMusic.stop();
+			//SoundManager.stopMusic();
 			parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 		}
 	}

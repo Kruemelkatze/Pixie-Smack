@@ -3,6 +3,7 @@ package at.aau.game.screens;
 import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
+import at.aau.game.SoundManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -22,7 +23,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	//Scores auf größe 5 begrenzen!
 	public String[] scores = new String[5];
 	
-	Music menuMusic;
+	//Music menuMusic;
 	
 	Texture backgroundImage;
 	BitmapFont highscoreFont;
@@ -71,9 +72,9 @@ public class HighscoreScreen extends ScreenAdapter{
 		
 		batch = new SpriteBatch();
 		
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sfx/introMusic.wav"));
-		menuMusic.setLooping(true);
-		menuMusic.play();
+		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
+		//menuMusic.setLooping(true);
+		//menuMusic.play();
 		
 	}
 	
@@ -104,12 +105,8 @@ public class HighscoreScreen extends ScreenAdapter{
 	
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
-			menuMusic.stop();
+			//SoundManager.stopMusic();
 			parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 		}
 	}
-
-	
-	
-
 }

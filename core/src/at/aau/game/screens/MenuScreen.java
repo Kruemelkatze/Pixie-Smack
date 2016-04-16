@@ -23,7 +23,7 @@ public class MenuScreen extends ScreenAdapter {
 	private PixieSmack parentGame;
 	Texture backgroundImage;
 	BitmapFont menuFont;
-	Music menuMusic;
+	//Music menuMusic;
 
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Highscore", "Credits", "Exit" };
 	int currentMenuItem = 0;
@@ -45,9 +45,10 @@ public class MenuScreen extends ScreenAdapter {
 
 		batch = new SpriteBatch();
 		
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sfx/introMusic.wav"));
-		menuMusic.setLooping(true);
-		menuMusic.play();
+		this.parentGame.getSoundManager().playEvent(GameConstants.INRO_MUSIC);
+		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
+		//menuMusic.setLooping(true);
+		//menuMusic.play();
 		
 	}
 
@@ -91,7 +92,7 @@ public class MenuScreen extends ScreenAdapter {
 		// keys ...
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && this.parentGame.alreadyIngame) { // JUST
 			this.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
-			menuMusic.stop();
+			//SoundManager.stopMusic();
 			parentGame.getSoundManager().playEvent("blip");
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentMenuItem = (currentMenuItem + 1) % menuStrings.length;
@@ -114,17 +115,17 @@ public class MenuScreen extends ScreenAdapter {
 				Gdx.app.exit();
 				parentGame.getSoundManager().playEvent("explode");
 			} else if (menuStrings[currentMenuItem].equals("Credits")) {
-				menuMusic.stop();
+				//SoundManager.stopMusic();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 			} else if (menuStrings[currentMenuItem].equals(GameConstants.NEW_GAME)) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
-				menuMusic.stop();
+				//SoundManager.stopMusic();
 			} else if (menuStrings[currentMenuItem].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
-				menuMusic.stop();
+				//SoundManager.stopMusic();
 			} else if (menuStrings[currentMenuItem].equals("Highscore")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
-				menuMusic.stop();
+				//SoundManager.stopMusic();
 			}
 		}
 		// touch
@@ -139,16 +140,16 @@ public class MenuScreen extends ScreenAdapter {
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
 						} else if (menuStrings[i].equals(GameConstants.NEW_GAME)) {
-							menuMusic.stop();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 						} else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
-							menuMusic.stop();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
-							menuMusic.stop();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 						} else if (menuStrings[i].equals("Highscore")) {
-							menuMusic.stop();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 						}
 					}

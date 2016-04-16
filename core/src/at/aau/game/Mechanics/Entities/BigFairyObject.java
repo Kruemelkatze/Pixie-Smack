@@ -1,13 +1,11 @@
 package at.aau.game.Mechanics.Entities;
 
-import java.util.Random;
-
 import at.aau.game.GameConstants;
+import at.aau.game.SoundManager;
 import at.aau.game.Mechanics.States.DirectionX;
 import at.aau.game.Mechanics.States.DirectionY;
 import at.aau.game.Mechanics.World;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -37,7 +35,6 @@ public class BigFairyObject extends FairyObject {
             this.speed = 1.0f*2;
         }
         speed = 0.2f;
-        System.out.println("big fairy");
         this.leftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x,
                 (int) this.size.y);
         this.rightAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x,
@@ -71,6 +68,7 @@ public class BigFairyObject extends FairyObject {
         this.health--;
         if (this.health <= 0) {
             this.isDead = true;
+            this.world.gameplayScreen.parentGame.getSoundManager().playEvent("dead");
             world.pixieSmacked(this);
         }
     }
@@ -82,34 +80,5 @@ public class BigFairyObject extends FairyObject {
 
         this.checkWorldBorders();
         super.update(delta);
-    }
-
-    private void checkXcoord() {
-        if (this.position.x >= startPosition.x + GameConstants.FAIRY_MAX_X_OFFSET || this.position.x >= world.pixelSize.x) {
-            this.directionX = DirectionX.LEFT;
-        } else if (this.position.x <= startPosition.x - GameConstants.FAIRY_MAX_X_OFFSET || this.position.x <= 0) {
-            this.directionX = DirectionX.RIGHT;
-        }
-
-        if (this.directionX.equals(DirectionX.RIGHT)) {
-            this.position.x += this.speed;
-        } else if (this.directionX.equals(DirectionX.LEFT)) {
-            this.position.x -= this.speed;
-        }
-    }
-
-    private void checkYcoord() {
-        if (this.directionY.equals(DirectionY.UP)
-                && (this.position.y >= startPosition.y + GameConstants.FAIRY_MAX_Y_OFFSET || this.position.y >= world.pixelSize.y)) {
-            this.directionY = DirectionY.DOWN;
-        } else if (this.directionY.equals(DirectionY.DOWN) && (this.position.y <= startPosition.y - GameConstants.FAIRY_MAX_Y_OFFSET || this.position.y <= 0)) {
-            this.directionY = DirectionY.UP;
-        }
-
-        if (this.directionY.equals(DirectionY.UP)) {
-            this.position.y += this.speed;
-        } else if (this.directionY.equals(DirectionY.DOWN)) {
-            this.position.y -= this.speed;
-        }
     }
 }

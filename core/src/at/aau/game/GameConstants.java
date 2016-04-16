@@ -39,4 +39,10 @@ public class GameConstants {
     public static final String RESUME_GAME = "Resume Game";
     
     public static final Color COLOR_PINK = new Color(1f, 130f / 255f, 1.0f, 1.0f);
+    
+    public static final String SOUND_DEAD_BIG_FAIRY = "sfx/bfrx_wav/Cast.wav";
+    public static final String MUSIC_INTRO = "sfx/introMusic.wav";
+    public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
+	public static final String GAME_MUSIC = "gameMusic";
+	public static final String INRO_MUSIC = "introMusic";
 }

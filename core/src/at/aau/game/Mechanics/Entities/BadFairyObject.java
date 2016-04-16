@@ -77,34 +77,4 @@ public class BadFairyObject extends FairyObject {
         this.checkWorldBorders();
         super.update(delta);
     }
-
-    private void checkXcoord() {
-        if (this.position.x >= startPosition.x + GameConstants.FAIRY_MAX_X_OFFSET || this.position.x >= world.pixelSize.x) {
-            this.directionX = DirectionX.LEFT;
-        } else if (this.position.x <= startPosition.x - GameConstants.FAIRY_MAX_X_OFFSET || this.position.x <= 0) {
-            this.directionX = DirectionX.RIGHT;
-        }
-
-        if (this.directionX.equals(DirectionX.RIGHT)) {
-            this.position.x += this.speed;
-        } else if (this.directionX.equals(DirectionX.LEFT)) {
-            this.position.x -= this.speed;
-        }
-    }
-
-    private void checkYcoord() {
-        if (this.directionY.equals(DirectionY.UP)
-                && (this.position.y >= startPosition.y + GameConstants.FAIRY_MAX_Y_OFFSET || this.position.y >= world.pixelSize.y)) {
-            this.directionY = DirectionY.DOWN;
-        } else if (this.directionY.equals(DirectionY.DOWN) && (this.position.y <= startPosition.y - GameConstants.FAIRY_MAX_Y_OFFSET || this.position.y <= 0)) {
-            this.directionY = DirectionY.UP;
-        }
-
-        if (this.directionY.equals(DirectionY.UP)) {
-            this.position.y += this.speed;
-        } else if (this.directionY.equals(DirectionY.DOWN)) {
-            this.position.y -= this.speed;
-        }
-    }
-	
 }
