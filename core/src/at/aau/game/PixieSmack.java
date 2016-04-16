@@ -44,6 +44,7 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
 		assMan.load("menu/menu_background.png", Texture.class);
 		assMan.load("menu/menu_background-old.jpg", Texture.class);
+		assMan.load("menu/menu_background_empty.png", Texture.class);
 		assMan.load("gameplay/bg-forest.png", Texture.class);
 		assMan.load("gameplay/bg-forest-border.png", Texture.class);
 		// for the credits
@@ -104,6 +105,10 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
 		assMan.load(GameConstants.BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
+		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
+		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
+		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
+		
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
 
@@ -112,7 +117,7 @@ public class PixieSmack extends ApplicationAdapter {
 
 		assMan.load(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
-
+		
 		assMan.load(GameConstants.PLAYER_SPRITE_PATH, Texture.class);
 		assMan.load("gameplay/timer-pink.png", Texture.class);
 
