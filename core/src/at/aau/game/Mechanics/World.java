@@ -50,8 +50,8 @@ public class World {
 
 	private GlyphLayout highScoreLayout;
 	private GlyphLayout gameOverLayout;
-    private GlyphLayout retryLayout;
-    private GlyphLayout menuLayout;
+	private GlyphLayout retryLayout;
+	private GlyphLayout menuLayout;
 
 	private long timeElapsed;
 	private String mmss;
@@ -69,7 +69,7 @@ public class World {
 		smackAnims = new Array<SmackAnim>();
 		this.gameplayScreen = gameplayScreen;
 
-		smackCounterPic = new SmackCntPic(new Vector2(PixieSmack.MENU_GAME_WIDTH-SIZE.x-10, 40), this, SIZE);
+		smackCounterPic = new SmackCntPic(new Vector2(PixieSmack.MENU_GAME_WIDTH - SIZE.x - 10, 40), this, SIZE);
 
 		// size = new Vector2(PixieSmack.MENU_GAME_WIDTH,
 		// PixieSmack.MENU_GAME_HEIGHT);
@@ -77,7 +77,7 @@ public class World {
 		// pixelSize = size.cpy();
 		pixelSize = new Vector2(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 
-		koerbchen = new Koerbchen(new Vector2(PixieSmack.MENU_GAME_WIDTH/2, 50), this);
+		koerbchen = new Koerbchen(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2, 50), this);
 		gameObjects.add(koerbchen);
 
 		smacker = new Smacker(Vector2.Zero, this);
@@ -90,15 +90,14 @@ public class World {
 		highscoreName = "0";
 		highscoreBitmapFont = new BitmapFont();
 		highscoreBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
-		highscoreBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
-				Texture.TextureFilter.Linear);
+		highscoreBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 		highScoreLayout = new GlyphLayout(highscoreBitmapFont, highscoreName);
 		gameOverLayout = new GlyphLayout(highscoreBitmapFont, "Game Over");
-        retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
-        menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
+		retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
+		menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
 
-		Timer timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT-100), this, new Vector2(80, 75));
+		Timer timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 75));
 		gameObjects.add(timer);
 	}
 
@@ -107,8 +106,7 @@ public class World {
 			return;
 		}
 		this.timeElapsed += delta * 1000;
-		this.mmss = String.format("%02d:%02d",
-				Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
+		this.mmss = String.format("%02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
 				Long.valueOf(TimeUnit.MILLISECONDS.toSeconds(this.timeElapsed) % TimeUnit.MINUTES.toSeconds(1)));
 		for (GameObject go : gameObjects) {
 			go.update(delta);
@@ -135,8 +133,7 @@ public class World {
 		this.fairySpawnTimer += delta;
 		this.bigFairySpawnTimer += delta;
 		this.badFairySpawnTimer += delta;
-		if (fairies.size < GameConstants.MAX_FAIRIES
-				&& fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (fairies.size < GameConstants.MAX_FAIRIES && fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.fairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
@@ -144,8 +141,7 @@ public class World {
 			fairies.add(fairy);
 		}
 
-		if (bigFairies.size < GameConstants.MAX_BIG_FAIRIES
-				&& bigFairySpawnTimer >= GameConstants.BIG_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (bigFairies.size < GameConstants.MAX_BIG_FAIRIES && bigFairySpawnTimer >= GameConstants.BIG_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.bigFairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
@@ -153,8 +149,7 @@ public class World {
 			bigFairies.add(fairy);
 		}
 
-		if (badFairies.size < GameConstants.MAX_BAD_FAIRIES
-				&& badFairySpawnTimer >= GameConstants.BAD_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (badFairies.size < GameConstants.MAX_BAD_FAIRIES && badFairySpawnTimer >= GameConstants.BAD_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.badFairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
@@ -196,10 +191,9 @@ public class World {
 		} else if (gameEnded) {
 			if (Gdx.input.justTouched()) {
 				// find the menu item ..
-					float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f
-							+ gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
-					if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos) {
-					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+				float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
+				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos) {
+					// gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 				} else if (touchCoords.y < pos && touchCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
@@ -313,10 +307,10 @@ public class World {
 
 		// highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 -
 		// ((int) (Math.log10(highscore) - 1) * 20)), 680);
-		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width,
-				PixieSmack.MENU_GAME_HEIGHT-highScoreLayout.height);
+		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, PixieSmack.MENU_GAME_HEIGHT
+				- highScoreLayout.height);
 		GlyphLayout layout = new GlyphLayout(highscoreBitmapFont, this.mmss);
-		highscoreBitmapFont.draw(spriteBatch, layout, 10, PixieSmack.MENU_GAME_HEIGHT-layout.height);
+		highscoreBitmapFont.draw(spriteBatch, layout, 10, PixieSmack.MENU_GAME_HEIGHT - layout.height);
 
 		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
 			if (!gameEnded) {

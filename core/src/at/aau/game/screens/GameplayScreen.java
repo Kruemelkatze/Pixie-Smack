@@ -46,8 +46,8 @@ public class GameplayScreen extends ScreenAdapter {
 		cam = new OrthographicCamera();
 		float width = PixieSmack.MENU_GAME_WIDTH;
 		float height = PixieSmack.MENU_GAME_HEIGHT;
-		//Viewport viewport = new FillViewport(width, height, cam);
-		//viewport.apply();
+		// Viewport viewport = new FillViewport(width, height, cam);
+		// viewport.apply();
 
 		cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
 		cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
@@ -82,7 +82,7 @@ public class GameplayScreen extends ScreenAdapter {
 		int x, y;
 		x = Gdx.input.getX();
 		y = Gdx.input.getY();
-		Vector3 unprojected = world.gameplayScreen.cam.unproject(new Vector3(x, y, 1));
+		// Vector3 unprojected = world.gameplayScreen.cam.unproject(new Vector3(x, y, 1));
 		if (x < 0) {
 			Gdx.input.setCursorPosition(0, y);
 		} else if (x > PixieSmack.MENU_GAME_WIDTH) {

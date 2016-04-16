@@ -62,6 +62,7 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load("sfx/powerup.wav", Sound.class);
 		assMan.load("sfx/powerup.wav", Sound.class);
 		assMan.load(GameConstants.SOUND_DEAD_BIG_FAIRY, Sound.class);
+		assMan.load(GameConstants.SOUND_BAD_COLLECT, Sound.class);
 
 		assMan.load(GameConstants.MUSIC_INGAME, Music.class);
 		assMan.load(GameConstants.MUSIC_INTRO, Music.class);

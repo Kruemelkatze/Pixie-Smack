@@ -20,16 +20,17 @@ public class GameConstants {
     public static final String MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/obj-pixie_mad_left_upsidedown.png";
     public static final String EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/evil_fairy_mad_left_upsidedown.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
-    public static final float FAIRY_SPAWN_THRESHOLD = 1f;
+
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
     public static final float BAD_FAIRY_SPAWN_THRESHOLD = 3f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
-    public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.5f;
+    public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.4f;
     public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;
     public static final float FAIRY_MAX_Y = PixieSmack.MENU_GAME_HEIGHT * 0.8f;
 
     public static final float FAIRY_MAX_X_OFFSET = 80f;
     public static final float FAIRY_MAX_Y_OFFSET = 100f;
+    public static final float FAIRY_SPAWN_THRESHOLD = 1f;
 
     public static final float BAD_FAIRY_SMACK_CHANGE = -3;
     public static final float BIG_FAIRY_SMACK_CHANGE = 3;
@@ -51,6 +52,7 @@ public class GameConstants {
     public static final Color COLOR_PINK = new Color(1f, 130f / 255f, 1.0f, 1.0f);
     
     public static final String SOUND_DEAD_BIG_FAIRY = "sfx/bfrx_wav/Cast.wav";
+    public static final String SOUND_BAD_COLLECT = "sfx/hit.wav";
     public static final String MUSIC_INTRO = "sfx/introMusic.wav";
     public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
 	public static final String GAME_MUSIC = "gameMusic";

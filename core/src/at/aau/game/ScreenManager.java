@@ -1,5 +1,6 @@
 package at.aau.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import at.aau.game.screens.CreditsScreen;
@@ -37,6 +38,7 @@ public class ScreenManager {
 		if (state != currentState) { // only if state changes.
 			currentState = state;
 			if (state == ScreenState.Menu) {
+				Gdx.input.setCursorCatched(false);
 				currentScreen = new MenuScreen(parentGame);
 			} else if (state == ScreenState.Credits) {
 				currentScreen = new CreditsScreen(parentGame);
@@ -48,7 +50,7 @@ public class ScreenManager {
 				playScreen.show();
 			} else if (state == ScreenState.Highscore) {
 				currentScreen = new HighscoreScreen(parentGame);
-			} else if (state == ScreenState.Help){
+			} else if (state == ScreenState.Help) {
 				currentScreen = new HelpScreen(parentGame);
 			}
 		}

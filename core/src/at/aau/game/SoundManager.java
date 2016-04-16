@@ -27,6 +27,7 @@ public class SoundManager {
 		event2sound.put(GameConstants.GAME_MUSIC, GameConstants.MUSIC_INGAME);
 		event2sound.put(GameConstants.INTRO_MUSIC, GameConstants.MUSIC_INTRO);
 		event2sound.put("dead", GameConstants.SOUND_DEAD_BIG_FAIRY);
+		event2sound.put("bad_collect", GameConstants.SOUND_BAD_COLLECT);
 
 		for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
 			event2sound.put("smack" + i, "sfx/smack" + i + ".wav");
