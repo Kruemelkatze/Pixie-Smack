@@ -21,7 +21,7 @@ public class CreditsScreen extends ScreenAdapter {
 	Texture backgroundImage, gradientTop, gradientBottom;
 	BitmapFont creditsFont;
 
-	String[] credits = ("GdxGameSkelet0n by Mathias Lux\n" + "All assets are public d0main\n" + "Cl0ne and adapt t0 y0ur will\n" + "\n" + "H0pe it helps ;)")
+	String[] credits = ("GdxGameSkelet0n\n by Mathias Lux\n" + "All assets are\n public d0main\n" + "Cl0ne and adapt\n t0 y0ur will\n" + "\n" + "H0pe it helps ;)")
 			.split("\\n");
 	private float moveY;
 
@@ -59,11 +59,11 @@ public class CreditsScreen extends ScreenAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		// draw bgImage
-		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_HEIGHT, PixieSmack.MENU_GAME_HEIGHT);
+		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 
 		// draw moving text:
 		for (int i = 0; i < credits.length; i++) {
-			creditsFont.draw(batch, credits[i], PixieSmack.MENU_GAME_HEIGHT / 8, moveY - i * creditsFont.getLineHeight() * 1.5f);
+			creditsFont.draw(batch, credits[i], PixieSmack.MENU_GAME_WIDTH / 6, moveY - i * creditsFont.getLineHeight() * 1.5f);
 		}
 
 		// draw gradient
