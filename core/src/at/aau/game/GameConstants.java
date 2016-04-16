@@ -15,8 +15,11 @@ public class GameConstants {
     public static final int SCREEN_WIDTH_IN_PIXEL = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     public static final String FAIRY_SPRITE_PATH = "gameplay/fairy.png";
-    public static final String BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/bigpixie-left-anim.png";
+    public static final String BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/bigpixie-left-anim.png"; 
     public static final String BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/bigpixie-right-anim.png";
+    public static final String MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/pixie-spec-mad-left-upsidedown.png";
+    public static final String MAD_BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-spec-mad-left-anim.png";
+    public static final String MAD_BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-spec-mad-right-anim.png";
     
     public static final String EVIL_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-evil-left-anim.png";
     public static final String EVIL_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-evil-right-anim.png";
