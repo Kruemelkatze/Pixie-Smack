@@ -31,7 +31,7 @@ public class GameplayScreen extends ScreenAdapter {
         this.parentGame = game;
         this.world = new World(this);
 
-        backgroundImage = parentGame.getAssetManager().get("gameplay/bg-forest.png");
+        backgroundImage = parentGame.getAssetManager().get("gameplay/bg-forest-border.png");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the desktop onto the actual screen size.

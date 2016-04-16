@@ -168,7 +168,6 @@ public class World {
 	public void pixieDustCollected(PixieDust pixieDust, float distance) {
 		// Give points and stuff
 		highscore += 10;
-		System.out.println(Math.pow(2, this.fairySpawnStage) * 100);
 
 		if (highscore == Math.pow(2, this.fairySpawnStage) * 100) {
 			this.fairySpawnSpeed *= 0.85f;
