@@ -63,5 +63,14 @@ public class PixieDust extends MoveableObject {
 
         world.pixieDustCollected(this, distance);
     }
+    
+    public void setIsBadDust(boolean value){
+    	if(value == true){
+        	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit_bad.png", 0.3f, 64, 64);
+    	} else {
+        	this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png", 0.3f, 64, 64);
+    	}
+    	this.IsBadDust=value;
+    }
 
 }

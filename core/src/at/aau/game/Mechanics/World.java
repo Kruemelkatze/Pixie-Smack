@@ -162,7 +162,7 @@ public class World {
 
 	private void spawnBadDust(Vector2 position) {
 		PixieDust pixieDust = new PixieDust(position, this);
-		pixieDust.IsBadDust = true;
+		pixieDust.setIsBadDust(true);
 		pixieDusts.add(pixieDust);
 	}
 	
