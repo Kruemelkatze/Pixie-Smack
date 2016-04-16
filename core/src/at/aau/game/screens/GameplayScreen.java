@@ -15,13 +15,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameplayScreen extends ScreenAdapter {
 
 	private final SpriteBatch batch;
-	public final OrthographicCamera cam;
+	public OrthographicCamera cam;
 	public PixieSmack parentGame;
 	private boolean pause = false;
 
@@ -43,17 +43,25 @@ public class GameplayScreen extends ScreenAdapter {
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
 		// cam = new OrthographicCamera(PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
-		cam = new OrthographicCamera();
-		float width = PixieSmack.MENU_GAME_WIDTH;
+		//cam = new OrthographicCamera();
+
 		float height = PixieSmack.MENU_GAME_HEIGHT;
-		Viewport viewport = new FillViewport(width, height, cam);
-		viewport.apply();
+		float width = PixieSmack.MENU_GAME_WIDTH;
+		//cam.viewportHeight = height;
+		//cam.viewportWidth = width;
+		//cam.setToOrtho(true, width, height);
 
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-
-		// cam.viewportHeight = PixieSmack.MENU_GAME_HEIGHT;
-		// cam.viewportWidth = PixieSmack.MENU_GAME_WIDTH;
-		// cam.position.set(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f, 0);
+		
+		//cam = new OrthographicCamera(800, 600);
+		//cam.setToOrtho(false, 800, 600);
+		//Viewport viewport =  new FitViewport(800, 6000, cam);
+		
+		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//cam.setToOrtho(false, 800, 600);
+		Viewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
+		//viewport.apply(); // DONT USE !!
+		//cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		cam.position.set(width / 2f, height / 2f, 0);
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);
@@ -68,8 +76,6 @@ public class GameplayScreen extends ScreenAdapter {
 			return;
 		}
 		handleInput();
-		// camera:
-		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 
 		world.update(delta);

@@ -24,14 +24,16 @@ public class PixieSmack extends ApplicationAdapter {
 	// orthographic camera
 	// set in DesktopLauncher to any resolution and it will be scaled
 	// automatically.
-	public static final float MENU_GAME_HEIGHT = (float) Toolkit.getDefaultToolkit().getScreenSize().height / 1.25f;
-	public static final float MENU_GAME_WIDTH = MENU_GAME_HEIGHT * 1.25f;
+	public static float MENU_GAME_HEIGHT;// = Gdx.graphics.getHeight(); //(float) Toolkit.getDefaultToolkit().getScreenSize().height / 1.25f;
+	public static float MENU_GAME_WIDTH;// = Gdx.graphics.getWidth(); //MENU_GAME_HEIGHT * 1.25f;
 
 	// public static final float GAME_WIDTH = 10; // 1080;
 	// public static final float GAME_HEIGHT = 7; // 720;
 
 	@Override
 	public void create() {
+		MENU_GAME_HEIGHT = Gdx.graphics.getHeight(); // (float) Toolkit.getDefaultToolkit().getScreenSize().height / 1.25f;
+		MENU_GAME_WIDTH = Gdx.graphics.getWidth();
 		screenManager = new ScreenManager(this);
 		soundManager = new SoundManager(this);
 		animator = new Animator(this);
@@ -111,7 +113,7 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
-		
+
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
 
@@ -120,7 +122,7 @@ public class PixieSmack extends ApplicationAdapter {
 
 		assMan.load(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
-		
+
 		assMan.load(GameConstants.PLAYER_SPRITE_PATH, Texture.class);
 		assMan.load("gameplay/timer-pink.png", Texture.class);
 
