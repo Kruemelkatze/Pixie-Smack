@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HelpScreen extends ScreenAdapter {
 	private PixieSmack parentGame;
-	Texture backgroundImage;
+	Texture backgroundImage, goodPixie, badPixie, pixie;
 	BitmapFont menuFont;
 	BitmapFont describe;
 	private final OrthographicCamera cam;
@@ -47,6 +47,10 @@ public class HelpScreen extends ScreenAdapter {
 		
 		batch = new SpriteBatch();
 		
+		badPixie= new Texture(Gdx.files.internal("gameplay/bad_pixie.png"));
+		goodPixie= new Texture(Gdx.files.internal("gameplay/spec_pixie.png"));
+		pixie= new Texture(Gdx.files.internal("gameplay/pixie.png"));
+		
 	}
 	
 	@Override
@@ -64,6 +68,9 @@ public class HelpScreen extends ScreenAdapter {
 		
 		describe.draw(batch, collect, offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop -0 * offsetY -120);
 
+		batch.draw(pixie, 1500,600);
+		batch.draw(goodPixie, 150,400);
+		batch.draw(badPixie, 150,200);
 		
 		batch.end();
 	}

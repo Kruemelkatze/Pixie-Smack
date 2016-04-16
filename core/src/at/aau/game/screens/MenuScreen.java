@@ -3,10 +3,13 @@ package at.aau.game.screens;
 import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
+import at.aau.game.SoundManager;
+import at.aau.game.Mechanics.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,8 +21,11 @@ public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-	private Texture backgroundImage;
-	private BitmapFont menuFont;
+	Texture backgroundImage;
+	BitmapFont menuFont;
+	//Music menuMusic;
+	//ImageButton imageButton;
+	//ImageButtonStyle imageButtonStyle;
 
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
@@ -40,15 +46,16 @@ public class MenuScreen extends ScreenAdapter {
 		cam.update();
 
 		batch = new SpriteBatch();
-
+		
+		
 		this.parentGame.getSoundManager().playEvent(GameConstants.INTRO_MUSIC);
-		// menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
-		// menuMusic.setLooping(true);
-		// menuMusic.play();
-		// imageButtonStyle = new ImageButtonStyle();
-		// imageButtonStyle.imageUp =
-		// imageButton = new ImageButton();
-
+		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
+		//menuMusic.setLooping(true);
+		//menuMusic.play();
+		//imageButtonStyle = new ImageButtonStyle();
+		//imageButtonStyle.imageUp = 
+		//imageButton = new ImageButton();
+		
 	}
 
 	@Override
@@ -74,10 +81,12 @@ public class MenuScreen extends ScreenAdapter {
 				menuFont.setColor(0.3f, 0.3f, 0.3f, 1f);
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
 				offsetFactor++;
-			} else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+			}
+			else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
 				offsetFactor++;
-			} else if (!menuStrings[i].equals(GameConstants.RESUME_GAME)) {
+			}
+			else if (!menuStrings[i].equals(GameConstants.RESUME_GAME)) {
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
 				offsetFactor++;
 			}
@@ -89,7 +98,7 @@ public class MenuScreen extends ScreenAdapter {
 		// keys ...
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && this.parentGame.alreadyIngame) { // JUST
 			this.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
-			// SoundManager.stopMusic();
+			//SoundManager.stopMusic();
 			parentGame.getSoundManager().playEvent("blip");
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentMenuItem = (currentMenuItem + 1) % menuStrings.length;
@@ -112,17 +121,17 @@ public class MenuScreen extends ScreenAdapter {
 				Gdx.app.exit();
 				parentGame.getSoundManager().playEvent("explode");
 			} else if (menuStrings[currentMenuItem].equals("Credits")) {
-				// SoundManager.stopMusic();
+				//SoundManager.stopMusic();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 			} else if (menuStrings[currentMenuItem].equals(GameConstants.NEW_GAME)) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
-				// SoundManager.stopMusic();
+				//SoundManager.stopMusic();
 			} else if (menuStrings[currentMenuItem].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
-				// SoundManager.stopMusic();
+				//SoundManager.stopMusic();
 			} else if (menuStrings[currentMenuItem].equals("Hall Of Fame")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
-				// SoundManager.stopMusic();
+				//SoundManager.stopMusic();
 			}
 		}
 		// touch
@@ -133,20 +142,20 @@ public class MenuScreen extends ScreenAdapter {
 				if (touchWorldCoords.x > offsetLeft) {
 					float pos = PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY;
 					if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - menuFont.getLineHeight()) {
-						// it's there
+							// it's there
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
 						} else if (menuStrings[i].equals(GameConstants.NEW_GAME)) {
-							// SoundManager.stopMusic();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 						} else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
-							// SoundManager.stopMusic();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
-							// SoundManager.stopMusic();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 						} else if (menuStrings[i].equals("Hall Of Fame")) {
-							// SoundManager.stopMusic();
+							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 						}
 					}
@@ -155,14 +164,17 @@ public class MenuScreen extends ScreenAdapter {
 			}
 		}
 		Vector3 worldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
-		if (worldCoords.x > offsetLeft && worldCoords.x < PixieSmack.MENU_GAME_WIDTH - offsetLeft && worldCoords.y < PixieSmack.MENU_GAME_HEIGHT - offsetTop) {
+		if (worldCoords.x > offsetLeft &&
+				worldCoords.x < PixieSmack.MENU_GAME_WIDTH - offsetLeft &&
+				worldCoords.y < PixieSmack.MENU_GAME_HEIGHT - offsetTop) {
 			for (int i = 0; i < menuStrings.length; i++) {
 				float pos = PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY;
-				if (worldCoords.y > pos - menuFont.getLineHeight() && worldCoords.y < pos) {
+				if (worldCoords.y > pos - menuFont.getLineHeight() &&
+						worldCoords.y < pos) {
 					currentMenuItem = i;
 				}
 			}
-
+			
 		}
 	}
 
