@@ -102,7 +102,7 @@ public class World {
     }
 
     public void touch(Vector2 touchCoords) {
-        smacker.startAnim();
+        smacker.smack();
 
         Iterator<FairyObject> iterator = fairies.iterator();
         while (iterator.hasNext()) {
