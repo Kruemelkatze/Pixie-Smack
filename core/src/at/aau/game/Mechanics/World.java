@@ -10,6 +10,7 @@ import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,6 +27,8 @@ public class World {
     public Array<GameObject> gameObjects;
     public Array<PixieDust> pixieDusts;
     public Array<FairyObject> fairies;
+    public Array<FairyObject> bigFairies;
+    public Array<FairyObject> badFairies;
     public GameplayScreen gameplayScreen;
     public int highscore;
     public String highscoreName;
@@ -59,6 +62,8 @@ public class World {
         gameObjects = new Array<GameObject>();
         pixieDusts = new Array<PixieDust>();
         fairies = new Array<FairyObject>();
+        bigFairies = new Array<FairyObject>();
+        badFairies = new Array<FairyObject>();
         smackAnims = new Array<SmackAnim>();
         this.gameplayScreen = gameplayScreen;
  
@@ -103,6 +108,13 @@ public class World {
             fairy.update(delta);
         }
 
+        for (FairyObject fairy : badFairies) {
+            fairy.update(delta);
+        }
+        for (FairyObject fairy : bigFairies) {
+            fairy.update(delta);
+        }
+        
         for (PixieDust pi : pixieDusts) {
             pi.update(delta);
         }
@@ -113,7 +125,7 @@ public class World {
 		this.fairySpawnTimer += delta;
 		this.bigFairySpawnTimer += delta;
 		this.badFairySpawnTimer += delta;
-		if (fairies.size <= GameConstants.MAX_FAIRIES && fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (fairies.size < GameConstants.MAX_FAIRIES && fairySpawnTimer >= GameConstants.FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.fairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
@@ -121,20 +133,20 @@ public class World {
 			fairies.add(fairy);
 		}
 		
-		if (fairies.size <= GameConstants.MAX_FAIRIES && bigFairySpawnTimer >= GameConstants.BIG_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (bigFairies.size < GameConstants.MAX_BIG_FAIRIES && bigFairySpawnTimer >= GameConstants.BIG_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.bigFairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
 			BigFairyObject fairy = new BigFairyObject(new Vector2(xSpawn, ySpawn), this);
-			fairies.add(fairy);
+			bigFairies.add(fairy);
 		}
 		
-		if (fairies.size <= GameConstants.MAX_FAIRIES && badFairySpawnTimer >= GameConstants.BAD_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
+		if (badFairies.size < GameConstants.MAX_BAD_FAIRIES && badFairySpawnTimer >= GameConstants.BAD_FAIRY_SPAWN_THRESHOLD * fairySpawnSpeed) {
 			this.badFairySpawnTimer = 0.0f;
 			float xSpawn = randInRange(GameConstants.FAIRY_MIN_X, GameConstants.FAIRY_MAX_X);
 			float ySpawn = randInRange(GameConstants.FAIRY_MIN_Y, GameConstants.FAIRY_MAX_Y);
 			BadFairyObject fairy = new BadFairyObject(new Vector2(xSpawn, ySpawn), this);
-			fairies.add(fairy);	
+			badFairies.add(fairy);	
 		}
 	
 	}
@@ -145,6 +157,22 @@ public class World {
 			smacker.smack();
 
 			Iterator<FairyObject> iterator = fairies.iterator();
+			while (iterator.hasNext()) {
+				FairyObject fairy = iterator.next();
+				if (isWithinSmackBounds(touchCoords, fairy)) {
+					fairy.onCollision();
+				}
+
+			}
+			iterator = bigFairies.iterator();
+			while (iterator.hasNext()) {
+				FairyObject fairy = iterator.next();
+				if (isWithinSmackBounds(touchCoords, fairy)) {
+					fairy.onCollision();
+				}
+
+			}
+			iterator = badFairies.iterator();
 			while (iterator.hasNext()) {
 				FairyObject fairy = iterator.next();
 				if (isWithinSmackBounds(touchCoords, fairy)) {
@@ -212,18 +240,23 @@ public class World {
 
 	public void pixieSmacked(FairyObject fairy) {
 		if (fairy instanceof BadFairyObject) {
-			smacker.SmackCnt -= 3;
+			smacker.SmackCnt += GameConstants.BAD_FAIRY_SMACK_CHANGE;
 			if (smacker.SmackCnt < 0){
 				smacker.SmackCnt = 0;
 			}
-			spawnBadDust(fairy.position);
+			spawnBadDust(fairy.position.cpy());
 		} else if (fairy instanceof BigFairyObject) {
-			spawnSpecialDust(fairy.position);
+			smacker.SmackCnt += GameConstants.BIG_FAIRY_SMACK_CHANGE;
+			if (smacker.SmackCnt > GameConstants.SMACK_LIMIT){
+				smacker.SmackCnt = GameConstants.SMACK_LIMIT;
+			}
+			
+			spawnSpecialDust(fairy.position.cpy());
 		} else {
-			spawnDust(fairy.position);
+			spawnDust(fairy.position.cpy());
 		}
-		spawnSmackAnim(fairy.position);
-		fairies.removeValue(fairy, true);
+		spawnSmackAnim(fairy.position.cpy());
+		//fairies.removeValue(fairy, true);
 	}
 
 	private void spawnSmackAnim(Vector2 position) {
@@ -241,6 +274,12 @@ public class World {
 			go.render(delta, spriteBatch);
 		}
 		for (FairyObject fairy : fairies) {
+			fairy.render(delta, spriteBatch);
+		}
+		for (FairyObject fairy : badFairies) {
+			fairy.render(delta, spriteBatch);
+		}
+		for (FairyObject fairy : bigFairies) {
 			fairy.render(delta, spriteBatch);
 		}
 		for (PixieDust pi : pixieDusts) {

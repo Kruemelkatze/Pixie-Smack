@@ -20,6 +20,9 @@ public class GameConstants {
     
     public static final String EVIL_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-evil-left-anim.png";
     public static final String EVIL_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-evil-right-anim.png";
+    
+    public static final String MAD_FAIRY_SPRITE_PATH_LEFT = "gameplay/obj-pixie_mad_left.png";
+    public static final String MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/obj-pixie_mad_left_upsidedown.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
@@ -32,6 +35,9 @@ public class GameConstants {
     public static final float FAIRY_MAX_X_OFFSET = 80f;
     public static final float FAIRY_MAX_Y_OFFSET = 100f;
 
+    public static final float BAD_FAIRY_SMACK_CHANGE = -3;
+    public static final float BIG_FAIRY_SMACK_CHANGE = 2;
+    
     public static final float SMACKER_REACH = 70;
     
     public static final float SMACK_REGENERATION_TIME = 0.8f;
@@ -40,6 +46,8 @@ public class GameConstants {
     public static final float TIMEOUT = 30;
 
     public static final int MAX_FAIRIES = 10;
+    public static final int MAX_BAD_FAIRIES = 5;
+    public static final int MAX_BIG_FAIRIES = 3;
     
     public static final String NEW_GAME = "New Game";
     public static final String RESUME_GAME = "Resume Game";

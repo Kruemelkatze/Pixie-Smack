@@ -2,6 +2,7 @@ package at.aau.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
@@ -56,4 +57,20 @@ public class Animator {
         }
         return new Animation(frameDuration, regions);
     }
+    
+   /* public Animation loadAnimation(String filename, float frameDuration, int width, int height, PlayMode playmode) {
+        Texture tex = game.getAssetManager().get(filename);
+        int h = tex.getHeight() / height;
+        int w = tex.getWidth() / width;
+
+        TextureRegion[] regions = new TextureRegion[w * h];
+
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+                regions[i + (j * w)] = new TextureRegion(tex, i * width, j * height, width, height);
+            }
+        }
+        return new Animation(frameDuration, regions, playmode);
+    }*/
 }
