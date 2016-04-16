@@ -16,7 +16,7 @@ public class Koerbchen extends SkeletonControlledObject {
 
     public Koerbchen(Vector2 position, World world) {
         super(position, world, SIZE);
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.PLAYER_SPRITE_PATH, 0.3f, 100, 70);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(GameConstants.PLAYER_SPRITE_PATH, 0.2f, 100, 70);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_up.png", 0.3f, 100, 70);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_down.png", 0.3f, 100, 70);
         this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/koerbchen_left.png", 0.3f, 100, 70);
