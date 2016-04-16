@@ -36,6 +36,7 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("menu/Ravie_42.fnt", BitmapFont.class);
         assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
         assMan.load("menu/menu_background.jpg", Texture.class);
+        assMan.load("gameplay/bg-forest.png", Texture.class);
         // for the credits
         assMan.load("credits/gradient_top.png", Texture.class);
         assMan.load("credits/gradient_bottom.png", Texture.class);

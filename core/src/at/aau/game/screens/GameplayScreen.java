@@ -31,7 +31,7 @@ public class GameplayScreen extends ScreenAdapter {
         this.parentGame = game;
         this.world = new World(this);
 
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        backgroundImage = parentGame.getAssetManager().get("gameplay/bg-forest.png");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the desktop onto the actual screen size.
@@ -52,10 +52,15 @@ public class GameplayScreen extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         world.update(delta);
+
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        // draw bgImage ...
+        batch.draw(backgroundImage, 0, 0, PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
+        batch.end();
         world.render(delta);
 
         // batch.begin();
