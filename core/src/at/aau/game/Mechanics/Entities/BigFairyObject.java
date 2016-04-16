@@ -17,7 +17,7 @@ public class BigFairyObject extends FairyObject {
 
 	public BigFairyObject(Vector2 position, World world) {
 		super(position, world);
-		this.health = 10;
+		this.health = 5;
 		this.startPosition = this.position.cpy();
 		float rnd = random.nextFloat();
 		if (rnd < 0.33f) {
