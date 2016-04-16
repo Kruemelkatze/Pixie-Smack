@@ -21,8 +21,8 @@ public class Smacker extends MoveableObject {
     private Random random = new Random();
     
     public int SmackCnt = 10;
-    public final int SmackLimit = 10;
-    public float SmackerRegenerationTime;
+    private final int SmackLimit = 10;
+    private float SmackerRegenerationTime;
     
     public Smacker(Vector2 position, World world) {
         super(position, world, SIZE);
@@ -60,13 +60,11 @@ public class Smacker extends MoveableObject {
     	}
 	}
     
-    public void smack() {
-     	if (SmackCnt > 0) {  		
-     		animTime = 0f;
-            int randomNum = random.nextInt(PixieSmack.SmackSoundsCount) + 1;
-            world.gameplayScreen.parentGame.getSoundManager().playEvent("smack" + randomNum);
-            SmackCnt -=1;
-     	}
+    public void smack() {	
+ 		animTime = 0f;
+        int randomNum = random.nextInt(PixieSmack.SmackSoundsCount) + 1;
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("smack" + randomNum);
+        SmackCnt -=1;
     }
 
 
