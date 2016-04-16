@@ -3,6 +3,7 @@ package at.aau.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,6 +16,7 @@ public class PixieSmack extends ApplicationAdapter {
     private ScreenManager screenManager;
     private SoundManager soundManager;
     private Animator animator;
+	public boolean alreadyIngame = false;
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.
@@ -37,6 +39,7 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
         assMan.load("menu/menu_background.jpg", Texture.class);
         assMan.load("gameplay/bg-forest.png", Texture.class);
+        assMan.load("gameplay/bg-forest-border.png", Texture.class);
         // for the credits
         assMan.load("credits/gradient_top.png", Texture.class);
         assMan.load("credits/gradient_bottom.png", Texture.class);
@@ -48,6 +51,8 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("sfx/laser.wav", Sound.class);
         assMan.load("sfx/pickup.wav", Sound.class);
         assMan.load("sfx/powerup.wav", Sound.class);
+        
+        assMan.load("sfx/gameMusic.wav", Music.class);
 
         //Smacking sounds
         for (int i = 1; i <= PixieSmack.SmackSoundsCount; i++) {
@@ -70,10 +75,11 @@ public class PixieSmack extends ApplicationAdapter {
         assMan.load("gameplay/koerbchen_idle.png", Texture.class);
         assMan.load("gameplay/obj_staub_sprit.png", Texture.class);
         assMan.load("gameplay/fairysmack.png", Texture.class);
-        assMan.load(GameConstants.FAIRY_SPRITE_PATH, Texture.class);
+        assMan.load("gameplay/pixie-left-anim.png", Texture.class);
+        assMan.load("gameplay/pixie-right-anim.png", Texture.class);
 
 
-        assMan.load("gameplay/timer-white.png", Texture.class);
+        assMan.load("gameplay/timer-pink.png", Texture.class);
     }
 
     @Override
