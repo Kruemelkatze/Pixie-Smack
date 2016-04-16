@@ -25,16 +25,16 @@ public class MenuScreen extends ScreenAdapter {
 	BitmapFont menuFont;
 	//Music menuMusic;
 
-	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Highscore", "Credits", "Exit" };
+	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
 
-	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 8, offsetTop = PixieSmack.MENU_GAME_WIDTH / 8, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
+	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 3, offsetTop = PixieSmack.MENU_GAME_WIDTH / 4, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
 
 	public MenuScreen(PixieSmack game) {
 		this.parentGame = game;
 
-		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-		menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
+		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.png");
+		menuFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		menuFont.setColor(GameConstants.COLOR_PINK);
 		// Create camera that projects the desktop onto the actual screen size.
@@ -123,7 +123,7 @@ public class MenuScreen extends ScreenAdapter {
 			} else if (menuStrings[currentMenuItem].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 				//SoundManager.stopMusic();
-			} else if (menuStrings[currentMenuItem].equals("Highscore")) {
+			} else if (menuStrings[currentMenuItem].equals("Hall Of Fame")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 				//SoundManager.stopMusic();
 			}
@@ -148,7 +148,7 @@ public class MenuScreen extends ScreenAdapter {
 						} else if (menuStrings[i].equals("Credits")) {
 							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
-						} else if (menuStrings[i].equals("Highscore")) {
+						} else if (menuStrings[i].equals("Hall Of Fame")) {
 							//SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 						}

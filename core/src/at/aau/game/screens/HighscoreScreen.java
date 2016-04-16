@@ -28,7 +28,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	Texture backgroundImage;
 	BitmapFont highscoreFont;
 	BitmapFont highscoreFontEntries;
-	String highscore = "Highscores";
+	String highscore = "Hall Of Fame";
 	
 	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 6,
 			offsetTop = PixieSmack.MENU_GAME_WIDTH / 20,
@@ -38,7 +38,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	public HighscoreScreen(PixieSmack game) {
 		this.parentGame = game;
 		
-		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+		backgroundImage = parentGame.getAssetManager().get("menu/menu_background-old.jpg");
 		highscoreFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
 		highscoreFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// Create camera that projects the desktop onto the actual screen size.
