@@ -10,11 +10,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.Random;
+
 public class Smacker extends MoveableObject {
 
     public static final Vector2 SIZE = new Vector2(100, 230);
     public static final Vector2 SMACK_OFFSET = new Vector2(160, 100); //Magic numbers, interpolated in multi-phase testing iterations
     private final Animation smackingAnim;
+    private Random random = new Random();
 
     public Smacker(Vector2 position, World world) {
         super(position, world, SIZE);
@@ -38,8 +41,10 @@ public class Smacker extends MoveableObject {
         spriteBatch.draw(frame.getTexture(), position.x - SMACK_OFFSET.x, position.y - SMACK_OFFSET.y, 0, 0, SIZE.x, SIZE.y, 1f, 1f, -45, frame.getRegionX(), frame.getRegionY(), frame.getRegionWidth(), frame.getRegionHeight(), false, false);
     }
 
-    public void startAnim() {
+    public void smack() {
         animTime = 0f;
+        int randomNum = random.nextInt(PixieSmack.SmackSoundsCount) + 1;
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("smack" + randomNum);
     }
 
 

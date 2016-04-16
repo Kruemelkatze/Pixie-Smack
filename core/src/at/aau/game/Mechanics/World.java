@@ -8,6 +8,7 @@ import at.aau.game.Mechanics.Entities.*;
 import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +23,9 @@ public class World {
     public Array<PixieDust> pixieDusts;
     public Array<FairyObject> fairies;
     public GameplayScreen gameplayScreen;
+    public int highscore;
+    public String highscoreName;
+    public BitmapFont highscoreBitmapFont;
 
     Koerbchen koerbchen;
     Smacker smacker;
@@ -52,6 +56,11 @@ public class World {
         smacker = new Smacker(Vector2.Zero, this);
 
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
+        
+        highscore = 0;
+        highscoreName = "Score: 0";
+        highscoreBitmapFont = new BitmapFont();
+       
 
     }
 
@@ -82,7 +91,8 @@ public class World {
         for (PixieDust pi : pixieDusts) {
             pi.render(delta, spriteBatch);
         }
-
+        highscoreBitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        highscoreBitmapFont.draw(spriteBatch, highscoreName, 910, 700);
         smacker.render(delta, spriteBatch);
         spriteBatch.end();
     }
@@ -104,7 +114,7 @@ public class World {
     }
 
     public void touch(Vector2 touchCoords) {
-        smacker.startAnim();
+        smacker.smack();
 
         Iterator<FairyObject> iterator = fairies.iterator();
         while (iterator.hasNext()) {
@@ -128,16 +138,22 @@ public class World {
         pixieDusts.add(pixieDust);
     }
 
-    int points = 0;
 
     public void pixieDustCollected(PixieDust pixieDust, float distance) {
         //Give points and stuff
+<<<<<<< HEAD
         points += 10;
         if (points == Math.pow(2, this.fairySpawnStage)*100) {
         	this.fairySpawnSpeed *= 0.9f;
         	this.fairySpawnStage++;
         }
         System.out.println(points);
+=======
+        highscore += 10;
+        highscoreName = "Score: "+highscore;
+        
+        System.out.println(highscore);
+>>>>>>> 438e5c762c8a4849d8fbd964a26dde4f5e20eb66
         pixieDusts.removeValue(pixieDust, true);
     }
 
