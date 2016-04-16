@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.Vector2;
  * @author Kevin Herkt
  */
 public class FairyObject extends MoveableObject {
-	protected Animation dead1;
 	protected Animation dead2;
 	protected Animation leftAnimation;
 	protected Animation rightAnimation;
@@ -53,9 +52,6 @@ public class FairyObject extends MoveableObject {
 				0.3f, (int) this.size.x, (int) this.size.y);
 		this.rightAnimation = world.gameplayScreen.parentGame.getAnimator()
 				.loadAnimation("gameplay/pixie-right-anim.png", 0.3f, (int) this.size.x, (int) this.size.y);
-		this.dead1 = world.gameplayScreen.parentGame.getAnimator()
-				.loadAnimation(GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT, 0.1f, (int) this.size.x, (int) this.size.y);
-		dead1.setPlayMode(PlayMode.NORMAL);
 		this.dead2 = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
 				GameConstants.MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, 2f, (int) this.size.x, (int) this.size.y);
 		dead2.setPlayMode(PlayMode.NORMAL);
@@ -65,15 +61,10 @@ public class FairyObject extends MoveableObject {
 	public void render(float delta, SpriteBatch spriteBatch) {
 		animTime += delta;
 		if (this.isDead) {
-			tempFrame = dead1.getKeyFrame(animTime, true);
-			if (dead1.isAnimationFinished(animTime)) {
-				tempFrame = dead2.getKeyFrame(animTime, true);
-				if (dead2.isAnimationFinished(animTime)) {
-					this.toRemove = true;
-					this.world.fairies.removeValue(this, true);
-				} else {
-					spriteBatch.draw(tempFrame, position.x, position.y);
-				}
+			tempFrame = dead2.getKeyFrame(animTime, true);
+			if (dead2.isAnimationFinished(animTime)) {
+				this.toRemove = true;
+				this.world.fairies.removeValue(this, true);
 			} else {
 				spriteBatch.draw(tempFrame, position.x, position.y);
 			}
@@ -111,11 +102,7 @@ public class FairyObject extends MoveableObject {
 	@Override
 	public void update(float delta) {
 		if (isDead) {
-			if (this.dead1.isAnimationFinished(animTime)) {
-				this.position.y -= 1.5f * deathSpeed;
-			} else {
-				this.position.y -= 0.1f;
-			}
+			this.position.y -= 1.5f * deathSpeed;
 		} else {
 			checkYcoord();
 			checkXcoord();
