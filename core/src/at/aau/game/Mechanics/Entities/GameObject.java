@@ -19,6 +19,7 @@ public abstract class GameObject {
     Array<State> states;
     protected Vector2 size;
     protected boolean isDead = false;
+    protected boolean toRemove = false;
 
 
     public GameObject(Vector2 position, World world, Vector2 size) {
@@ -47,14 +48,6 @@ public abstract class GameObject {
     }
 
     public abstract void render(float delta, SpriteBatch spriteBatch);
-
-    public boolean isDead() {
-        return this.isDead;
-    }
-
-    public void setDead() {
-        this.isDead = true;
-    }
 
     public void checkWorldBorders() {
         if (this.position.x < 0) {
