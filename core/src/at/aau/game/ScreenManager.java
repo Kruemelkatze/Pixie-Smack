@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 
 import at.aau.game.screens.CreditsScreen;
 import at.aau.game.screens.GameplayScreen;
+import at.aau.game.screens.HelpScreen;
 import at.aau.game.screens.HighscoreScreen;
 import at.aau.game.screens.LoadingScreen;
 import at.aau.game.screens.MenuScreen;
@@ -47,6 +48,8 @@ public class ScreenManager {
 				playScreen.show();
 			} else if (state == ScreenState.Highscore) {
 				currentScreen = new HighscoreScreen(parentGame);
+			} else if (state == ScreenState.Help){
+				currentScreen = new HelpScreen(parentGame);
 			}
 		}
 	}

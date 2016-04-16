@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 
 public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
@@ -24,6 +26,8 @@ public class MenuScreen extends ScreenAdapter {
 	Texture backgroundImage;
 	BitmapFont menuFont;
 	//Music menuMusic;
+	//ImageButton imageButton;
+	//ImageButtonStyle imageButtonStyle;
 
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
@@ -49,6 +53,9 @@ public class MenuScreen extends ScreenAdapter {
 		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
 		//menuMusic.setLooping(true);
 		//menuMusic.play();
+		//imageButtonStyle = new ImageButtonStyle();
+		//imageButtonStyle.imageUp = 
+		//imageButton = new ImageButton();
 		
 	}
 
