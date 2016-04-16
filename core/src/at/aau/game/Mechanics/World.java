@@ -64,7 +64,7 @@ public class World {
         size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
         pixelSize = PixieSmack.worldToPixel(size);
 
-        koerbchen = new Koerbchen(new Vector2(50, 200), this);
+        koerbchen = new Koerbchen(new Vector2(450, 50), this);
         gameObjects.add(koerbchen);
 
         smacker = new Smacker(Vector2.Zero, this);
@@ -209,7 +209,11 @@ public class World {
 
 	public void pixieSmacked(FairyObject fairy) {
 		if (fairy instanceof BadFairyObject) {
-			spawnBadDust(fairy.position);			
+			smacker.SmackCnt -= 3;
+			if (smacker.SmackCnt < 0){
+				smacker.SmackCnt = 0;
+			}
+			spawnBadDust(fairy.position);
 		} else if (fairy instanceof BigFairyObject) {
 			spawnSpecialDust(fairy.position);
 		} else {
