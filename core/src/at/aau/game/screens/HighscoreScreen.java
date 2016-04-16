@@ -18,7 +18,7 @@ public class HighscoreScreen extends ScreenAdapter{
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
 	//Scores auf größe 5 begrenzen!
-	public String[] scores = {"Nummer 1", "Nummer 2", "Nummer 3"};
+	public String[] scores = {"nie gespielt"};
 	
 	Texture backgroundImage;
 	BitmapFont highscoreFont;
