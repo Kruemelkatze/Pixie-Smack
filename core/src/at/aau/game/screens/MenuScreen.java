@@ -85,6 +85,7 @@ public class MenuScreen extends ScreenAdapter {
 		// keys ...
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && this.parentGame.alreadyIngame) { // JUST
 			this.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
+			menuMusic.stop();
 			parentGame.getSoundManager().playEvent("blip");
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentMenuItem = (currentMenuItem + 1) % menuStrings.length;
@@ -117,6 +118,7 @@ public class MenuScreen extends ScreenAdapter {
 				menuMusic.stop();
 			} else if (menuStrings[currentMenuItem].equals("Highscore")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
+				menuMusic.stop();
 			}
 		}
 		// touch
@@ -135,6 +137,7 @@ public class MenuScreen extends ScreenAdapter {
 							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 						} else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
 							menuMusic.stop();

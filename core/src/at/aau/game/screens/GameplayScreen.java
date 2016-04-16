@@ -46,12 +46,13 @@ public class GameplayScreen extends ScreenAdapter {
 
 		batch = new SpriteBatch();
 		Gdx.input.setCursorCatched(true);
-		world.gameplayScreen.parentGame.getSoundManager().playEvent("gameMusic");
+		
 	}
 
 	@Override
 	public void render(float delta) {
 		this.parentGame.alreadyIngame = true;
+		world.gameplayScreen.parentGame.getSoundManager().playEvent("gameMusic");
 		if (pause) {
 			return;
 		}
@@ -89,11 +90,13 @@ public class GameplayScreen extends ScreenAdapter {
 
 	public void show() {
 		this.pause = false;
+		parentGame.getSoundManager().resumeEvent("gameMusic");
 	}
 
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
 			this.pause = true;
+			parentGame.getSoundManager().pauseEvent("gameMusic");
 			this.world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 			parentGame.getSoundManager().playEvent("blip");
 		}

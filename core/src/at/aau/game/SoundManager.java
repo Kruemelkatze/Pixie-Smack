@@ -43,13 +43,35 @@ public class SoundManager {
      */
     public void playEvent(String event) {
         if (event2sound.get(event) != null) {
-        	if(event2sound.get(event).toString().equals("sfx/gameMusic.wav")){;
+        	if(event2sound.get(event).toString().equals("sfx/gameMusic.wav")){
         		  parentGame.getAssetManager().get(event2sound.get(event), Music.class).setLooping(true);
         		  parentGame.getAssetManager().get(event2sound.get(event), Music.class).play();
         	} else {
         		parentGame.getAssetManager().get(event2sound.get(event), Sound.class).play();
         	}
         } else {
+            System.err.println("Event unknown.");
+        }
+    }
+    
+    public void pauseEvent(String event){
+    	if (event2sound.get(event) != null) {
+    		if(event2sound.get(event).toString().equals("sfx/gameMusic.wav")){
+    			parentGame.getAssetManager().get(event2sound.get(event), Music.class).pause();
+    		}
+    	} else {
+            System.err.println("Event unknown.");
+        }
+    }
+    
+    public void resumeEvent(String event){
+    	if (event2sound.get(event) != null) {
+    		if(event2sound.get(event).toString().equals("sfx/gameMusic.wav")){
+    			if(parentGame.getAssetManager().get(event2sound.get(event), Music.class).isPlaying()){
+        			parentGame.getAssetManager().get(event2sound.get(event), Music.class).play();
+    			}
+    		}
+    	} else {
             System.err.println("Event unknown.");
         }
     }
