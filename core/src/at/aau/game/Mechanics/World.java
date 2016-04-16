@@ -30,7 +30,8 @@ public class World {
     public int highscore;
     public String highscoreName;
     public BitmapFont highscoreBitmapFont;
-
+    public SmackCntPic smackCounterPic;
+    static Vector2 SIZE = new Vector2(237, 46);
     Koerbchen koerbchen;
     Smacker smacker;
     public Array<SmackAnim> smackAnims;
@@ -60,7 +61,9 @@ public class World {
         fairies = new Array<FairyObject>();
         smackAnims = new Array<SmackAnim>();
         this.gameplayScreen = gameplayScreen;
-
+ 
+        smackCounterPic = new SmackCntPic(new Vector2(720,40),this, SIZE);
+ 
         size = new Vector2(PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
         pixelSize = PixieSmack.worldToPixel(size);
 
@@ -247,6 +250,9 @@ public class World {
 			smackAnim.render(delta, spriteBatch);
 		}
 		smacker.render(delta, spriteBatch);
+		smackCounterPic.render(delta, spriteBatch);
+		System.out.println(smacker.SmackCnt);
+		smackCounterPic.setAnimation(smacker.SmackCnt);
 
 		// highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 - ((int) (Math.log10(highscore) - 1) * 20)), 680);
 		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, 680);

@@ -34,7 +34,7 @@ public class GameConstants {
 
     public static final float SMACKER_REACH = 70;
     
-    public static final float SMACK_REGENERATION_TIME = 0.5f;
+    public static final float SMACK_REGENERATION_TIME = 0.8f;
     public static final int SMACK_LIMIT = 13;
 
     public static final float TIMEOUT = 30;
