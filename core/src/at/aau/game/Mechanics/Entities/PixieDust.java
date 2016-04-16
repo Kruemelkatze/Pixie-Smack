@@ -1,9 +1,11 @@
 package at.aau.game.Mechanics.Entities;
 
 import at.aau.game.Mechanics.World;
-
 import at.aau.game.PixieSmack;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +18,7 @@ public class PixieDust extends MoveableObject {
     private Vector2 spawnPosition;
     public boolean IsBadDust = false;
     public boolean IsSpecialDust = false;
+    ParticleEffect pe;
     
     private Random random = new Random();
 
@@ -31,12 +34,20 @@ public class PixieDust extends MoveableObject {
         this.speed = 5f;
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/obj_staub_sprit.png", 0.3f, 64, 64);
         this.direction = new Vector2(0, -1);
+        
+        pe = new ParticleEffect();
+        pe.setPosition(position.x, position.y);
+        pe.load(Gdx.files.internal("gameplay/randomparticle"),Gdx.files.internal("gameplay"));
+        pe.getEmitters().first().setPosition(position.x,position.y);
+        pe.start();
     }
 
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
         frame = movingDownAnimation.getKeyFrame(animTime, true);
         spriteBatch.draw(frame, position.x, position.y);
+        this.pe.getEmitters().first().setPosition(this.position.x + 32, this.position.y - 32);
+ 	    pe.draw(spriteBatch, delta);
     }
 
 
