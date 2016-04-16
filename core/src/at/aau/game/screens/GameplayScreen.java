@@ -68,19 +68,24 @@ public class GameplayScreen extends ScreenAdapter {
 		batch.end();
 		world.render(delta);
 
-		// batch.begin();
-		// // draw bgImage ...
-		// batch.draw(backgroundImage, 0, 0, PixieSmack.GAME_WIDTH, PixieSmack.GAME_HEIGHT);
-		// // draw Strings ...
-		// for (int i = 0; i < menuStrings.length; i++) {
-		// if (i == currentMenuItem) menuFont.setColor(0.2f, 1f, 0.2f, 1f);
-		// else menuFont.setColor(0.2f, 0.2f, 1f, 1f);
-		// menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.GAME_HEIGHT - offsetTop - i * offsetY);
-		// }
-		// batch.end();
+		int x, y;
+		x = Gdx.input.getX();
+		y = Gdx.input.getY();
+
+		if (x < 0) {
+			Gdx.input.setCursorPosition(0, y);
+		} else if (x > PixieSmack.MENU_GAME_WIDTH) {
+			Gdx.input.setCursorPosition((int) PixieSmack.MENU_GAME_WIDTH, y);
+		}
+
+		if (y < 0) {
+			Gdx.input.setCursorPosition(x, 0);
+		} else if (y > PixieSmack.MENU_GAME_HEIGHT) {
+			Gdx.input.setCursorPosition(x, (int) PixieSmack.MENU_GAME_HEIGHT);
+		}
 	}
-	
-	public void show(){
+
+	public void show() {
 		this.pause = false;
 	}
 

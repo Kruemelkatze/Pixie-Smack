@@ -23,9 +23,9 @@ public class GameConstants {
     public static final float FAIRY_MAX_Y_OFFSET = 100f;
 
     public static final float SMACKER_REACH = 70;
-    
+
     public static final float TIMEOUT = 10;
-    
+
     public static final int MAX_FAIRIES = 10;
     
     public static final String NEW_GAME = "New Game";
