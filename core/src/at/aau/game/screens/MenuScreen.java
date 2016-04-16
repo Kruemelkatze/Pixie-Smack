@@ -1,5 +1,6 @@
 package at.aau.game.screens;
 
+import at.aau.game.GameConstants;
 import at.aau.game.PixieSmack;
 import at.aau.game.ScreenManager;
 import at.aau.game.SoundManager;
@@ -24,7 +25,7 @@ public class MenuScreen extends ScreenAdapter {
 	BitmapFont menuFont;
 	Music menuMusic;
 
-	String[] menuStrings = { "Play", "Highscore", "Credits", "Exit" };
+	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Highscore", "Credits", "Exit" };
 	int currentMenuItem = 0;
 
 	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 8, offsetTop = PixieSmack.MENU_GAME_WIDTH / 8, offsetY = PixieSmack.MENU_GAME_HEIGHT / 8;
@@ -62,24 +63,45 @@ public class MenuScreen extends ScreenAdapter {
 		// draw bgImage ...
 		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
 		// draw Strings ...
+		int offsetFactor = 0;
 		for (int i = 0; i < menuStrings.length; i++) {
 			if (i == currentMenuItem)
 				menuFont.setColor(0.2f, 1f, 0.2f, 1f);
 			else
 				menuFont.setColor(0.2f, 0.2f, 1f, 1f);
-			menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY);
+			if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
+				offsetFactor++;
+			}
+			if (!menuStrings[i].equals(GameConstants.RESUME_GAME)) {
+				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
+				offsetFactor++;
+			}
 		}
 		batch.end();
 	}
 
 	private void handleInput() {
 		// keys ...
-		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && this.parentGame.alreadyIngame) { // JUST
+			this.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
+			parentGame.getSoundManager().playEvent("blip");
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentMenuItem = (currentMenuItem + 1) % menuStrings.length;
+			if (currentMenuItem == 1 && !this.parentGame.alreadyIngame) {
+				currentMenuItem++;
+			}
 			parentGame.getSoundManager().playEvent("blip");
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 			currentMenuItem = (currentMenuItem - 1) % menuStrings.length;
-			parentGame.getSoundManager().playEvent("blip");
+			if (currentMenuItem == 1 && !this.parentGame.alreadyIngame) {
+				currentMenuItem--;
+			}
+			if (currentMenuItem < 0) {
+				currentMenuItem = 0;
+			} else {
+				parentGame.getSoundManager().playEvent("blip");
+			}
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 			if (menuStrings[currentMenuItem].equals("Exit")) {
 				Gdx.app.exit();
@@ -87,11 +109,13 @@ public class MenuScreen extends ScreenAdapter {
 			} else if (menuStrings[currentMenuItem].equals("Credits")) {
 				menuMusic.stop();
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
-			} else if (menuStrings[currentMenuItem].equals("Play")){
+			} else if (menuStrings[currentMenuItem].equals(GameConstants.NEW_GAME)) {
+				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 				menuMusic.stop();
-				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
-			} else if (menuStrings[currentMenuItem].equals("Highscore")){
+			} else if (menuStrings[currentMenuItem].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 				menuMusic.stop();
+			} else if (menuStrings[currentMenuItem].equals("Highscore")) {
 				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
 			}
 		}
@@ -106,9 +130,12 @@ public class MenuScreen extends ScreenAdapter {
 						// it's there
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
-						} else if (menuStrings[i].equals("Play")) {
+
+						} else if (menuStrings[i].equals(GameConstants.NEW_GAME)) {
 							menuMusic.stop();
-							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
+							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
+						} else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
 							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
