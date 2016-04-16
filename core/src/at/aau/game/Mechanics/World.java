@@ -247,6 +247,7 @@ public class World {
 			spawnBadDust(fairy.position.cpy());
 		} else if (fairy instanceof BigFairyObject) {
 			smacker.SmackCnt += GameConstants.BIG_FAIRY_SMACK_CHANGE;
+			
 			if (smacker.SmackCnt > GameConstants.SMACK_LIMIT){
 				smacker.SmackCnt = GameConstants.SMACK_LIMIT;
 			}
@@ -256,7 +257,6 @@ public class World {
 			spawnDust(fairy.position.cpy());
 		}
 		spawnSmackAnim(fairy.position.cpy());
-		//fairies.removeValue(fairy, true);
 	}
 
 	private void spawnSmackAnim(Vector2 position) {
@@ -290,7 +290,6 @@ public class World {
 		}
 		smacker.render(delta, spriteBatch);
 		smackCounterPic.render(delta, spriteBatch);
-		System.out.println(smacker.SmackCnt);
 		smackCounterPic.setAnimation(smacker.SmackCnt);
 
 		// highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 - ((int) (Math.log10(highscore) - 1) * 20)), 680);

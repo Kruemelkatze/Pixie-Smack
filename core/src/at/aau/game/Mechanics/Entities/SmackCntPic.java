@@ -56,7 +56,7 @@ public class SmackCntPic extends MoveableObject{
 					break;
 		case 13:	animation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/smack13.png", 0.0f, 237, 46);
 					break;
-		default:	System.out.println("Switch Error in Methode setAnimation() in Klasse SmackCntPic");
+		default:	//System.out.println("Switch Error in Methode setAnimation() in Klasse SmackCntPic");
 		}
 	}
 	

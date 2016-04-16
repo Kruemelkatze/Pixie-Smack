@@ -37,7 +37,7 @@ public class GameConstants {
     public static final float FAIRY_MAX_Y_OFFSET = 100f;
 
     public static final float BAD_FAIRY_SMACK_CHANGE = -3;
-    public static final float BIG_FAIRY_SMACK_CHANGE = 2;
+    public static final float BIG_FAIRY_SMACK_CHANGE = 3;
     
     public static final float SMACKER_REACH = 70;
     
