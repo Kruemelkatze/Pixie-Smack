@@ -22,7 +22,7 @@ public class FairyObject extends MoveableObject {
 	protected Animation leftAnimation;
 	protected Animation rightAnimation;
 	protected float animTime = 0;
-	private float deathSpeed = 1 + (int)(Math.random() * ((2.5f - 1) + 1));
+	private float deathSpeed = 1 + (int) (Math.random() * ((2.5f - 1) + 1));
 
 	protected int health = 1;
 	protected Vector2 startPosition;
@@ -92,7 +92,6 @@ public class FairyObject extends MoveableObject {
 		default:
 			break;
 		}
-
 		spriteBatch.draw(tempFrame, position.x, position.y);
 		// spriteBatch.draw(tempFrame, position.x, position.y,
 		// tempFrame.getRegionWidth() / GameConstants.PIXEL_TO_METER,

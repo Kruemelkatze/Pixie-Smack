@@ -22,7 +22,7 @@ public abstract class CollidableObject extends MoveableObject {
         bodyDef.position.set(position.x, position.y);
 
 // Create our body in the world using our body definition
-        body = world.getBox2DWorld().createBody(bodyDef);
+        //body = world.getBox2DWorld().createBody(bodyDef);
 
 // Create a circle shape and set its radius to 6
         PolygonShape shape = new PolygonShape();
