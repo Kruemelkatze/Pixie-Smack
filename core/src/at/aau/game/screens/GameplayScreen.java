@@ -91,12 +91,14 @@ public class GameplayScreen extends ScreenAdapter {
 	public void show() {
 		this.pause = false;
 		parentGame.getSoundManager().resumeEvent("gameMusic");
+		Gdx.input.setCursorCatched(true);
 	}
 
 	private void handleInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
 			this.pause = true;
 			parentGame.getSoundManager().pauseEvent("gameMusic");
+			Gdx.input.setCursorCatched(false);
 			this.world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 			parentGame.getSoundManager().playEvent("blip");
 		}

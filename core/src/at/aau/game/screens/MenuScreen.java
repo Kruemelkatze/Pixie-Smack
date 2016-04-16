@@ -69,11 +69,16 @@ public class MenuScreen extends ScreenAdapter {
 				menuFont.setColor(0.2f, 1f, 0.2f, 1f);
 			else
 				menuFont.setColor(0.2f, 0.2f, 1f, 1f);
-			if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+			if (menuStrings[i].equals(GameConstants.RESUME_GAME) && !this.parentGame.alreadyIngame) {
+				menuFont.setColor(0.3f, 0.3f, 0.3f, 1f);
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
 				offsetFactor++;
 			}
-			if (!menuStrings[i].equals(GameConstants.RESUME_GAME)) {
+			else if (menuStrings[i].equals(GameConstants.RESUME_GAME) && this.parentGame.alreadyIngame) {
+				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
+				offsetFactor++;
+			}
+			else if (!menuStrings[i].equals(GameConstants.RESUME_GAME)) {
 				menuFont.draw(batch, menuStrings[i], offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop - offsetFactor * offsetY);
 				offsetFactor++;
 			}
@@ -129,10 +134,9 @@ public class MenuScreen extends ScreenAdapter {
 				if (touchWorldCoords.x > offsetLeft) {
 					float pos = PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY;
 					if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - menuFont.getLineHeight()) {
-						// it's there
+							// it's there
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
-
 						} else if (menuStrings[i].equals(GameConstants.NEW_GAME)) {
 							menuMusic.stop();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
