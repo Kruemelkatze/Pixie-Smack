@@ -1,7 +1,6 @@
 package at.aau.game.Mechanics;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import at.aau.game.GameConstants;
@@ -11,7 +10,6 @@ import at.aau.game.PixieSmack;
 import at.aau.game.screens.GameplayScreen;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

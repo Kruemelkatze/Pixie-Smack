@@ -24,8 +24,8 @@ public class PixieSmack extends ApplicationAdapter {
 	// orthographic camera
 	// set in DesktopLauncher to any resolution and it will be scaled
 	// automatically.
-	public static final float MENU_GAME_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height / 1.25f;
-	public static final float MENU_GAME_WIDTH =  MENU_GAME_HEIGHT / 0.75f;
+	public static final float MENU_GAME_HEIGHT = (float) Toolkit.getDefaultToolkit().getScreenSize().height / 1.25f;
+	public static final float MENU_GAME_WIDTH = MENU_GAME_HEIGHT * 1.25f;
 
 	// public static final float GAME_WIDTH = 10; // 1080;
 	// public static final float GAME_HEIGHT = 7; // 720;
@@ -111,7 +111,7 @@ public class PixieSmack extends ApplicationAdapter {
 		
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
-		
+
 		assMan.load(GameConstants.EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
 
