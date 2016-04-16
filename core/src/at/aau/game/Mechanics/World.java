@@ -133,13 +133,15 @@ public class World {
 	}
 
 	public void touch(Vector2 touchCoords) {
-		smacker.smack();
+		if (!this.gameEnded) {
+			smacker.smack();
 
-		Iterator<FairyObject> iterator = fairies.iterator();
-		while (iterator.hasNext()) {
-			FairyObject fairy = iterator.next();
-			if (isWithinSmackBounds(touchCoords, fairy)) {
-				fairy.onCollision();
+			Iterator<FairyObject> iterator = fairies.iterator();
+			while (iterator.hasNext()) {
+				FairyObject fairy = iterator.next();
+				if (isWithinSmackBounds(touchCoords, fairy)) {
+					fairy.onCollision();
+				}
 			}
 		}
 	}
