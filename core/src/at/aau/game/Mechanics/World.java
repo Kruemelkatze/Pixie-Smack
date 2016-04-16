@@ -68,7 +68,8 @@ public class World {
         gameObjects.add(koerbchen);
 
         smacker = new Smacker(Vector2.Zero, this);
-
+        gameObjects.add(smacker);
+        
         box2DWorld = new com.badlogic.gdx.physics.box2d.World(Vector2.Zero, false);
 
         highscore = 0;
@@ -137,7 +138,7 @@ public class World {
 
 	public void touch(Vector2 touchCoords) {
 				
-		if (!this.gameEnded) {
+		if (!this.gameEnded && smacker.SmackCnt > 0) {
 			smacker.smack();
 
 			Iterator<FairyObject> iterator = fairies.iterator();
@@ -187,7 +188,7 @@ public class World {
 	public void pixieDustCollected(PixieDust pixieDust, float distance) {
 		// Give points and stuff
 		if (pixieDust.IsBadDust){
-			highscore -= 10;
+			highscore -= 20;
 		} else if (pixieDust.IsSpecialDust){
 			highscore += 50;
 		} else {

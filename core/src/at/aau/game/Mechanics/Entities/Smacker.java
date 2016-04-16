@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Smacker extends MoveableObject {
 
@@ -18,7 +19,11 @@ public class Smacker extends MoveableObject {
     public static final Vector2 SMACK_OFFSET = new Vector2(160, 100); //Magic numbers, interpolated in multi-phase testing iterations
     private final Animation smackingAnim;
     private Random random = new Random();
-
+    
+    public int SmackCnt = 10;
+    public final int SmackLimit = 10;
+    public float SmackerRegenerationTime;
+    
     public Smacker(Vector2 position, World world) {
         super(position, world, SIZE);
         this.smackingAnim = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/smacker-anim.png", 0.02f, (int) SIZE.x, (int) SIZE.y);
@@ -44,11 +49,24 @@ public class Smacker extends MoveableObject {
 
         spriteBatch.draw(frame.getTexture(), position.x - SMACK_OFFSET.x, position.y - SMACK_OFFSET.y, 0, 0, SIZE.x, SIZE.y, 1f, 1f, -45, frame.getRegionX(), frame.getRegionY(), frame.getRegionWidth(), frame.getRegionHeight(), false, false);
     }
-
+    
+    @Override
+	public void update(float delta) {
+    	super.update(delta);
+    	SmackerRegenerationTime += delta;
+    	if (SmackCnt <= SmackLimit && SmackerRegenerationTime > 0.5){
+    		SmackCnt += 1;
+    		SmackerRegenerationTime = 0;
+    	}
+	}
+    
     public void smack() {
-        animTime = 0f;
-        int randomNum = random.nextInt(PixieSmack.SmackSoundsCount) + 1;
-        world.gameplayScreen.parentGame.getSoundManager().playEvent("smack" + randomNum);
+     	if (SmackCnt > 0) {  		
+     		animTime = 0f;
+            int randomNum = random.nextInt(PixieSmack.SmackSoundsCount) + 1;
+            world.gameplayScreen.parentGame.getSoundManager().playEvent("smack" + randomNum);
+            SmackCnt -=1;
+     	}
     }
 
 
