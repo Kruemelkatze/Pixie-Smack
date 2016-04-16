@@ -139,13 +139,4 @@ public class PixieSmack extends ApplicationAdapter {
 		return animator;
 	}
 
-	/*
-	 * public static Vector2 pixelToWorld(Vector2 pixel) { return new
-	 * Vector2(GAME_WIDTH / MENU_GAME_WIDTH * pixel.x, GAME_HEIGHT /
-	 * MENU_GAME_HEIGHT * pixel.y); }
-	 * 
-	 * public static Vector2 worldToPixel(Vector2 world) { return new
-	 * Vector2(MENU_GAME_WIDTH / GAME_WIDTH * world.x, MENU_GAME_HEIGHT /
-	 * GAME_HEIGHT * world.y); }
-	 */
 }

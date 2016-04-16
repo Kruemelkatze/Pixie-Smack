@@ -23,6 +23,7 @@ public class GameConstants {
     
     public static final String MAD_FAIRY_SPRITE_PATH_LEFT = "gameplay/obj-pixie_mad_left.png";
     public static final String MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/obj-pixie_mad_left_upsidedown.png";
+    public static final String EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/evil_fairy_mad_left_upsidedown.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
     public static final float FAIRY_SPAWN_THRESHOLD = 1f;
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
@@ -58,5 +59,5 @@ public class GameConstants {
     public static final String MUSIC_INTRO = "sfx/introMusic.wav";
     public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
 	public static final String GAME_MUSIC = "gameMusic";
-	public static final String INRO_MUSIC = "introMusic";
+	public static final String INTRO_MUSIC = "introMusic";
 }

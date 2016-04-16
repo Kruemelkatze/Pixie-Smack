@@ -30,7 +30,7 @@ public class CreditsScreen extends ScreenAdapter {
 	public CreditsScreen(PixieSmack game) {
 		this.parentGame = game;
 
-		backgroundImage = parentGame.getAssetManager().get("menu/menu_background-old.jpg");
+		backgroundImage = parentGame.getAssetManager().get("menu/menu_background_empty.png");
 		gradientTop = parentGame.getAssetManager().get("credits/gradient_top.png");
 		gradientBottom = parentGame.getAssetManager().get("credits/gradient_bottom.png");
 
@@ -44,7 +44,7 @@ public class CreditsScreen extends ScreenAdapter {
 
 		batch = new SpriteBatch();
 		
-		this.parentGame.getSoundManager().playEvent(GameConstants.INRO_MUSIC);
+		this.parentGame.getSoundManager().playEvent(GameConstants.INTRO_MUSIC);
 		//menuMusic = Gdx.audio.newMusic(Gdx.files.internal(GameConstants.MUSIC_INTRO));
 		//menuMusic.setLooping(true);
 		//menuMusic.play();
