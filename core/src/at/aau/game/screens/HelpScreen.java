@@ -21,7 +21,7 @@ public class HelpScreen extends ScreenAdapter {
 	private final OrthographicCamera cam;
 	private final SpriteBatch batch;
 	String helpString = "Help";
-	String collect = "Catch fairy dust\n till the time is end!";
+	String collect = "Hurry up\n and catch fairy dust!";
 
 	
 	
@@ -68,9 +68,11 @@ public class HelpScreen extends ScreenAdapter {
 		
 		describe.draw(batch, collect, offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop -0 * offsetY -120);
 
-		batch.draw(pixie, 1500,600);
-		batch.draw(goodPixie, 150,400);
-		batch.draw(badPixie, 150,200);
+		batch.draw(pixie, 150,390);
+		batch.draw(goodPixie, 150,250);
+		batch.draw(badPixie, 150,110);
+		
+		
 		
 		batch.end();
 	}

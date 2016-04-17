@@ -21,7 +21,7 @@ public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-	Texture backgroundImage;
+	Texture backgroundImage, helpButton;
 	BitmapFont menuFont;
 	// Music menuMusic;
 	// ImageButton imageButton;
@@ -36,6 +36,7 @@ public class MenuScreen extends ScreenAdapter {
 		this.parentGame = game;
 
 		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.png");
+		helpButton = parentGame.getAssetManager().get("menu/helpButton.png");
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		menuFont.setColor(GameConstants.COLOR_PINK);
@@ -89,6 +90,8 @@ public class MenuScreen extends ScreenAdapter {
 				offsetFactor++;
 			}
 		}
+		//draw FAQ Button
+		batch.draw(helpButton,PixieSmack.MENU_GAME_WIDTH-90,20,90,90);
 		batch.end();
 	}
 
