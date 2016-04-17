@@ -111,13 +111,14 @@ public class GameplayScreen extends ScreenAdapter {
 			parentGame.getSoundManager().playEvent("blip");
 		}
 
+		// Vector2 touchPixelCoords = PixieSmack.worldToPixel(new
+		// Vector2(unprojected.x, unprojected.y)); // orig
+		Vector3 unprojected = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
+		Vector2 touchPixelCoords = new Vector2(unprojected.x, unprojected.y);
 		if (Gdx.input.justTouched()) {
-			Vector3 unprojected = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
-			// Vector2 touchPixelCoords = PixieSmack.worldToPixel(new
-			// Vector2(unprojected.x, unprojected.y)); // orig
 
-			Vector2 touchPixelCoords = new Vector2(unprojected.x, unprojected.y);
 			world.touch(touchPixelCoords);
 		}
+		world.mouseOver(touchPixelCoords);
 	}
 }

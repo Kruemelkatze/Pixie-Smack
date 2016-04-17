@@ -56,6 +56,8 @@ public class World {
 	private long timeElapsed;
 	private String mmss;
 	private boolean gameEnded = false;
+	
+	private int currentMenuItem = -1;
 
 	// com.badlogic.gdx.physics.box2d.World box2DWorld;
 
@@ -193,12 +195,23 @@ public class World {
 				// find the menu item ..
 				float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
 				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos) {
-					// gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
 				} else if (touchCoords.y < pos && touchCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 				}
 			}
+		}
+	}
+	
+	public void mouseOver(Vector2 hoverCoords) {
+		float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
+		if (hoverCoords.y < pos + highscoreBitmapFont.getLineHeight() && hoverCoords.y > pos) {
+			currentMenuItem = 0;
+		} else if (hoverCoords.y < pos && hoverCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
+			currentMenuItem = 1;
+		} else {
+			currentMenuItem = -1;
 		}
 	}
 
@@ -354,10 +367,27 @@ public class World {
 			gameEnded = true;
 			highscoreBitmapFont.draw(spriteBatch, gameOverLayout, PixieSmack.MENU_GAME_WIDTH / 2f - gameOverLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
 					+ gameOverLayout.height / 2f + PixieSmack.MENU_GAME_WIDTH / 16f);
+			if (0 == currentMenuItem) {
+				highscoreBitmapFont.setColor(0.8f, 0.0f, 0.7f, 1f);
+				retryLayout.setText(highscoreBitmapFont, "Retry");
+			}
+			else {
+				highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
+				retryLayout.setText(highscoreBitmapFont, "Retry");
+			}
 			highscoreBitmapFont.draw(spriteBatch, retryLayout, PixieSmack.MENU_GAME_WIDTH / 2f - retryLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
 					+ retryLayout.height / 2f);
+			if (1 == currentMenuItem) {
+				highscoreBitmapFont.setColor(0.8f, 0.0f, 0.7f, 1f);
+				menuLayout.setText(highscoreBitmapFont, "Menu");
+			}
+			else {
+				highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
+				menuLayout.setText(highscoreBitmapFont, "Menu");
+			}
 			highscoreBitmapFont.draw(spriteBatch, menuLayout, PixieSmack.MENU_GAME_WIDTH / 2f - menuLayout.width / 2f, PixieSmack.MENU_GAME_HEIGHT / 2f
 					+ menuLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f);
+			highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 		}
 		spriteBatch.end();
 	}
