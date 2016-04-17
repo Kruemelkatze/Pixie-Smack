@@ -62,8 +62,10 @@ public class GameConstants {
 
 	public static final String SOUND_DEAD_BIG_FAIRY = "sfx/bfrx_wav/Cast.wav";
 	public static final String SOUND_BAD_COLLECT = "sfx/hit.wav";
-	public static final String MUSIC_INTRO = "sfx/introMusic.wav";
-	public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
+//	public static final String MUSIC_INTRO = "sfx/introMusic.wav";
+	public static final String MUSIC_INTRO = "introMusic.mp3";
+//	public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
+	public static final String MUSIC_INGAME = "gameMusic.mp3";
 	public static final String GAME_MUSIC = "gameMusic";
 	public static final String INTRO_MUSIC = "introMusic";
 
