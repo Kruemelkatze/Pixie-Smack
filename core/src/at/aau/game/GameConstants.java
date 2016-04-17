@@ -35,6 +35,9 @@ public class GameConstants {
     public static final float BAD_FAIRY_SMACK_CHANGE = -3;
     public static final float BIG_FAIRY_SMACK_CHANGE = 3;
     
+    public static final float BIG_FAIRY_TIME_PLUS = 3000f;
+    public static final float BAD_FAIRY_TIME_MINUS = -2000f;
+    
     public static final float SMACKER_REACH = 70;
     
     public static final float SMACK_REGENERATION_TIME = 0.7f;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Timer extends GameObject {
-    private float animTime = 0.0f;
+    public float animTime = 0.0f;
     private Animation timer;
 
     public Timer(Vector2 position, World world, Vector2 size) {

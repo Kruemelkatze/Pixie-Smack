@@ -52,6 +52,8 @@ public class World {
 	private GlyphLayout gameOverLayout;
 	private GlyphLayout retryLayout;
 	private GlyphLayout menuLayout;
+	
+	Timer timer;
 
 	private long timeElapsed;
 	private String mmss;
@@ -99,7 +101,7 @@ public class World {
 		retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
 		menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
 
-		Timer timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 75));
+		timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 75));
 		gameObjects.add(timer);
 	}
 
@@ -262,8 +264,27 @@ public class World {
 		// Give points and stuff
 		if (pixieDust.IsBadDust) {
 			highscore -= 20;
+			float tmp0 = GameConstants.BAD_FAIRY_TIME_MINUS;
+			this.timeElapsed -= tmp0;
+			if(this.timeElapsed < 0){
+				this.timeElapsed = 0;
+			}
+			this.timer.animTime -=  tmp0/1000f;
+			if(this.timer.animTime < 0){
+				this.timer.animTime = 0;
+			}
 		} else if (pixieDust.IsSpecialDust) {
 			highscore += 60;
+			float tmp = GameConstants.BIG_FAIRY_TIME_PLUS;
+			this.timeElapsed -= tmp;
+			if(this.timeElapsed < 0){
+				this.timeElapsed = 0;
+			}
+			this.timer.animTime -=  tmp/1000f;
+			if(this.timer.animTime < 0){
+				this.timer.animTime = 0;
+			}
+			
 		} else {
 			highscore += 10;
 		}
@@ -285,6 +306,7 @@ public class World {
 				smacker.SmackCnt = 0;
 			}
 			spawnBadDust(fairy.position.cpy());
+			badFairies.removeIndex(badFairies.indexOf(fairy,true));
 		} else if (fairy instanceof BigFairyObject) {
 			smacker.SmackCnt += GameConstants.BIG_FAIRY_SMACK_CHANGE;
 
@@ -293,8 +315,10 @@ public class World {
 			}
 
 			spawnSpecialDust(fairy.position.cpy());
+			bigFairies.removeIndex(bigFairies.indexOf(fairy,true));
 		} else {
 			spawnDust(fairy.position.cpy());
+			fairies.removeIndex(fairies.indexOf(fairy,true));
 		}
 		spawnSmackAnim(fairy.position.cpy());
 	}
