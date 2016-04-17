@@ -194,10 +194,17 @@ public class World {
 			if (Gdx.input.justTouched()) {
 				// find the menu item ..
 				float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
-				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos) {
+				float pos2 = PixieSmack.MENU_GAME_WIDTH / 2f;
+				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() &&
+						touchCoords.y > pos &&
+						touchCoords.x > pos2 - retryLayout.width / 2f &&
+						touchCoords.x < pos2 + retryLayout.width / 2f) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
-				} else if (touchCoords.y < pos && touchCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
+				} else if (touchCoords.y < pos &&
+						touchCoords.y > pos - highscoreBitmapFont.getLineHeight() &&
+						touchCoords.x > pos2 - menuLayout.width / 2f &&
+						touchCoords.x < pos2 + menuLayout.width / 2f) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 				}
 			}
@@ -206,9 +213,16 @@ public class World {
 	
 	public void mouseOver(Vector2 hoverCoords) {
 		float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
-		if (hoverCoords.y < pos + highscoreBitmapFont.getLineHeight() && hoverCoords.y > pos) {
+		float pos2 = PixieSmack.MENU_GAME_WIDTH / 2f;
+		if (hoverCoords.y < pos + highscoreBitmapFont.getLineHeight() &&
+				hoverCoords.y > pos &&
+				hoverCoords.x > pos2 - retryLayout.width / 2f &&
+				hoverCoords.x < pos2 + retryLayout.width / 2f) {
 			currentMenuItem = 0;
-		} else if (hoverCoords.y < pos && hoverCoords.y > pos - highscoreBitmapFont.getLineHeight()) {
+		} else if (hoverCoords.y < pos &&
+				hoverCoords.y > pos - highscoreBitmapFont.getLineHeight() &&
+				hoverCoords.x > pos2 - menuLayout.width / 2f &&
+				hoverCoords.x < pos2 + menuLayout.width / 2f) {
 			currentMenuItem = 1;
 		} else {
 			currentMenuItem = -1;
