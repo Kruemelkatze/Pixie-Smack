@@ -163,7 +163,7 @@ public class MenuScreen extends ScreenAdapter {
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
 							// SoundManager.stopMusic();
-							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Help);//HIER
+							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
 						} else if (menuStrings[i].equals("Hall Of Fame")) {
 							// SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);
@@ -177,6 +177,8 @@ public class MenuScreen extends ScreenAdapter {
 						touchWorldCoords.y < 110 &&
 						touchWorldCoords.y > 20) {
 				helpClicked = true;
+				parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Help);
+				helpClicked = false;
 			}
 		}
 		Vector3 worldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
