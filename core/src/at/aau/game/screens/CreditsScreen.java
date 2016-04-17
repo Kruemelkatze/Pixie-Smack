@@ -23,7 +23,7 @@ public class CreditsScreen extends ScreenAdapter {
 	Texture backgroundImage, gradientTop, gradientBottom;
 	BitmapFont creditsFont;
 
-	String[] credits = ("GdxGameSkelet0n\n by Mathias Lux\n" + "All assets are\n public d0main\n" + "Cl0ne and adapt\n t0 y0ur will\n" + "\n" + "H0pe it helps ;)")
+	String[] credits = ("Credits\n Pr0grammers:\nKevin Herkt \nBernhard Nitsch \nChristian Hribernik \nFrederik Platter \n\n Art:\nNatascha Rauscher\nAlice Eberhard\n\n Musik:\nPeter Hafele\nMathias Lux\n\n F00d Supply\n Management:\nSara W0gatai\n\nGdxGameSkelet0n\nby Mathias Lux\n" + "All assets are\n public d0main\n")
 			.split("\\n");
 	private float moveY;
 
@@ -70,8 +70,8 @@ public class CreditsScreen extends ScreenAdapter {
 		}
 
 		// draw gradient
-		batch.draw(gradientBottom, 0, 0, PixieSmack.MENU_GAME_HEIGHT, gradientBottom.getHeight());
-		batch.draw(gradientTop, 0, PixieSmack.MENU_GAME_HEIGHT - gradientTop.getHeight(), PixieSmack.MENU_GAME_HEIGHT, gradientTop.getHeight());
+		//batch.draw(gradientBottom, 0, 0, PixieSmack.MENU_GAME_HEIGHT, gradientBottom.getHeight());
+		//batch.draw(gradientTop, 0, PixieSmack.MENU_GAME_HEIGHT - gradientTop.getHeight(), PixieSmack.MENU_GAME_HEIGHT, gradientTop.getHeight());
 
 		batch.end();
 	}
