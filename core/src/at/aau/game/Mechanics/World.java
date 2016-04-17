@@ -11,6 +11,7 @@ import at.aau.game.screens.GameplayScreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -57,7 +58,7 @@ public class World {
 	private String mmss;
 	private boolean gameEnded = false;
 	
-	private int currentMenuItem = -1;
+	private int currentMenuItem = 0;
 
 	// com.badlogic.gdx.physics.box2d.World box2DWorld;
 
@@ -224,8 +225,33 @@ public class World {
 				hoverCoords.x > pos2 - menuLayout.width / 2f &&
 				hoverCoords.x < pos2 + menuLayout.width / 2f) {
 			currentMenuItem = 1;
-		} else {
-			currentMenuItem = -1;
+		}
+	}
+	
+	public void keyInput() {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
+			this.gameplayScreen.pause = true;
+			// parentGame.getSoundManager().pauseEvent(GameConstants.GAME_MUSIC);
+			Gdx.input.setCursorCatched(false);
+			this.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+			this.gameplayScreen.parentGame.getSoundManager().playEvent("blip");
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+			currentMenuItem = (currentMenuItem + 1) % 2;
+			gameplayScreen.parentGame.getSoundManager().playEvent("blip");
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+			currentMenuItem = (currentMenuItem - 1) % 2;
+			if (currentMenuItem < 0) {
+				currentMenuItem = 0;
+			} else {
+				gameplayScreen.parentGame.getSoundManager().playEvent("blip");
+			}
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+			if (currentMenuItem == 0) {
+				gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+				gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
+			} else if (currentMenuItem == 1) {
+				gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+			}
 		}
 	}
 

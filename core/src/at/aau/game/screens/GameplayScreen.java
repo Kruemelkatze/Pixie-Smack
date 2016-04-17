@@ -23,7 +23,7 @@ public class GameplayScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	public final OrthographicCamera cam;
 	public PixieSmack parentGame;
-	private boolean pause = false;
+	public boolean pause = false;
 
 	Texture backgroundImage;
 	BitmapFont menuFont;
@@ -103,13 +103,7 @@ public class GameplayScreen extends ScreenAdapter {
 	}
 
 	private void handleInput() {
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
-			this.pause = true;
-			// parentGame.getSoundManager().pauseEvent(GameConstants.GAME_MUSIC);
-			Gdx.input.setCursorCatched(false);
-			this.world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
-			parentGame.getSoundManager().playEvent("blip");
-		}
+		world.keyInput();
 
 		// Vector2 touchPixelCoords = PixieSmack.worldToPixel(new
 		// Vector2(unprojected.x, unprojected.y)); // orig
