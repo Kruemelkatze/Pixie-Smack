@@ -191,6 +191,14 @@ public class MenuScreen extends ScreenAdapter {
 			}
 
 		}
+		if (worldCoords.x > PixieSmack.MENU_GAME_WIDTH - 90 &&
+				worldCoords.x < PixieSmack.MENU_GAME_WIDTH &&
+				worldCoords.y < 110 &&
+				worldCoords.y > 20) {
+		helpClicked = true;
+	} else {
+			helpClicked = false;
+		}
 	}
 
 }
