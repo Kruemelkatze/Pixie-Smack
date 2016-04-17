@@ -35,11 +35,14 @@ public class World {
 	public int highscore;
 	public String highscoreName;
 	public BitmapFont highscoreBitmapFont;
+	public BitmapFont redBitmapFont;
+	public BitmapFont greenBitmapFont;
 	public SmackCntPic smackCounterPic;
 	static Vector2 SIZE = new Vector2(237, 46);
 	Koerbchen koerbchen;
 	Smacker smacker;
 	public Array<SmackAnim> smackAnims;
+	private float feedbackTime = 0.0f;
 
 	private float fairySpawnTimer = 0.0f;
 	private float badFairySpawnTimer = 0.0f;
@@ -53,8 +56,10 @@ public class World {
 	private GlyphLayout gameOverLayout;
 	private GlyphLayout retryLayout;
 	private GlyphLayout menuLayout;
+	private GlyphLayout mmssLayout;
 	
-	Timer timer;
+	private String addedTime = "", addedPoints = "";
+	private Timer timer;
 
 	private long timeElapsed;
 	private String mmss;
@@ -101,6 +106,17 @@ public class World {
 		gameOverLayout = new GlyphLayout(highscoreBitmapFont, "Game Over");
 		retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
 		menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
+		mmssLayout = new GlyphLayout(highscoreBitmapFont, this.mmss);
+		
+		this.redBitmapFont = new BitmapFont();
+		this.redBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+		this.redBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		this.redBitmapFont.setColor(GameConstants.COLOR_RED);
+		
+		this.greenBitmapFont = new BitmapFont();
+		this.greenBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+		this.greenBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		this.greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
 
 		timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 75));
 		gameObjects.add(timer);
@@ -110,9 +126,9 @@ public class World {
 		if (gameEnded) {
 			return;
 		}
-		this.timeElapsed += delta * 1000;
 		this.mmss = String.format("%02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
 				Long.valueOf(TimeUnit.MILLISECONDS.toSeconds(this.timeElapsed) % TimeUnit.MINUTES.toSeconds(1)));
+		this.mmssLayout.setText(this.highscoreBitmapFont, this.mmss);
 		for (GameObject go : gameObjects) {
 			go.update(delta);
 		}
@@ -291,7 +307,11 @@ public class World {
 		if (pixieDust.IsBadDust) {
 			highscore -= 20;
 			float tmp0 = GameConstants.BAD_FAIRY_TIME_MINUS;
+			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+				this.feedbackTime = 0.0f;
+			}
 			this.timeElapsed -= tmp0;
+			this.addedTime = String.valueOf(tmp0/1000f + " sec").replace(".0", "");
 			if(this.timeElapsed < 0){
 				this.timeElapsed = 0;
 			}
@@ -302,7 +322,11 @@ public class World {
 		} else if (pixieDust.IsSpecialDust) {
 			highscore += 60;
 			float tmp = GameConstants.BIG_FAIRY_TIME_PLUS;
+			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+				this.feedbackTime = 0.0f;
+			}
 			this.timeElapsed -= tmp;
+			this.addedTime = "+" + String.valueOf(tmp/1000f + " sec").replace(".0", "");
 			if(this.timeElapsed < 0){
 				this.timeElapsed = 0;
 			}
@@ -384,11 +408,27 @@ public class World {
 
 		// highscoreBitmapFont.draw(spriteBatch, highscoreName, (float) (910 -
 		// ((int) (Math.log10(highscore) - 1) * 20)), 680);
+		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
+		redBitmapFont.setColor(GameConstants.COLOR_PINK);
+		greenBitmapFont.setColor(GameConstants.COLOR_PINK);
 		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, PixieSmack.MENU_GAME_HEIGHT
 				- highScoreLayout.height);
-		GlyphLayout layout = new GlyphLayout(highscoreBitmapFont, this.mmss);
-		highscoreBitmapFont.draw(spriteBatch, layout, 10, PixieSmack.MENU_GAME_HEIGHT - layout.height);
 
+
+		highscoreBitmapFont.draw(spriteBatch, mmssLayout, 10, PixieSmack.MENU_GAME_HEIGHT - mmssLayout.height);
+		if(this.addedTime.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+			redBitmapFont.setColor(GameConstants.COLOR_RED);
+			this.feedbackTime += delta;
+			this.mmssLayout.setText(this.redBitmapFont, this.addedTime);
+			redBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (mmssLayout.height*2));
+		}
+		if(this.addedTime.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+			greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
+			this.feedbackTime += delta;
+			this.mmssLayout.setText(this.greenBitmapFont, this.addedTime);
+			greenBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (mmssLayout.height*2));
+		}
+		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
 			if (!gameEnded) {
 				Preferences prefs = Gdx.app.getPreferences("Highscores");
