@@ -21,6 +21,9 @@ public class GameConstants {
     public static final String EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN = "gameplay/evil_fairy_mad_left_upsidedown.png";
     public static final String PLAYER_SPRITE_PATH = "gameplay/korb-anim.png";
 
+    public static final String DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT = "gameplay/pixie-spec-mad-left-anim.png";
+    public static final String DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT = "gameplay/pixie-spec-mad-right-anim.png";
+    
     public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
     public static final float BAD_FAIRY_SPAWN_THRESHOLD = 3f;
     public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
@@ -34,6 +37,9 @@ public class GameConstants {
 
     public static final float BAD_FAIRY_SMACK_CHANGE = -3;
     public static final float BIG_FAIRY_SMACK_CHANGE = 3;
+    
+    public static final float BIG_FAIRY_TIME_PLUS = 3000f;
+    public static final float BAD_FAIRY_TIME_MINUS = -2000f;
     
     public static final float SMACKER_REACH = 70;
     

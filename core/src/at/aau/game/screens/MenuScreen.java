@@ -151,7 +151,7 @@ public class MenuScreen extends ScreenAdapter {
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ResumeGame);
 						} else if (menuStrings[i].equals("Credits")) {
 							// SoundManager.stopMusic();
-							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Help);//HIER
 						} else if (menuStrings[i].equals("Hall Of Fame")) {
 							// SoundManager.stopMusic();
 							parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Highscore);

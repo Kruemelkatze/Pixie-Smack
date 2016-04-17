@@ -77,9 +77,9 @@ public class PixieSmack extends ApplicationAdapter {
 		}
 
 		// Entities
-		//assMan.load("gameplay/pixie.png", Texture.class);
-		//assMan.load("gameplay/goodPixie.png", Texture.class);
-		//assMan.load("gameplay/badPixie.png", Texture.class);
+		assMan.load("gameplay/pixie.png", Texture.class);
+		assMan.load("gameplay/spec_pixie.png", Texture.class);
+		assMan.load("gameplay/bad_pixie.png", Texture.class);
 		assMan.load("gameplay/spritesheet.png", Texture.class);
 		assMan.load("gameplay/smacker.png", Texture.class);
 		assMan.load("gameplay/smacker-anim.png", Texture.class);
@@ -114,6 +114,8 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
+		assMan.load(GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
+		assMan.load(GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
 
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
