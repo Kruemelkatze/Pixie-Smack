@@ -41,11 +41,11 @@ public class BigFairyObject extends FairyObject {
 				.loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x, (int) this.size.y);
 
 		this.damagedLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
-				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x, (int) this.size.y);
+				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, 0.1f, (int) this.size.x, (int) this.size.y);
 		damagedLeft.setPlayMode(PlayMode.NORMAL);
 		
 		this.damagedRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
-				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x, (int) this.size.y);
+				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, 0.1f, (int) this.size.x, (int) this.size.y);
 		damagedRight.setPlayMode(PlayMode.NORMAL);
 		
 		this.dead2 = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
