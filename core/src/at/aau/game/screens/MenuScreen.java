@@ -21,11 +21,12 @@ public class MenuScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	private final OrthographicCamera cam;
 	private PixieSmack parentGame;
-	Texture backgroundImage, helpButton;
+	Texture backgroundImage, helpButton, helpButtonClicked;
 	BitmapFont menuFont;
 	// Music menuMusic;
 	// ImageButton imageButton;
 	// ImageButtonStyle imageButtonStyle;
+	private boolean helpClicked;
 
 	String[] menuStrings = { GameConstants.NEW_GAME, GameConstants.RESUME_GAME, "Hall Of Fame", "Credits", "Exit" };
 	int currentMenuItem = 0;
@@ -34,9 +35,11 @@ public class MenuScreen extends ScreenAdapter {
 
 	public MenuScreen(PixieSmack game) {
 		this.parentGame = game;
+		helpClicked = false;
 
 		backgroundImage = parentGame.getAssetManager().get("menu/menu_background.png");
 		helpButton = parentGame.getAssetManager().get("menu/helpButton.png");
+		helpButtonClicked = parentGame.getAssetManager().get("menu/helpButton_pressed.png");
 		menuFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		menuFont.setColor(GameConstants.COLOR_PINK);
@@ -91,7 +94,11 @@ public class MenuScreen extends ScreenAdapter {
 			}
 		}
 		//draw FAQ Button
-		batch.draw(helpButton,PixieSmack.MENU_GAME_WIDTH-90,20,90,90);
+		if (!helpClicked) {
+			batch.draw(helpButton,PixieSmack.MENU_GAME_WIDTH-90,20,90,90);
+		} else {
+			batch.draw(helpButtonClicked,PixieSmack.MENU_GAME_WIDTH-90,20,90,90);
+		}
 		batch.end();
 	}
 
@@ -140,9 +147,11 @@ public class MenuScreen extends ScreenAdapter {
 			Vector3 touchWorldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
 			// find the menu item ..
 			for (int i = 0; i < menuStrings.length; i++) {
-				if (touchWorldCoords.x > offsetLeft) {
+				if (touchWorldCoords.x > offsetLeft &&
+						touchWorldCoords.x < PixieSmack.MENU_GAME_WIDTH - offsetLeft) {
 					float pos = PixieSmack.MENU_GAME_HEIGHT - offsetTop - i * offsetY;
-					if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - menuFont.getLineHeight()) {
+					if (touchWorldCoords.y < pos &&
+							touchWorldCoords.y > pos - menuFont.getLineHeight()) {
 						// it's there
 						if (menuStrings[i].equals("Exit")) {
 							Gdx.app.exit();
@@ -162,6 +171,12 @@ public class MenuScreen extends ScreenAdapter {
 					}
 				}
 
+			}
+			if (touchWorldCoords.x > PixieSmack.MENU_GAME_WIDTH - 90 &&
+						touchWorldCoords.x < PixieSmack.MENU_GAME_WIDTH &&
+						touchWorldCoords.y < 110 &&
+						touchWorldCoords.y > 20) {
+				helpClicked = true;
 			}
 		}
 		Vector3 worldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
