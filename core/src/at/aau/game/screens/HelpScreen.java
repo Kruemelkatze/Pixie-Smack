@@ -22,9 +22,9 @@ public class HelpScreen extends ScreenAdapter {
 	private final SpriteBatch batch;
 	String helpString = "Help";
 	String collect = "Hurry up\n and catch fairy dust!";
-	String normalPixieText = "+10 POINS";
-	String badPixieText = "-10 POINS, -2 SEC";
-	String goodPixieText = "+60 POINS, +3 SEC";
+	String normalPixieText = "+10 Pt";
+	String badPixieText = "-10 Pt, -2 Sec,\n -3 Smacks";
+	String goodPixieText = "+60 Pt, +3 Sec,\n +3 Smacks";
 	
 	
 	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 6,
@@ -74,12 +74,12 @@ public class HelpScreen extends ScreenAdapter {
 		//Pixie Pics
 		batch.draw(pixiePic, 150,390);
 		batch.draw(goodPixiePic, 150,250);
-		batch.draw(badPixiePic, 150,110);
+		batch.draw(badPixiePic, 150,90);
 		
 		//Pixies Text
 		describe.draw(batch, normalPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 280);
-		describe.draw(batch, goodPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 420);
-		describe.draw(batch, badPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 560);
+		describe.draw(batch, goodPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 410);
+		describe.draw(batch, badPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 580);
 		
 		
 		

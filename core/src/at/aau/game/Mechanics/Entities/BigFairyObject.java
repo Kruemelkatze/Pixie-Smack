@@ -56,6 +56,17 @@ public class BigFairyObject extends FairyObject {
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		animTime += delta;
+		if (this.isDead) {
+			tempFrame = dead2.getKeyFrame(animTime, true);
+			if (dead2.isAnimationFinished(animTime)) {
+				this.toRemove = true;
+				this.world.bigFairies.removeValue(this, true);
+			} else {
+				spriteBatch.draw(tempFrame, position.x, position.y);
+			}
+			return;
+		}
+		
 		if (this.isDamaged) {
 			switch (this.directionX){
 			case LEFT:

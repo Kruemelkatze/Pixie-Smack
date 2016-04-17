@@ -40,6 +40,39 @@ public class BadFairyObject extends FairyObject {
 				GameConstants.EVIL_MAD_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, 2f, (int) this.size.x, (int) this.size.y);
 		dead2.setPlayMode(PlayMode.NORMAL);
 	}
+	
+	@Override
+	public void render(float delta, SpriteBatch spriteBatch) {
+		animTime += delta;
+		if (this.isDead) {
+			tempFrame = dead2.getKeyFrame(animTime, true);
+			if (dead2.isAnimationFinished(animTime)) {
+				this.toRemove = true;
+				this.world.badFairies.removeValue(this, true);
+			} else {
+				spriteBatch.draw(tempFrame, position.x, position.y);
+			}
+			return;
+		}
+		switch (this.directionX) {
+		case LEFT:
+			tempFrame = leftAnimation.getKeyFrame(animTime, true);
+			break;
+		case RIGHT:
+			tempFrame = rightAnimation.getKeyFrame(animTime, true);
+			break;
+		case STOP:
+			tempFrame = rightAnimation.getKeyFrame(animTime, true);
+			break;
+		default:
+			break;
+		}
+		spriteBatch.draw(tempFrame, position.x, position.y);
+		// spriteBatch.draw(tempFrame, position.x, position.y,
+		// tempFrame.getRegionWidth() / GameConstants.PIXEL_TO_METER,
+		// tempFrame.getRegionHeight()
+		// / GameConstants.PIXEL_TO_METER);
+	}
 
    
 }

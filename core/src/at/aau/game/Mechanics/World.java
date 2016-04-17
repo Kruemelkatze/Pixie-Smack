@@ -118,7 +118,7 @@ public class World {
 		this.greenBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		this.greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
 
-		timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 75));
+		timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 80));
 		gameObjects.add(timer);
 	}
 
@@ -356,19 +356,18 @@ public class World {
 				smacker.SmackCnt = 0;
 			}
 			spawnBadDust(fairy.position.cpy());
-			badFairies.removeIndex(badFairies.indexOf(fairy,true));
+			//badFairies.removeIndex(badFairies.indexOf(fairy,true));
 		} else if (fairy instanceof BigFairyObject) {
 			smacker.SmackCnt += GameConstants.BIG_FAIRY_SMACK_CHANGE;
 
 			if (smacker.SmackCnt > GameConstants.SMACK_LIMIT) {
 				smacker.SmackCnt = GameConstants.SMACK_LIMIT;
 			}
-
 			spawnSpecialDust(fairy.position.cpy());
-			bigFairies.removeIndex(bigFairies.indexOf(fairy,true));
+			//bigFairies.removeIndex(bigFairies.indexOf(fairy,true));
 		} else {
 			spawnDust(fairy.position.cpy());
-			fairies.removeIndex(fairies.indexOf(fairy,true));
+			//fairies.removeIndex(fairies.indexOf(fairy,true));
 		}
 		spawnSmackAnim(fairy.position.cpy());
 	}
