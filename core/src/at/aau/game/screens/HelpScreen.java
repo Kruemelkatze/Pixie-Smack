@@ -15,14 +15,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HelpScreen extends ScreenAdapter {
 	private PixieSmack parentGame;
-	Texture backgroundImage, goodPixie, badPixie, pixie;
+	Texture backgroundImage, goodPixiePic, badPixiePic, pixiePic;
 	BitmapFont menuFont;
 	BitmapFont describe;
 	private final OrthographicCamera cam;
 	private final SpriteBatch batch;
 	String helpString = "Help";
 	String collect = "Hurry up\n and catch fairy dust!";
-
+	String normalPixieText = "+10 POINS";
+	String badPixieText = "-10 POINS, -2 SEC";
+	String goodPixieText = "+60 POINS, +3 SEC";
 	
 	
 	float offsetLeft = PixieSmack.MENU_GAME_WIDTH / 6,
@@ -47,9 +49,9 @@ public class HelpScreen extends ScreenAdapter {
 		
 		batch = new SpriteBatch();
 		
-		badPixie= new Texture(Gdx.files.internal("gameplay/bad_pixie.png"));
-		goodPixie= new Texture(Gdx.files.internal("gameplay/spec_pixie.png"));
-		pixie= new Texture(Gdx.files.internal("gameplay/pixie.png"));
+		badPixiePic= new Texture(Gdx.files.internal("gameplay/bad_pixie.png"));
+		goodPixiePic= new Texture(Gdx.files.internal("gameplay/spec_pixie.png"));
+		pixiePic= new Texture(Gdx.files.internal("gameplay/pixie.png"));
 		
 	}
 	
@@ -64,13 +66,20 @@ public class HelpScreen extends ScreenAdapter {
 		batch.begin();
 		// draw bgImage ...
 		batch.draw(backgroundImage, 0, 0, PixieSmack.MENU_GAME_WIDTH, PixieSmack.MENU_GAME_HEIGHT);
+		//Help
 		menuFont.draw(batch, helpString, offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop);
-		
+		//Hurry up and catch fairy dust.....
 		describe.draw(batch, collect, offsetLeft, PixieSmack.MENU_GAME_HEIGHT - offsetTop -0 * offsetY -120);
 
-		batch.draw(pixie, 150,390);
-		batch.draw(goodPixie, 150,250);
-		batch.draw(badPixie, 150,110);
+		//Pixie Pics
+		batch.draw(pixiePic, 150,390);
+		batch.draw(goodPixiePic, 150,250);
+		batch.draw(badPixiePic, 150,110);
+		
+		//Pixies Text
+		describe.draw(batch, normalPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 280);
+		describe.draw(batch, goodPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 420);
+		describe.draw(batch, badPixieText, offsetLeft+150, PixieSmack.MENU_GAME_HEIGHT - offsetTop - 560);
 		
 		
 		
