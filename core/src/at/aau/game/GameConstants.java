@@ -51,6 +51,7 @@ public class GameConstants {
     public static final int MAX_FAIRIES = 10;
     public static final int MAX_BAD_FAIRIES = 5;
     public static final int MAX_BIG_FAIRIES = 3;
+    public static final int BIG_FAIRIES_HEALTH = 5;
     
     public static final String NEW_GAME = "New Game";
     public static final String RESUME_GAME = "Resume Game";

@@ -20,6 +20,7 @@ public abstract class GameObject {
     protected Vector2 size;
     protected boolean isDead = false;
     protected boolean toRemove = false;
+    protected boolean isDamaged = false;
 
 
     public GameObject(Vector2 position, World world, Vector2 size) {

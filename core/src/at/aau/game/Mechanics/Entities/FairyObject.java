@@ -17,6 +17,8 @@ import com.badlogic.gdx.math.Vector2;
  * @author Kevin Herkt
  */
 public class FairyObject extends MoveableObject {
+	protected Animation damagedLeft;
+	protected Animation damagedRight;
 	protected Animation dead2;
 	protected Animation leftAnimation;
 	protected Animation rightAnimation;
@@ -29,7 +31,7 @@ public class FairyObject extends MoveableObject {
 
 	protected static Vector2 SIZE = new Vector2(64, 64);
 	protected float speed = 3f;
-	private TextureRegion tempFrame;
+	protected TextureRegion tempFrame;
 
 	public FairyObject(Vector2 position, World world) {
 		super(position, world, SIZE);

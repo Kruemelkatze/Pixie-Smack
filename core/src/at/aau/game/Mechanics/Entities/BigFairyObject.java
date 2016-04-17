@@ -15,12 +15,10 @@ import com.badlogic.gdx.math.Vector2;
  * @author Kevin Herkt
  */
 public class BigFairyObject extends FairyObject {
-	protected Animation damagedLeft;
-	protected Animation damagedRight;
 
 	public BigFairyObject(Vector2 position, World world) {
 		super(position, world);
-		this.health = 5;
+		this.health = GameConstants.BIG_FAIRIES_HEALTH;
 		this.startPosition = this.position.cpy();
 		float rnd = random.nextFloat();
 		if (rnd < 0.33f) {
@@ -43,15 +41,68 @@ public class BigFairyObject extends FairyObject {
 				.loadAnimation(GameConstants.BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x, (int) this.size.y);
 
 		this.damagedLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
-				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, 2f, (int) this.size.x, (int) this.size.y);
+				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, 0.3f, (int) this.size.x, (int) this.size.y);
 		damagedLeft.setPlayMode(PlayMode.NORMAL);
 		
 		this.damagedRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
-				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, 2f, (int) this.size.x, (int) this.size.y);
+				GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, 0.3f, (int) this.size.x, (int) this.size.y);
 		damagedRight.setPlayMode(PlayMode.NORMAL);
 		
 		this.dead2 = world.gameplayScreen.parentGame.getAnimator().loadAnimation(
 				GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, 2f, (int) this.size.x, (int) this.size.y);
 		dead2.setPlayMode(PlayMode.NORMAL);
 	}
+	
+	@Override
+	public void render(float delta, SpriteBatch spriteBatch) {
+		animTime += delta;
+		if (this.isDamaged) {
+			switch (this.directionX){
+			case LEFT:
+				tempFrame = damagedLeft.getKeyFrame(animTime, true);
+				spriteBatch.draw(tempFrame, position.x, position.y);
+				return;
+			case RIGHT:
+				tempFrame = damagedRight.getKeyFrame(animTime, true);
+				spriteBatch.draw(tempFrame, position.x, position.y);
+				return;
+			}
+		}
+		
+		switch (this.directionX) {
+		case LEFT:
+			tempFrame = leftAnimation.getKeyFrame(animTime, true);
+			break;
+		case RIGHT:
+			tempFrame = rightAnimation.getKeyFrame(animTime, true);
+			break;
+		case STOP:
+			tempFrame = rightAnimation.getKeyFrame(animTime, true);
+			break;
+		default:
+			break;
+		}
+		spriteBatch.draw(tempFrame, position.x, position.y);
+		// spriteBatch.draw(tempFrame, position.x, position.y,
+		// tempFrame.getRegionWidth() / GameConstants.PIXEL_TO_METER,
+		// tempFrame.getRegionHeight()
+		// / GameConstants.PIXEL_TO_METER);
+	}
+	
+	@Override
+	public void onCollision() {
+		this.health--;
+		if (this.health > 0 && this.health < GameConstants.BIG_FAIRIES_HEALTH) {
+			this.animTime = 0.0f;
+			this.isDamaged = true;
+		}
+		if (this.health == 0) {
+			this.animTime = 0.0f;
+			this.isDead = true;
+			world.pixieSmacked(this);
+		}
+		
+	}
+	
+	
 }
