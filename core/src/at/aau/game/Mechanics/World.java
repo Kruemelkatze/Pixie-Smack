@@ -56,16 +56,17 @@ public class World {
 	private GlyphLayout gameOverLayout;
 	private GlyphLayout retryLayout;
 	private GlyphLayout menuLayout;
-	private GlyphLayout mmssLayout;
+	//private GlyphLayout mmssLayout;
+	private GlyphLayout addedTimeLayout;
 	private GlyphLayout addedPointsLayout;
-	
+
 	private String addedTime = "", addedPoints = "";
 	private Timer timer;
 
-	private long timeElapsed;
+	private long timeElapsed = (long) GameConstants.TIMEOUT * 1000;
 	private String mmss = "";
 	private boolean gameEnded = false;
-	
+
 	private int currentMenuItem = 0;
 
 	// com.badlogic.gdx.physics.box2d.World box2DWorld;
@@ -80,7 +81,7 @@ public class World {
 		smackAnims = new Array<SmackAnim>();
 		this.gameplayScreen = gameplayScreen;
 
-		smackCounterPic = new SmackCntPic(new Vector2(PixieSmack.MENU_GAME_WIDTH - SIZE.x - 10, 40), this, SIZE);
+		smackCounterPic = new SmackCntPic(new Vector2(PixieSmack.MENU_GAME_WIDTH /2f -100, PixieSmack.MENU_GAME_HEIGHT -70), this, SIZE);
 
 		// size = new Vector2(PixieSmack.MENU_GAME_WIDTH,
 		// PixieSmack.MENU_GAME_HEIGHT);
@@ -107,20 +108,21 @@ public class World {
 		gameOverLayout = new GlyphLayout(highscoreBitmapFont, "Game Over");
 		retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
 		menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
-		mmssLayout = new GlyphLayout(highscoreBitmapFont, this.mmss);
+		//mmssLayout = new GlyphLayout(highscoreBitmapFont, this.mmss);
+		addedTimeLayout = new GlyphLayout(highscoreBitmapFont, this.addedTime);
 		this.addedPointsLayout = new GlyphLayout(highscoreBitmapFont, this.addedPoints);
-		
+
 		this.redBitmapFont = new BitmapFont();
 		this.redBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		this.redBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		this.redBitmapFont.setColor(GameConstants.COLOR_RED);
-		
+
 		this.greenBitmapFont = new BitmapFont();
 		this.greenBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 		this.greenBitmapFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		this.greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
 
-		timer = new Timer(new Vector2(PixieSmack.MENU_GAME_WIDTH / 2f, PixieSmack.MENU_GAME_HEIGHT - 100), this, new Vector2(80, 80));
+		timer = new Timer(new Vector2(50f, PixieSmack.MENU_GAME_HEIGHT - 80), this, new Vector2(80, 80));
 		gameObjects.add(timer);
 	}
 
@@ -128,10 +130,10 @@ public class World {
 		if (gameEnded) {
 			return;
 		}
-		this.timeElapsed += delta * 1000;
+		this.timeElapsed -= delta * 1000;
 		this.mmss = String.format("%02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
 				Long.valueOf(TimeUnit.MILLISECONDS.toSeconds(this.timeElapsed) % TimeUnit.MINUTES.toSeconds(1)));
-		this.mmssLayout.setText(this.highscoreBitmapFont, this.mmss);
+		//this.mmssLayout.setText(this.highscoreBitmapFont, this.mmss);
 		for (GameObject go : gameObjects) {
 			go.update(delta);
 		}
@@ -217,38 +219,30 @@ public class World {
 				// find the menu item ..
 				float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
 				float pos2 = PixieSmack.MENU_GAME_WIDTH / 2f;
-				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() &&
-						touchCoords.y > pos &&
-						touchCoords.x > pos2 - retryLayout.width / 2f &&
-						touchCoords.x < pos2 + retryLayout.width / 2f) {
+				if (touchCoords.y < pos + highscoreBitmapFont.getLineHeight() && touchCoords.y > pos && touchCoords.x > pos2 - retryLayout.width / 2f
+						&& touchCoords.x < pos2 + retryLayout.width / 2f) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.NewGame);
-				} else if (touchCoords.y < pos &&
-						touchCoords.y > pos - highscoreBitmapFont.getLineHeight() &&
-						touchCoords.x > pos2 - menuLayout.width / 2f &&
-						touchCoords.x < pos2 + menuLayout.width / 2f) {
+				} else if (touchCoords.y < pos && touchCoords.y > pos - highscoreBitmapFont.getLineHeight() && touchCoords.x > pos2 - menuLayout.width / 2f
+						&& touchCoords.x < pos2 + menuLayout.width / 2f) {
 					gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
 				}
 			}
 		}
 	}
-	
+
 	public void mouseOver(Vector2 hoverCoords) {
 		float pos = PixieSmack.MENU_GAME_HEIGHT - PixieSmack.MENU_GAME_HEIGHT / 2f + gameOverLayout.height / 2f - PixieSmack.MENU_GAME_WIDTH / 16f;
 		float pos2 = PixieSmack.MENU_GAME_WIDTH / 2f;
-		if (hoverCoords.y < pos + highscoreBitmapFont.getLineHeight() &&
-				hoverCoords.y > pos &&
-				hoverCoords.x > pos2 - retryLayout.width / 2f &&
-				hoverCoords.x < pos2 + retryLayout.width / 2f) {
+		if (hoverCoords.y < pos + highscoreBitmapFont.getLineHeight() && hoverCoords.y > pos && hoverCoords.x > pos2 - retryLayout.width / 2f
+				&& hoverCoords.x < pos2 + retryLayout.width / 2f) {
 			currentMenuItem = 0;
-		} else if (hoverCoords.y < pos &&
-				hoverCoords.y > pos - highscoreBitmapFont.getLineHeight() &&
-				hoverCoords.x > pos2 - menuLayout.width / 2f &&
-				hoverCoords.x < pos2 + menuLayout.width / 2f) {
+		} else if (hoverCoords.y < pos && hoverCoords.y > pos - highscoreBitmapFont.getLineHeight() && hoverCoords.x > pos2 - menuLayout.width / 2f
+				&& hoverCoords.x < pos2 + menuLayout.width / 2f) {
 			currentMenuItem = 1;
 		}
 	}
-	
+
 	public void keyInput() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // JUST
 			this.gameplayScreen.pause = true;
@@ -313,39 +307,38 @@ public class World {
 			highscore = this.highscore + score;
 			this.addedPoints = String.valueOf(score).replace(".0", "");
 			float tmp0 = GameConstants.BAD_FAIRY_TIME_MINUS;
-			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+			if (this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
 				this.feedbackTime = 0.0f;
 			}
-			this.timeElapsed -= tmp0;
-			this.addedTime = String.valueOf(tmp0/1000f + " sec").replace(".0", "");
-			if(this.timeElapsed < 0){
+			this.timeElapsed -= tmp0 * 1000;
+			this.addedTime = "-" + String.valueOf(tmp0 + " sec").replace(".0", "");
+			if (this.timeElapsed < 0) {
 				this.timeElapsed = 0;
 			}
-			this.timer.animTime -=  tmp0/1000f;
-			if(this.timer.animTime < 0){
-				this.timer.animTime = 0;
+			if (this.timeElapsed > GameConstants.TIMEOUT * 1000) {
+				this.timeElapsed = (long) GameConstants.TIMEOUT * 1000;
 			}
+			this.timer.addAnimTime(tmp0);
 		} else if (pixieDust.IsSpecialDust) {
 			score = 60;
 			highscore = this.highscore + score;
 			this.addedPoints = "+" + String.valueOf(score).replace(".0", "");
 			float tmp = GameConstants.BIG_FAIRY_TIME_PLUS;
-			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
-				this.feedbackTime = 0.0f;
+			if (this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+				this.feedbackTime = GameConstants.MAX_FEEDBACK_TIME;
 			}
-			this.timeElapsed -= tmp;
-			this.addedTime = "+" + String.valueOf(tmp/1000f + " sec").replace(".0", "");
-			if(this.timeElapsed < 0){
+			this.timeElapsed += tmp * 1000;
+			this.addedTime = "+" + String.valueOf(tmp + " sec").replace(".0", "");
+			if (this.timeElapsed < 0) {
 				this.timeElapsed = 0;
 			}
-			this.timer.animTime -=  tmp/1000f;
-			if(this.timer.animTime < 0){
-				this.timer.animTime = 0;
+			if (this.timeElapsed > GameConstants.TIMEOUT * 1000) {
+				this.timeElapsed = (long) GameConstants.TIMEOUT * 1000;
 			}
-			
+			this.timer.addAnimTime(-tmp);
 		} else {
 			highscore += 10;
-			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+			if (this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
 				this.feedbackTime = 0.0f;
 			}
 			this.addedTime = "";
@@ -369,7 +362,7 @@ public class World {
 				smacker.SmackCnt = 0;
 			}
 			spawnBadDust(fairy.position.cpy());
-			//badFairies.removeIndex(badFairies.indexOf(fairy,true));
+			// badFairies.removeIndex(badFairies.indexOf(fairy,true));
 		} else if (fairy instanceof BigFairyObject) {
 			smacker.SmackCnt += GameConstants.BIG_FAIRY_SMACK_CHANGE;
 
@@ -377,10 +370,10 @@ public class World {
 				smacker.SmackCnt = GameConstants.SMACK_LIMIT;
 			}
 			spawnSpecialDust(fairy.position.cpy());
-			//bigFairies.removeIndex(bigFairies.indexOf(fairy,true));
+			// bigFairies.removeIndex(bigFairies.indexOf(fairy,true));
 		} else {
 			spawnDust(fairy.position.cpy());
-			//fairies.removeIndex(fairies.indexOf(fairy,true));
+			// fairies.removeIndex(fairies.indexOf(fairy,true));
 		}
 		spawnSmackAnim(fairy.position.cpy());
 	}
@@ -426,39 +419,38 @@ public class World {
 		highscoreBitmapFont.draw(spriteBatch, highScoreLayout, PixieSmack.MENU_GAME_WIDTH - 10 - highScoreLayout.width, PixieSmack.MENU_GAME_HEIGHT
 				- highScoreLayout.height);
 
-
-		highscoreBitmapFont.draw(spriteBatch, mmssLayout, 10, PixieSmack.MENU_GAME_HEIGHT - mmssLayout.height);
-		if(this.addedTime.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+		//highscoreBitmapFont.draw(spriteBatch, mmssLayout, 10, PixieSmack.MENU_GAME_HEIGHT - mmssLayout.height);
+		if (this.addedTime.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
 			redBitmapFont.setColor(GameConstants.COLOR_RED);
 			this.feedbackTime += delta;
-			this.mmssLayout.setText(this.redBitmapFont, this.addedTime);
-			redBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (mmssLayout.height*2));
+			this.addedTimeLayout.setText(this.redBitmapFont, this.addedTime);
+			redBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (addedTimeLayout.height * 2));
 		}
-		if(this.addedTime.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+		if (this.addedTime.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
 			greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
 			this.feedbackTime += delta;
-			this.mmssLayout.setText(this.greenBitmapFont, this.addedTime);
-			greenBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (mmssLayout.height*2));
+			this.addedTimeLayout.setText(this.greenBitmapFont, this.addedTime);
+			greenBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (addedTimeLayout.height * 2));
 		}
-		
-		if(this.addedPoints.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+
+		if (this.addedPoints.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
 			redBitmapFont.setColor(GameConstants.COLOR_RED);
 			this.feedbackTime += delta;
-			this.mmssLayout.setText(this.redBitmapFont, this.addedPoints);
+			this.addedTimeLayout.setText(this.redBitmapFont, this.addedTime);
 			this.addedPointsLayout.setText(this.highscoreBitmapFont, this.addedPoints);
 			redBitmapFont.draw(spriteBatch, addedPointsLayout, PixieSmack.MENU_GAME_WIDTH - this.addedPointsLayout.width, PixieSmack.MENU_GAME_HEIGHT
-					- (addedPointsLayout.height*2));
+					- (addedPointsLayout.height * 2));
 		}
-		if(this.addedPoints.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+		if (this.addedPoints.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
 			greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
 			this.feedbackTime += delta;
-			this.mmssLayout.setText(this.greenBitmapFont, this.addedTime);
+			this.addedTimeLayout.setText(this.greenBitmapFont, this.addedTime);
 			this.addedPointsLayout.setText(this.highscoreBitmapFont, this.addedPoints);
 			greenBitmapFont.draw(spriteBatch, addedPointsLayout, PixieSmack.MENU_GAME_WIDTH - this.addedPointsLayout.width, PixieSmack.MENU_GAME_HEIGHT
-					- (addedPointsLayout.height*2));
+					- (addedPointsLayout.height * 2));
 		}
 		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
-		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
+		if ((timeElapsed / 1000f) <= 0) {
 			if (!gameEnded) {
 				Preferences prefs = Gdx.app.getPreferences("Highscores");
 				if (!prefs.contains("highScore1")) {
@@ -503,8 +495,7 @@ public class World {
 			if (0 == currentMenuItem) {
 				highscoreBitmapFont.setColor(0.8f, 0.0f, 0.7f, 1f);
 				retryLayout.setText(highscoreBitmapFont, "Retry");
-			}
-			else {
+			} else {
 				highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 				retryLayout.setText(highscoreBitmapFont, "Retry");
 			}
@@ -513,8 +504,7 @@ public class World {
 			if (1 == currentMenuItem) {
 				highscoreBitmapFont.setColor(0.8f, 0.0f, 0.7f, 1f);
 				menuLayout.setText(highscoreBitmapFont, "Menu");
-			}
-			else {
+			} else {
 				highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 				menuLayout.setText(highscoreBitmapFont, "Menu");
 			}

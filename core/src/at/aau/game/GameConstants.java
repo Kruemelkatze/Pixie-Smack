@@ -38,8 +38,8 @@ public class GameConstants {
 	public static final float BAD_FAIRY_SMACK_CHANGE = -3;
 	public static final float BIG_FAIRY_SMACK_CHANGE = 3;
 
-	public static final float BIG_FAIRY_TIME_PLUS = 3000f;
-	public static final float BAD_FAIRY_TIME_MINUS = -2000f;
+	public static final float BIG_FAIRY_TIME_PLUS = 3f;
+	public static final float BAD_FAIRY_TIME_MINUS = 2f;
 
 	public static final float SMACKER_REACH = 70;
 
@@ -67,5 +67,5 @@ public class GameConstants {
 	public static final String GAME_MUSIC = "gameMusic";
 	public static final String INTRO_MUSIC = "introMusic";
 
-	public static final float MAX_FEEDBACK_TIME = 3f;
+	public static final float MAX_FEEDBACK_TIME = Float.MAX_VALUE;
 }
