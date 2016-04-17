@@ -23,7 +23,7 @@ public class CreditsScreen extends ScreenAdapter {
 	Texture backgroundImage, gradientTop, gradientBottom;
 	BitmapFont creditsFont;
 
-	String[] credits = ("Credits\n Pr0grammers:\nKevin Herkt \nBernhard Nitsch \nChristian Hribernik \nFrederik Platter \n\n Art:\nNatascha Rauscher\nAlice Eberhard\n\n Musik:\nPeter Hafele\nMathias Lux\n\n F00d Supply\n Management:\nSara W0gatai\n\nGdxGameSkelet0n\nby Mathias Lux\n" + "All assets are\n public d0main\n")
+	String[] credits = ("Credits\n Pr0grammers: \nFabian Sch0ber \nKevin Herkt \nBernhard Nitsch \nChristian Hribernik \nFrederik Platter \n\n Art:\nNatascha Rauscher\nAlice Eberhard\n\n Musik:\nPeter Hafele\nMathias Lux\n\n F00d Supply\n Management:\nSara W0gatai\n\nGdxGameSkelet0n\nby Mathias Lux\n" + "All assets are\n public d0main\n")
 			.split("\\n");
 	private float moveY;
 
