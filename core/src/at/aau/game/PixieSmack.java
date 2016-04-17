@@ -114,6 +114,8 @@ public class PixieSmack extends ApplicationAdapter {
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT_UPSIDEDOWN, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.MAD_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
+		assMan.load(GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_LEFT, Texture.class);
+		assMan.load(GameConstants.DAMAGED_BIG_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
 
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_LEFT, Texture.class);
 		assMan.load(GameConstants.EVIL_FAIRY_SPRITE_PATH_RIGHT, Texture.class);
