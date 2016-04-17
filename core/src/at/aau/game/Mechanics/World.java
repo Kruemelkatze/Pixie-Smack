@@ -57,12 +57,13 @@ public class World {
 	private GlyphLayout retryLayout;
 	private GlyphLayout menuLayout;
 	private GlyphLayout mmssLayout;
+	private GlyphLayout addedPointsLayout;
 	
 	private String addedTime = "", addedPoints = "";
 	private Timer timer;
 
 	private long timeElapsed;
-	private String mmss;
+	private String mmss = "";
 	private boolean gameEnded = false;
 	
 	private int currentMenuItem = 0;
@@ -107,6 +108,7 @@ public class World {
 		retryLayout = new GlyphLayout(highscoreBitmapFont, "Retry?");
 		menuLayout = new GlyphLayout(highscoreBitmapFont, "Menu");
 		mmssLayout = new GlyphLayout(highscoreBitmapFont, this.mmss);
+		this.addedPointsLayout = new GlyphLayout(highscoreBitmapFont, this.addedPoints);
 		
 		this.redBitmapFont = new BitmapFont();
 		this.redBitmapFont = gameplayScreen.parentGame.getAssetManager().get("menu/Ravie_42.fnt");
@@ -126,6 +128,7 @@ public class World {
 		if (gameEnded) {
 			return;
 		}
+		this.timeElapsed += delta * 1000;
 		this.mmss = String.format("%02d:%02d", Long.valueOf(TimeUnit.MILLISECONDS.toMinutes(this.timeElapsed) % TimeUnit.HOURS.toMinutes(1)),
 				Long.valueOf(TimeUnit.MILLISECONDS.toSeconds(this.timeElapsed) % TimeUnit.MINUTES.toSeconds(1)));
 		this.mmssLayout.setText(this.highscoreBitmapFont, this.mmss);
@@ -304,8 +307,11 @@ public class World {
 
 	public void pixieDustCollected(PixieDust pixieDust, float distance) {
 		// Give points and stuff
+		int score = 0;
 		if (pixieDust.IsBadDust) {
-			highscore -= 20;
+			score = -20;
+			highscore = this.highscore + score;
+			this.addedPoints = String.valueOf(score).replace(".0", "");
 			float tmp0 = GameConstants.BAD_FAIRY_TIME_MINUS;
 			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
 				this.feedbackTime = 0.0f;
@@ -320,7 +326,9 @@ public class World {
 				this.timer.animTime = 0;
 			}
 		} else if (pixieDust.IsSpecialDust) {
-			highscore += 60;
+			score = 60;
+			highscore = this.highscore + score;
+			this.addedPoints = "+" + String.valueOf(score).replace(".0", "");
 			float tmp = GameConstants.BIG_FAIRY_TIME_PLUS;
 			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
 				this.feedbackTime = 0.0f;
@@ -337,6 +345,11 @@ public class World {
 			
 		} else {
 			highscore += 10;
+			if(this.feedbackTime > GameConstants.MAX_FEEDBACK_TIME) {
+				this.feedbackTime = 0.0f;
+			}
+			this.addedTime = "";
+			this.addedPoints = "+" + String.valueOf(10).replace(".0", "");
 		}
 
 		if (highscore == Math.pow(2, this.fairySpawnStage) * 100) {
@@ -426,6 +439,23 @@ public class World {
 			this.feedbackTime += delta;
 			this.mmssLayout.setText(this.greenBitmapFont, this.addedTime);
 			greenBitmapFont.draw(spriteBatch, addedTime, 10, PixieSmack.MENU_GAME_HEIGHT - (mmssLayout.height*2));
+		}
+		
+		if(this.addedPoints.contains("-") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+			redBitmapFont.setColor(GameConstants.COLOR_RED);
+			this.feedbackTime += delta;
+			this.mmssLayout.setText(this.redBitmapFont, this.addedPoints);
+			this.addedPointsLayout.setText(this.highscoreBitmapFont, this.addedPoints);
+			redBitmapFont.draw(spriteBatch, addedPointsLayout, PixieSmack.MENU_GAME_WIDTH - this.addedPointsLayout.width, PixieSmack.MENU_GAME_HEIGHT
+					- (addedPointsLayout.height*2));
+		}
+		if(this.addedPoints.contains("+") && this.feedbackTime <= GameConstants.MAX_FEEDBACK_TIME) {
+			greenBitmapFont.setColor(GameConstants.COLOR_GREEN);
+			this.feedbackTime += delta;
+			this.mmssLayout.setText(this.greenBitmapFont, this.addedTime);
+			this.addedPointsLayout.setText(this.highscoreBitmapFont, this.addedPoints);
+			greenBitmapFont.draw(spriteBatch, addedPointsLayout, PixieSmack.MENU_GAME_WIDTH - this.addedPointsLayout.width, PixieSmack.MENU_GAME_HEIGHT
+					- (addedPointsLayout.height*2));
 		}
 		highscoreBitmapFont.setColor(GameConstants.COLOR_PINK);
 		if ((timeElapsed / 1000f) >= GameConstants.TIMEOUT) {
