@@ -1,6 +1,6 @@
 package at.aau.game.client;
 
-import at.aau.game.PixieSmack;
+import at.aau.game.PixieSmackGame;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +14,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new PixieSmack();
+                return new PixieSmackGame();
         }
 }

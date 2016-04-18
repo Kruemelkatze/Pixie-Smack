@@ -1,7 +1,5 @@
 package at.aau.game;
 
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * @author Kevin-Laptop
  */
@@ -26,10 +24,10 @@ public class GameConstants {
 
 	public static final float BIG_FAIRY_SPAWN_THRESHOLD = 9f;
 	public static final float BAD_FAIRY_SPAWN_THRESHOLD = 3f;
-	public static final float FAIRY_MIN_X = PixieSmack.MENU_GAME_WIDTH * 0.2f;
-	public static final float FAIRY_MIN_Y = PixieSmack.MENU_GAME_HEIGHT * 0.4f;
-	public static final float FAIRY_MAX_X = PixieSmack.MENU_GAME_WIDTH * 0.8f;
-	public static final float FAIRY_MAX_Y = PixieSmack.MENU_GAME_HEIGHT * 0.8f;
+	public static final float FAIRY_MIN_X = PixieSmackGame.MENU_GAME_WIDTH * 0.2f;
+	public static final float FAIRY_MIN_Y = PixieSmackGame.MENU_GAME_HEIGHT * 0.4f;
+	public static final float FAIRY_MAX_X = PixieSmackGame.MENU_GAME_WIDTH * 0.8f;
+	public static final float FAIRY_MAX_Y = PixieSmackGame.MENU_GAME_HEIGHT * 0.8f;
 
 	public static final float FAIRY_MAX_X_OFFSET = 80f;
 	public static final float FAIRY_MAX_Y_OFFSET = 100f;
@@ -56,18 +54,15 @@ public class GameConstants {
 	public static final String NEW_GAME = "New Game";
 	public static final String RESUME_GAME = "Resume Game";
 
-	public static final Color COLOR_PINK = new Color(1f, 130f / 255f, 1.0f, 1.0f);
-	public static final Color COLOR_RED = new Color(1f, 0f, 0f, 1.0f);
-	public static final Color COLOR_GREEN = new Color(0f, 1f, 0f, 1.0f);
-
 	public static final String SOUND_DEAD_BIG_FAIRY = "sfx/bfrx_wav/Cast.wav";
 	public static final String SOUND_BAD_COLLECT = "sfx/hit.wav";
-//	public static final String MUSIC_INTRO = "sfx/introMusic.wav";
-	public static final String MUSIC_INTRO = "introMusic.mp3";
-//	public static final String MUSIC_INGAME = "sfx/gameMusic.wav";
-	public static final String MUSIC_INGAME = "gameMusic.mp3";
+	public static final String MUSIC_INTRO = "music/introMusic.mp3";
+	public static final String MUSIC_INGAME = "music/gameMusic.mp3";
 	public static final String GAME_MUSIC = "gameMusic";
 	public static final String INTRO_MUSIC = "introMusic";
 
 	public static final float MAX_FEEDBACK_TIME = Float.MAX_VALUE;
+
+	public static final int SmackSoundsCount = 5;
+	public static final int CollectSoundsCount = 2;
 }
