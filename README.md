@@ -6,6 +6,7 @@ You smack fairies to make them drop fairy dust. Then you collect it in a basket.
 
 Made during the [3rd Klagenfurt Game Jam](https://www.itec.aau.at/gamejam/).
 
+### [View on itch.io](https://frederikflpl.itch.io/pixiesmack)
 ### [Download JAR](./Releases)
 
 <img width="400" alt="Screenshot 1" src="Images/1.png"/> <img width="400" alt="Screenshot 2" src="Images/2.png"/>
